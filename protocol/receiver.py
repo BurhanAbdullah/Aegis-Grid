@@ -1,6 +1,12 @@
 from core.timing import within_time_window
+from core.time_lock import TimeLock
 
 def receive_and_reconstruct(packets, agent, time_window_ms=30):
+    timelock = TimeLock(ttl_ms=30)
+if not timelock.verify(agent.last_nonce, agent.last_timelock):
+    agent.locked = True
+    return None
+
     if agent.locked:
         return None
 
