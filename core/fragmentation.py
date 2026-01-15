@@ -1,21 +1,20 @@
-import random
 from core.packet import Packet
+import random
 
-def fragment_message(data: bytes, n_fragments: int, dummy_ratio: float,
-                     key: bytes, force_dummy=False):
-    packets = []
-    size = max(1, len(data) // n_fragments)
+def fragment_message(data: bytes, n_fragments: int, dummy_ratio: float, signer=None):
+    fragments = []
+    size = len(data) // n_fragments
 
-    # REAL FRAGMENTS
-    if not force_dummy:
-        for i in range(n_fragments):
-            frag = data[i*size:(i+1)*size]
-            packets.append(Packet.create(frag, False, key))
+    for i in range(n_fragments):
+        frag = data[i*size:(i+1)*size]
+        sig = signer(frag) if signer else b""
+        fragments.append(Packet.create(frag, False, sig))
 
-    # DUMMY FRAGMENTS
-    dummy_count = int(n_fragments * (1 + dummy_ratio))
+    dummy_count = int(n_fragments * dummy_ratio)
     for _ in range(dummy_count):
-        packets.append(Packet.create(b"\x00"*size, True, key))
+        dummy = b"\x00" * size
+        sig = signer(dummy) if signer else b""
+        fragments.append(Packet.create(dummy, True, sig))
 
-    random.shuffle(packets)
-    return packets
+    random.shuffle(fragments)
+    return fragments

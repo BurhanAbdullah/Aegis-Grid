@@ -8,15 +8,15 @@ class Packet:
     payload: bytes
     is_dummy: bool
     timestamp: float
-    mac: bytes
+    signature: bytes
 
     @staticmethod
-    def create(payload: bytes, is_dummy: bool, mac: bytes):
+    def create(payload: bytes, is_dummy: bool, signature: bytes):
         payload = payload.ljust(256, b'\x00')[:256]
         return Packet(
             packet_id=str(uuid.uuid4()),
             payload=payload,
             is_dummy=is_dummy,
             timestamp=time.time(),
-            mac=mac
+            signature=signature
         )
