@@ -1,0 +1,41 @@
+class SecureAgent:
+    """
+    Central adaptive security agent.
+    Maintains cryptographic state, fragmentation policy,
+    and time-bounded correctness parameters.
+    """
+
+    def __init__(self, master_key: bytes):
+        # Root secret (never transmitted)
+        self.master_key = master_key
+
+        # Fragmentation policy
+        self.fragment_count = 8          # base number of fragments
+        self.dummy_ratio = 1.0            # dummy-to-data ratio
+
+        # Time constraints (ms)
+        self.time_window_ms = 50
+
+        # Runtime state
+        self.last_nonce = None
+        self.expected_real_fragments = None
+
+    def adapt(self, threat_level: float):
+        """
+        Adaptive policy update.
+        Later: replace with learning-based controller.
+        """
+        self.fragment_count = int(8 + 8 * threat_level)
+        self.dummy_ratio = min(3.0, 1.0 + 2.0 * threat_level)
+class SecureAgent:
+    def __init__(self, master_key):
+        self.master_key = master_key
+        self.threat_score = 0.0
+        self.expected_real_fragments = 0
+        self.last_nonce = None
+
+    def update(self, loss, delay):
+        self.threat_score = min(1.0, 0.7*self.threat_score + 0.3*(loss + delay))
+
+    def decide_dummy_ratio(self):
+        return 1.0 + 2.0 * self.threat_score

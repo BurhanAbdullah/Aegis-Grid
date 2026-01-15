@@ -1,74 +1,32 @@
 import time
 import random
 import numpy as np
-from collections import defaultdict
-from Crypto.Random import get_random_bytes
 
-# -----------------------------
-# Experiment 1: Latency vs Security
-# -----------------------------
-def experiment_latency_vs_security(agent, generate_traffic, receive_and_reconstruct):
-    msg = b"Shutdown Station A"
-    results = []
-
-    for dummy_ratio in np.linspace(0, 3, 7):
+def run_all(agent, generate_fn, receive_fn):
+    print("\n=== Experiment 1: Latency vs Dummy Ratio ===")
+    for dummy in [0.5, 1.0, 2.0]:
         start = time.time()
-        packets, t0 = generate_traffic(agent, msg, dummy_ratio)
-        receive_and_reconstruct(agent, packets, t0)
-        latency = (time.time() - start) * 1000  # ms
-        results.append((float(dummy_ratio), latency))
+        packets = generate_fn(agent, b"Shutdown Station A", dummy)
+        out = receive_fn(packets, agent)
+        latency = (time.time() - start) * 1000
+        print(f"Dummy Ratio {dummy} → Latency {latency:.2f} ms")
 
-    return results
-
-
-# -----------------------------
-# Experiment 2: Fragment Loss
-# -----------------------------
-def experiment_fragment_loss(agent, generate_traffic, receive_and_reconstruct):
-    msg = b"Shutdown Station A"
-    success = defaultdict(list)
-
-    for drop_rate in [0.1, 0.2, 0.3, 0.4]:
+    print("\n=== Experiment 2: Fragment Loss ===")
+    for loss in [0.1, 0.2, 0.3, 0.4]:
+        success = 0
         for _ in range(50):
-            packets, t0 = generate_traffic(agent, msg, dummy_ratio=1.0)
-            kept = [p for p in packets if random.random() > drop_rate]
-            recovered = receive_and_reconstruct(agent, kept, t0)
-            success[drop_rate].append(recovered is not None)
+            packets = generate_fn(agent, b"Shutdown Station A", 1.0)
+            kept = [p for p in packets if random.random() > loss]
+            if receive_fn(kept, agent):
+                success += 1
+        print(f"Loss {loss} → Reconstruction Prob {success/50:.3f}")
 
-    return {k: sum(v) / len(v) for k, v in success.items()}
-
-
-# -----------------------------
-# Experiment 3: Traffic Indistinguishability
-# -----------------------------
-def experiment_traffic_indistinguishability():
-    idle = np.random.normal(256, 5, 1000)
-    active = np.random.normal(256, 5, 1000)
-
-    hist_idle, _ = np.histogram(idle, bins=50, density=True)
-    hist_active, _ = np.histogram(active, bins=50, density=True)
-
-    hist_idle += 1e-9
-    hist_active += 1e-9
-
-    kl = np.sum(hist_active * np.log(hist_active / hist_idle))
-    return kl
-
-
-# -----------------------------
-# Runner
-# -----------------------------
-def run_all(agent, generate_traffic, receive_and_reconstruct):
-    print("\n📊 Experiment 1: Latency vs Dummy Ratio")
-    lat = experiment_latency_vs_security(agent, generate_traffic, receive_and_reconstruct)
-    for d, l in lat:
-        print(f"Dummy Ratio {d:.2f} → Avg Latency {l:.2f} ms")
-
-    print("\n📉 Experiment 2: Fragment Loss")
-    frag = experiment_fragment_loss(agent, generate_traffic, receive_and_reconstruct)
-    for k, v in frag.items():
-        print(f"Loss Rate {k:.1f} → Reconstruction Prob {v:.4f}")
-
-    print("\n🔐 Experiment 3: Traffic Indistinguishability")
-    kl = experiment_traffic_indistinguishability()
+    print("\n=== Experiment 3: Traffic Indistinguishability ===")
+    idle = np.random.normal(256, 1, 1000)
+    active = np.random.normal(256, 1, 1000)
+    hist_i, _ = np.histogram(idle, bins=50, density=True)
+    hist_a, _ = np.histogram(active, bins=50, density=True)
+    hist_i += 1e-12
+    hist_a += 1e-12
+    kl = np.sum(hist_a * np.log(hist_a / hist_i))
     print(f"KL Divergence ≈ {kl:.6f}")

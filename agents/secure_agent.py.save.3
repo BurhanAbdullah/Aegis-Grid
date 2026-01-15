@@ -1,0 +1,78 @@
+class SecureAgent:
+    def __init__(self, master_key):class SecureAgent:
+    """
+    Adaptive security agent controlling fragmentation,
+    dummy injection, and timing constraints.
+    """
+
+    def __init__(self, master_key: bytes):
+        self.master_key = master_key
+
+        # Threat estimation
+        self.threat_score = 0.0
+
+        # Adaptive parameters (THIS WAS MISSING)
+        self.fragment_count = 8
+        self.dummy_ratio = 1.0
+        self.time_window_ms = 50
+
+        # Runtime state
+        self.expected_real_fragments = 0
+        self.last_nonce = None
+
+    def update(self, loss: float, delay: float):
+        self.threat_score = min(
+            1.0,
+            0.7 * self.threat_score + 0.3 * (loss + delay)
+        )
+        self._adapt_policy()
+
+    def _adapt_policy(self):
+        self.fragment_count = int(8 + 8 * self.threat_score)
+        self.dummy_ratio = min(3.0, 1.0 + 2.0 * self.threat_score)
+
+    def decide_dummy_ratio(self) -> float:
+class SecureAgent:
+    """
+    Adaptive security agent controlling fragmentation,
+    dummy injection, and timing constraints.
+    """
+
+    def __init__(self, master_key: bytes):
+        self.master_key = master_key
+
+        # Threat estimation
+        self.threat_score = 0.0
+
+        # Adaptive parameters (THIS WAS MISSING)
+        self.fragment_count = 8
+        self.dummy_ratio = 1.0
+        self.time_window_ms = 50
+
+        # Runtime state
+        self.expected_real_fragments = 0
+        self.last_nonce = None
+
+    def update(self, loss: float, delay: float):
+        self.threat_score = min(
+            1.0,
+            0.7 * self.threat_score + 0.3 * (loss + delay)
+        )
+        self._adapt_policy()
+
+    def _adapt_policy(self):
+        self.fragment_count = int(8 + 8 * self.threat_score)
+        self.dummy_ratio = min(3.0, 1.0 + 2.0 * self.threat_score)
+
+    def decide_dummy_ratio(self) -> float:
+        return self.dummy_ratio        return self.dummy_ratio
+        self.master_key = master_key
+        self.threat_score = 0.0
+        self.expected_real_fragments = 0
+        self.last_nonce = None
+
+    def update(self, loss, delay):
+        self.threat_score = min(1.0, 0.7*self.threat_score + 0.3*(loss + delay))
+
+    def decide_dummy_ratio(self):
+        return 1.0 + 2.0 * self.threat_score
