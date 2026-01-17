@@ -11,3 +11,4 @@ __pycache__/
 *.zip
 private_keys/
 .proprietary_core/
+.proprietary_core/
