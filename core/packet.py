@@ -1,24 +1,17 @@
-from dataclasses import dataclass
-import time
-import uuid
-
-@dataclass
 class Packet:
-    packet_id: str
-    payload: bytes
-    is_dummy: bool
-    timestamp: float
-    auth_tag: str
-    signature: bytes
+    def __init__(self, msg_id, frag_id, total_frags, payload, is_dummy=False, signature=None):
+        self.msg_id = msg_id
+        self.frag_id = frag_id
+        self.total_frags = total_frags
+        self.payload = payload
+        self.is_dummy = is_dummy
+        self.signature = signature
+
+    def signable(self):
+        if self.is_dummy:
+            return self.msg_id + b"DUMMY"
+        return self.msg_id + self.frag_id.to_bytes(4, "big") + self.payload
 
     @staticmethod
-    def create(payload: bytes, is_dummy: bool, signature: bytes):
-        payload = payload.ljust(256, b'\x00')[:256]  # constant size
-        return Packet(
-            packet_id=str(uuid.uuid4()),
-            payload=payload,
-            is_dummy=is_dummy,
-            timestamp=time.time(),
-            auth_tag="VALID",
-            signature=signature
-        )
+    def create(msg_id, frag_id, total_frags, payload, is_dummy=False, signature=None):
+        return Packet(msg_id, frag_id, total_frags, payload, is_dummy, signature)

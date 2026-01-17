@@ -144,7 +144,7 @@ class SecureAgent:
         adaptive = int(self.fragment_count * sigmoid)
         self.threshold = max(min_threshold, adaptive)
 
-        # === TIME-LOCK ===
+        # === TIME-LOCK (PHASE 3 – NOT ENABLED) ===
         if now - self.attack_start > 5.0 and self.attack_score > 0.6:
             self.locked = True
             self.lock_reason = "TIME_LOCK_IRREVERSIBLE_FAILURE"

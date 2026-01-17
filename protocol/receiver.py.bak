@@ -1,0 +1,58 @@
+from core.signature import SignatureEngine
+
+MIN_EVIDENCE = 5   # minimum packets before hard decisions
+
+def receive_and_reconstruct(packets, agent):
+    forged_count = 0
+    verified_count = 0
+    if agent.is_locked() or not packets:
+        return False
+
+    verifier = SignatureEngine()
+
+    seen = set()
+    seen_ids = set()
+
+    valid = 0
+    invalid = 0
+    replay = 0
+    total = 0
+
+    for p in packets:
+        if p.is_dummy:
+            continue
+
+        total += 1
+        pid = (p.msg_id, p.frag_id)
+
+        if pid in seen_ids:
+            replay += 1
+            agent.add_attack_pressure(1.0)
+            continue
+        seen_ids.add(pid)
+
+        if verifier.verify(p.signable(), p.signature, agent.master_key):
+            valid += 1
+            seen.add(p.frag_id)
+        else:
+            invalid += 1
+            agent.add_attack_pressure(2.0)
+
+            # ---- HARD LOCK only with sufficient evidence ----
+            if total >= MIN_EVIDENCE:
+                if (invalid / total) > agent.max_invalid_ratio:
+                    agent.locked = True
+                    print(f"[SECURITY] FORGERY sustained {invalid}/{total} → NODE LOCKED")
+                    return False
+
+    # ---- Loss pressure (soft) ----
+    if total >= MIN_EVIDENCE:
+        loss_ratio = 1.0 - (valid / total)
+        if loss_ratio > 0.30:
+            agent.add_attack_pressure(0.5)
+
+    # ---- Replay degradation ----
+    if total >= MIN_EVIDENCE and (replay / total) > agent.max_replay_ratio:
+        print(f"[SECURITY] REPLAY pressure {replay}/{total} → degraded accept")
+
+    return len(seen) >= agent.threshold

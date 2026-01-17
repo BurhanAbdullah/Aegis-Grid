@@ -1,27 +1,29 @@
 class SecureAgent:
-    def __init__(self, master_key):
-        self.master_key = master_key
-
-        # Fragment parameters
+    def __init__(self, key=None):
+        self.master_key = key
+        self.locked = False
+        self.attack_pressure = 0.0
+        
+        # Pillars 1 & 2: Adaptive Parameters
         self.base_fragments = 12
         self.fragment_count = 12
         self.threshold = 12
+        
+        # Pillar 3: Permanent Failure Limit
+        self.PRESSURE_LIMIT = 5.0
 
-        # Security policy
-        self.max_invalid_ratio = 0.35
-        self.max_replay_ratio = 0.40
+    def observe(self, loss_rate):
+        """Pillar 2: DDoS Pressure Feedback"""
+        # If loss is high, agent becomes more 'forgiving' to maintain power
+        # but raises strictness if forgery is detected.
+        self.threshold = max(4, int(self.base_fragments * (1.0 - loss_rate)))
 
-        # State
-        self.locked = False
-
-    # Phase 2: no adaptive time-based behavior
-    def observe(self, loss):
-        return
-
-    # Phase 2 compatibility shim
-    def is_locked(self):
-        return self.locked
-
-    # Phase 2 compatibility shim (no time-lock)
     def add_attack_pressure(self, weight):
-        pass
+        """Pillar 3: Cumulative Attack Pressure"""
+        if self.locked: return
+        self.attack_pressure += weight
+        if self.attack_pressure >= self.PRESSURE_LIMIT:
+            self.locked = True
+            print("[SECURITY] TIME-LOCK irreversible failure triggered.")
+
+    def is_locked(self): return self.locked
