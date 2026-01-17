@@ -1,26 +1,19 @@
 from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
-import time
 
-class AegisCrypt:
+class AegisShield:
     def __init__(self, key):
         self.key = key
-    
+
     def seal(self, data):
-        start = time.perf_counter()
+        """Layer 1: Symmetric Encryption Shell"""
         cipher = AES.new(self.key, AES.MODE_GCM)
         ciphertext, tag = cipher.encrypt_and_digest(data)
-        latency = time.perf_counter() - start
-        return {
-            "ciphertext": ciphertext,
-            "nonce": cipher.nonce,
-            "tag": tag,
-            "latency": latency
-        }
+        return {"c": ciphertext, "n": cipher.nonce, "t": tag}
 
     def open(self, bundle):
+        """Final Layer: Re-assembly Decryption"""
         try:
-            cipher = AES.new(self.key, AES.MODE_GCM, nonce=bundle['nonce'])
-            return cipher.decrypt_and_verify(bundle['ciphertext'], bundle['tag'])
+            cipher = AES.new(self.key, AES.MODE_GCM, nonce=bundle["n"])
+            return cipher.decrypt_and_verify(bundle["c"], bundle["t"])
         except:
             return None

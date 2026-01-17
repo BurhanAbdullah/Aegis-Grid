@@ -1,35 +1,51 @@
 import hashlib
+
 class SecureAgent:
+    PRESSURE_LIMIT = 5.0
+
     def __init__(self, master_key):
         self.master_key = master_key
         self.locked = False
-        self.pressure = 0.0  # Obj 6: Pressure Accumulation
+        self.pressure = 0.0
+
+        # Fragment / quorum control (Pillar 1)
         self.base_fragments = 12
-        self.fragment_count = 12 # Needed for sender
-        self.threshold = 12      # Obj 5: Adaptive Threshold
-        
+        self.fragment_count = 12
+        self.threshold = 12
+
+    # ---------- Required by protocol ----------
+    def is_locked(self):
+        return self.locked
+
+    def add_attack_pressure(self, amount):
+        if self.locked:
+            return
+        self.pressure += amount
+        if self.pressure >= self.PRESSURE_LIMIT:
+            self.locked = True
+
+    # ---------- Pillar logic ----------
     def get_layer_key(self, layer_id):
-        # Obj 3: Per-layer key separation
-        return hashlib.sha256(self.master_key + str(layer_id).encode()).digest()
+        """Pillar 1: per-layer key separation"""
+        return hashlib.sha256(
+            self.master_key + str(layer_id).encode()
+        ).digest()
 
     def observe(self, loss, forgery_detected=False):
-        if self.locked: return
-        
-        # Obj 6 & 8: Pressure accumulation
+        """Pillar 2 & 3: cumulative pressure + time-lock"""
+        if self.locked:
+            return
+
+        # DDoS / packet loss signal
+        self.pressure += loss * 2.0
+
+        # Forgery escalation
         if forgery_detected:
-            self.pressure += 1.2 
-        elif loss > 0.35:
-            self.pressure += 0.15
-        else:
-            self.pressure = max(0, self.pressure - 0.05)
+            self.pressure += 2.5
 
-        # Obj 5: Adaptive Threshold
-        # Threshold increases as channel integrity (pressure) degrades
-        self.threshold = max(4, min(12, int(12 * (1.0 - loss) + self.pressure)))
+        # Adaptive quorum (Pillar 1)
+        self.threshold = max(4, int(self.base_fragments * (1.0 - loss)))
 
-        # Obj 7: Permanent Lock
-        if self.pressure > 4.0:
+        # Irreversible lock
+        if self.pressure >= self.PRESSURE_LIMIT:
             self.locked = True
-            print(f'[SECURITY] TIME-LOCK irreversible failure -> Pressure: {self.pressure:.2f}')
-
-    def is_locked(self): return self.locked

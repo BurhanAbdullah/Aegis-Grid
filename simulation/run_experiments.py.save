@@ -1,4 +1,39 @@
 import random
+import random
+from simulation.adversary import inject_adversary
+
+def run_all(agent, traffic_fn, receiver_fn):
+    print("\n=== Aegis-Grid: Triple-Pillar Validation ===")
+
+    trials = 100
+
+    for loss in [0.1, 0.2, 0.3, 0.4]:
+        success = 0
+        locked = 0
+
+        for _ in range(trials):
+            agent.locked = False
+            agent.pressure = 0.0
+            agent._lock_announced = False
+
+            agent.observe(loss)
+
+            packets = traffic_fn(agent, b"POWER_GRID_CMD", 0.2)
+            packets = inject_adversary(packets, forge_ratio=0.3)
+            packets = [p for p in packets if random.random() > loss]
+
+            ok = receiver_fn(packets, agent)
+
+            if ok:
+                success += 1
+            if agent.is_locked():
+                locked += 1
+
+        print(
+            f"Loss {int(loss*100)}% | "
+            f"Success {success/trials:.3f} | "
+            f"Locked {locked/trials:.3f}"
+        )
 from simulation.adversary import inject_adversary
 
 def run_all(agent, traffic_fn, receiver_fn):
