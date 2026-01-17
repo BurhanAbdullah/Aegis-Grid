@@ -10,3 +10,4 @@ __pycache__/
 .vault/
 *.zip
 private_keys/
+.proprietary_core/
