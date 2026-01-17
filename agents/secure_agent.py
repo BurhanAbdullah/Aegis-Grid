@@ -1,7 +1,7 @@
 import hashlib
 
 class SecureAgent:
-    """V1: Baseline Adaptive Agent"""
+    """V1: Baseline Adaptive Agent (Classical Cryptography)"""
     PRESSURE_LIMIT = 5.5
     def __init__(self, master_key):
         self.master_key = master_key
@@ -22,7 +22,7 @@ class SecureAgent:
         self.pressure += amount
         if self.pressure >= self.PRESSURE_LIMIT:
             self.locked = True
-            print(f"[SECURITY] V1 LOCKOUT -> Pressure: {self.pressure:.2f}")
+            print(f"[V1-SECURITY] LOCKOUT TRIGGERED -> Pressure: {self.pressure:.2f}")
 
     def get_layer_key(self, layer_id):
         return hashlib.sha256(self.master_key + str(layer_id).encode()).digest()
