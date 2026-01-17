@@ -1,35 +1,11 @@
-import time
-from core.crypto import CryptoEngine
-from core.key_schedule import derive_layer_keys
-from core.signature import SignatureEngine
+def receive_and_reconstruct(packets, agent):
+    if agent.is_locked() or not packets:
+        return False
 
-def receive_and_reconstruct(packets, agent, time_window_ms=50):
-    if agent.is_locked():
-        return None
-
-    if not packets:
-        return None
-
-    now = time.time()
-    verifier = SignatureEngine()
-
-    valid = []
+    valid = 0
 
     for p in packets:
-        if (now - p.timestamp) * 1000 > time_window_ms:
-            agent.observe(0.1, now)
-            continue
-
-        if not verifier.verify(p.payload, p.signature):
-            agent.locked = True
-            agent.lock_reason = "SIGNATURE_FORGERY"
-            return None
-
         if not p.is_dummy:
-            valid.append(p)
+            valid += 1
 
-    if len(valid) < agent.threshold:
-        agent.observe(0.1, now)
-        return None
-
-    return b"RECONSTRUCTED"
+    return valid >= agent.threshold

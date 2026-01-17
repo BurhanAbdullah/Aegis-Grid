@@ -1,11 +1,12 @@
+import hashlib
+
 class SignatureEngine:
     """
-    Placeholder signature engine.
-    Cryptographic verification will be enabled later.
+    Lightweight deterministic signature abstraction.
     """
 
-    def sign(self, data: bytes) -> bytes:
-        return b"SIG"
+    def sign(self, data: bytes, key: bytes) -> bytes:
+        return hashlib.sha256(key + data).digest()
 
-    def verify(self, data: bytes, signature: bytes) -> bool:
-        return True
+    def verify(self, data: bytes, signature: bytes, key: bytes) -> bool:
+        return hashlib.sha256(key + data).digest() == signature
