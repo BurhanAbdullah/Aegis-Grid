@@ -1,0 +1,27 @@
+name: Aegis-Grid Security Audit
+
+on: [push]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install pycryptodome
+
+      - name: Run Layer 1-7 Verification
+        run: |
+          python3 -m tests.verify_v1
+          # Audit hidden proprietary core if needed
+          if [ -d ".proprietary_core" ]; then
+            export PYTHONPATH=$PYTHONPATH:.
+            python3 .proprietary_core/tests/audit_v2.py
+          fi
