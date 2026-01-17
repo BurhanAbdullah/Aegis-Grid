@@ -27,9 +27,9 @@ To ensure the integrity of the research, you can run the structural audit using 
 1. Environment setup: Install the required dependencies using pip install pycryptodome.
 2. Execution: Run the audit module from the root directory using python3 -m tests.verify_v1.
 3. Verification:
-   - Layer 1 confirms the Root of Trust.
-   - Layer 5 confirms the Shannon Invariant where delta is less than 0.1.
-   - Layer 7 confirms the terminal lockout state transition.
+   - Layer 1 confirms the Root of Trust through identity verification.
+   - Layer 5 confirms the Shannon Invariant where the entropy delta remains below 0.1.
+   - Layer 7 confirms the terminal lockout state transition when safety limits are exceeded.
 
 ---
 © 2026 Burhan Abdullah. All Rights Reserved.
