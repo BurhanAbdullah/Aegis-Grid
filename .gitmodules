@@ -1,0 +1,3 @@
+[submodule "v2_model"]
+	path = v2_model
+	url = https://github.com/BurhanAbdullah/Aegis-Grid-V2.git
