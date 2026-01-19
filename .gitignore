@@ -12,3 +12,6 @@ __pycache__/
 private_keys/
 .proprietary_core/
 .proprietary_core/
+
+# protected agent logic (intentional)
+protected/

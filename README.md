@@ -143,11 +143,3 @@ research-grade prototype
 Version: v3.0-agentic-elastic-defense
 
 ------------------------------------------------------------
-NOTICE
-------------------------------------------------------------
-
-Sections of this document describe experimental agent logic
-and evaluation methodology. Reuse without attribution or
-contextual understanding is explicitly discouraged.
-
-This repository prioritizes interpretability over portability.
