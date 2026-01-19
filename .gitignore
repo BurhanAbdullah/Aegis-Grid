@@ -15,3 +15,9 @@ private_keys/
 
 # protected agent logic (intentional)
 protected/
+
+# protected logic
+core/
+agents/
+v2_model/
+*.log
