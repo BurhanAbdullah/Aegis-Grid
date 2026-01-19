@@ -21,3 +21,6 @@ core/
 agents/
 v2_model/
 *.log
+plots/*.png
+archive/
+*.tmp
