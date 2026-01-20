@@ -1,0 +1,55 @@
+Aegis Grid – Experimental Release v3.3
+
+This directory contains the frozen experimental evaluation of the Aegis Grid
+secure communication architecture. Version 3.3 corresponds exactly to the
+results reported in the paper and is intended for reproducibility, review,
+and archival purposes.
+
+This version is tagged and should be treated as read-only. Later development
+versions may extend or modify the system, but all experimental claims in the
+paper are derived from this release.
+
+Overview
+
+The experiments in this directory evaluate a time-bounded, fail-secure
+communication model integrated with IEEE benchmark power systems. Power-flow
+behavior is modeled using pandapower, while network delay, packet loss, and
+temporal validity constraints are explicitly simulated.
+
+The focus of this release is not controller performance, but the interaction
+between real-time constraints, adversarial delay, and fail-secure semantics
+in cyber-physical power system communication.
+
+Directory Layout
+
+scripts contains bash scripts used to run all experiments.
+results contains CSV files generated directly by the experiments.
+docs contains LaTeX-ready tables derived from the CSV results.
+plots is reserved for optional figures.
+
+All results in the docs directory are generated from the CSV files in results.
+No numbers are hard-coded.
+
+Reproducing the Experiments
+
+From the repository root, run:
+
+cd v3.3
+
+./scripts/sweep_delay_v3_3.sh
+./scripts/compare_baseline_v3_3.sh
+./scripts/ieee39_test_v3_3.sh
+
+These scripts generate CSV outputs in the results directory.
+
+To generate the paper table:
+
+./scripts/generate_table_v3_3.sh > docs/results_table_v3_3.tex
+
+The generated LaTeX file can be included directly in the paper without
+modification.
+
+Experimental Content
+
+The delay sweep experiment evaluates acceptance probability as a function of
+network delay under a fixed message validity window using t
