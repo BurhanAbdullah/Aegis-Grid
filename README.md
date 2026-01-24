@@ -1,3 +1,9 @@
+![Aegis-Grid Banner](A_digital_pixel_art_banner_promotes_Aegis-Grid,_a_.png)
+![Aegis-Grid Banner](.github/aegis-grid-banner.png)
+
+Aegis-Grid
+==========
+
 Aegis-Grid
 ==========
 
