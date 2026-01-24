@@ -1,0 +1,152 @@
+.
+├── ARTIFACT_ENTRYPOINT.md
+├── AUDIT_PHASE2_VERSIONS.txt
+├── AUDIT_REPO_INVENTORY.txt
+├── Aegis-Grid-Unified
+│   ├── archive
+│   ├── concepts
+│   ├── core
+│   ├── extensions
+│   └── implementation
+├── LICENSE
+├── Pressure:
+├── README.md
+├── REPO_STRUCTURE.txt
+├── SECURITY.md
+├── VERSION
+├── __init__.py
+├── aegis_grid
+│   ├── __init__.py
+│   ├── agents
+│   ├── core
+│   └── protocol
+├── aegis_grid.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   ├── requires.txt
+│   └── top_level.txt
+├── agents
+│   ├── __init__.py
+│   ├── learning_agent.py
+│   ├── network_agent.py
+│   ├── receiver_agent.py
+│   ├── secure_agent.py
+│   └── sender_agent.py
+├── archive
+│   └── legacy
+├── audit_phase1_inventory.sh
+├── audit_phase1_inventory.txt
+├── audit_phase2_versions.sh
+├── audit_phase2_versions.txt
+├── audit_phase3_plot_links.txt
+├── audit_repo_inventory.sh
+├── audit_version_completeness.sh
+├── audit_versions_public_and_readme.sh
+├── clean_repo.sh
+├── comparison
+│   ├── benchmark.py
+│   └── plots
+├── core
+│   ├── __init__.py
+│   ├── auth.py
+│   ├── crypto
+│   ├── crypto.py
+│   ├── fragmentation.py
+│   ├── key_schedule.py
+│   ├── packet.py
+│   ├── signature.py
+│   ├── superposition.py
+│   ├── time_lock.py
+│   └── timing.py
+├── data
+│   ├── processed
+│   └── raw
+├── docs
+│   ├── Aegis_Grid_V2_Technical_Summary.txt
+│   ├── DEVELOPMENT_LOG.md
+│   ├── EXPERIMENT_SUMMARY.md
+│   ├── FIGURE_PROVENANCE.md
+│   ├── MODEL_COMPARISON.md
+│   ├── OBJECTIVES_LOG.md
+│   └── summaries
+├── error_log.txt
+├── generate_plots.py
+├── generate_validation.py
+├── ieee_results
+│   ├── data
+│   └── plots
+├── ieee_results_png
+│   ├── architecture
+│   └── experimental
+├── main
+├── main.py
+├── network
+│   ├── __init__.py
+│   └── traffic_shaper.py
+├── novelty_check.sh
+├── output
+│   └── v4_cyberphysical_trace.csv
+├── plots
+│   ├── gnuplot
+│   ├── ieee
+│   ├── jpg
+│   ├── png
+│   └── sensitivity_loss_inr.png
+├── protocol
+│   ├── __init__.py
+│   ├── packet.py
+│   ├── receiver.py
+│   ├── secure_receive.py
+│   ├── secure_send.py
+│   └── sender.py
+├── receiver.py
+├── requirements.txt
+├── run_v4_simulation.sh
+├── safe_run.log
+├── safe_run.sh
+├── scripts
+│   ├── analysis
+│   ├── check_model.sh
+│   ├── convert_cost_usd_to_inr.sh
+│   └── simulation
+├── sensitivity_sweep_elastic.sh
+├── setup.py
+├── simulation
+│   ├── __init__.py
+│   ├── adversary.py
+│   ├── run_experiments.py
+│   ├── run_ieee_adaptivity.sh
+│   ├── run_ieee_plots.sh
+│   └── sender.py
+├── tests
+│   ├── verify_final.py
+│   ├── verify_v1.py
+│   └── verify_v2.py
+├── v1
+│   └── README.md
+├── v2
+│   └── README.md
+├── v2_model
+│   ├── __init__.py
+│   ├── agents
+│   ├── core
+│   └── main
+├── v3
+│   └── README.md
+├── v4
+│   ├── README.md
+│   ├── data
+│   ├── logs
+│   ├── plots
+│   └── scripts
+├── v5
+│   ├── PROTECTION.md
+│   ├── README.md
+│   ├── docs
+│   ├── model
+│   ├── results
+│   └── scripts
+└── verify_model.py
+
+59 directories, 91 files
