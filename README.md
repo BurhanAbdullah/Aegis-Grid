@@ -69,3 +69,16 @@ Aegis-Grid is a research framework and not a production security system.
 Some core logic is abstracted. Results are provided for inspection,
 reproducibility, and academic discussion only.
 
+
+## Citation
+
+If you use this repository or its artifacts in academic work, please cite:
+
+@misc{abdullah2026aegisgrid,
+  title={Aegis-Grid: Deterministic Multi-Layer Cyber-Physical Defense Architecture},
+  author={Abdullah, Burhan},
+  year={2026},
+  howpublished={GitHub},
+  url={https://github.com/BurhanAbdullah/Aegis-Grid}
+}
+

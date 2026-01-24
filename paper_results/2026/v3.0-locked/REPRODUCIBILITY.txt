@@ -1,0 +1,5 @@
+35871ebb0c77b46a5147ed7e17cec2ad55a79a8cb3745f8baea4192e50797392  paper_results/2026/v3.0-locked/exposure.csv
+4a8e880aae026bdc5fd47d8fec4bd78692ebb1a77e08e7cfcb6c081130d1b4b6  paper_results/2026/v3.0-locked/emission.png
+d47f3988c93f2c8f668b737b76d407d72940af85e7e2abe0735354b02e7be89f  paper_results/2026/v3.0-locked/exposure.png
+a14c2277f16dab6fb51be43e413b92b5ea726f1ee8222618cfc0583a194cab24  paper_results/2026/v3.0-locked/README.md
+4ea0c3aeca7685a6e141281e16ecac7c2b2af1ca7403117dc8633acf540e3d99  paper_results/2026/v3.0-locked/emission.csv

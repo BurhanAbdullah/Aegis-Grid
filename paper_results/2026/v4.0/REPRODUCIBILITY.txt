@@ -1,0 +1,4 @@
+08bce16b9c6dcac14a26cb838832c12ff1e92ef814f9765af63b9f2a8663f5a2  paper_results/2026/v4.0/control.csv
+d160960cf8ad79e32fc90ae0a92fd76ed8a06dcae8bb7d4a7a5e6f2fd1907f67  paper_results/2026/v4.0/control.png
+c53f08a9d4732dc13d82d31c0c413baaeaecc75f3f2f68b59c522538fd3d1f03  paper_results/2026/v4.0/README.md
+a4a7ccbdd718d90512da62bac1e77ebf806688980fa9f456fca9dafe29bf35a5  paper_results/2026/v4.0/SEMANTICS.md
