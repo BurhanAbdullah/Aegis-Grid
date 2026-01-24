@@ -6,95 +6,75 @@ CSV = "paper_results/2026/csv"
 OUT = "paper_results/2026/figures"
 os.makedirs(OUT, exist_ok=True)
 
-# ---------- Fig 1: v1 Latency ----------
+def save(fig, name):
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/{name}", dpi=300)
+    plt.close()
+
+# Fig 1
 df = pd.read_csv(f"{CSV}/v1_latency_feasibility.csv")
-plt.figure()
+fig = plt.figure()
 plt.plot(df.message_bits, df.latency_ms, marker="o")
 plt.axhline(50, linestyle="--", color="red")
-plt.xlabel("Message Size (bits)")
+plt.title("Latency Feasibility — v1.0.0")
+plt.xlabel("Message size (bits)")
 plt.ylabel("Latency (ms)")
-plt.title("Latency Feasibility — Aegis-Grid v1.0.0")
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig1_v1_latency.png", dpi=300)
-plt.close()
+save(fig, "fig1_v1_latency.png")
 
-# ---------- Fig 2: v2 Reconstruction ----------
+# Fig 2
 df = pd.read_csv(f"{CSV}/v2_reconstruction.csv")
+fig = plt.figure()
 for N in df.N.unique():
-    subset = df[df.N == N]
-    plt.plot(subset.packet_loss, subset.reconstruction_prob, marker="o", label=f"N={N}")
-plt.xlabel("Packet Loss Probability")
-plt.ylabel("Reconstruction Probability")
-plt.title("Fail-Secure Reconstruction — Aegis-Grid v2.0")
+    sub = df[df.N == N]
+    plt.plot(sub.packet_loss, sub.success_probability, marker="o", label=f"N={N}")
 plt.legend()
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig2_v2_reconstruction.png", dpi=300)
-plt.close()
+plt.title("Fail-Secure Reconstruction — v2.0")
+plt.xlabel("Packet loss")
+plt.ylabel("Success probability")
+save(fig, "fig2_v2_reconstruction.png")
 
-# ---------- Fig 3: v3 Leakage ----------
+# Fig 3
 df = pd.read_csv(f"{CSV}/v3_information_leakage.csv")
-plt.figure()
-plt.plot(df.intercepted_fragments, df.mutual_information, marker="o")
-plt.xlabel("Intercepted Fragments")
-plt.ylabel("Mutual Information")
-plt.title("Zero Information Leakage — Aegis-Grid v3.0")
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig3_v3_leakage.png", dpi=300)
-plt.close()
+fig = plt.figure()
+plt.plot(df.intercepted_fragments, df.mutual_information)
+plt.title("Bounded Information Leakage — v3")
+plt.xlabel("Intercepted fragments")
+plt.ylabel("Mutual information")
+save(fig, "fig3_v3_leakage.png")
 
-# ---------- Fig 4: v3 Traffic ----------
+# Fig 4
 df = pd.read_csv(f"{CSV}/v3_traffic_entropy.csv")
-plt.figure()
+fig = plt.figure()
 plt.plot(df.time, df.active, label="Active")
-plt.plot(df.time, df.idle, linestyle="--", label="Idle")
-plt.xlabel("Time")
-plt.ylabel("Packet Rate")
-plt.title("Traffic Indistinguishability — Aegis-Grid v3.0")
+plt.plot(df.time, df.idle, label="Idle")
 plt.legend()
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig4_v3_traffic.png", dpi=300)
-plt.close()
+plt.title("Traffic Indistinguishability — v3")
+save(fig, "fig4_v3_traffic.png")
 
-# ---------- Fig 5: v3 Agent ----------
+# Fig 5
 df = pd.read_csv(f"{CSV}/v3_agent_adaptation.csv")
-plt.figure()
-plt.plot(df.time, df.N, label="Fragments N")
-plt.plot(df.time, df.rho, label="Dummy Ratio ρ")
-plt.plot(df.time, df.latency, label="Latency (ms)")
+fig = plt.figure()
+plt.plot(df.time, df.N, label="N(t)")
+plt.plot(df.time, df.latency, label="Latency")
 plt.axhline(50, linestyle="--", color="red")
-plt.xlabel("Time")
-plt.ylabel("Value")
-plt.title("Agent Adaptation — Aegis-Grid v3.0-Agentic")
 plt.legend()
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig5_v3_agent.png", dpi=300)
-plt.close()
+plt.title("Agent Adaptation — v3")
+save(fig, "fig5_v3_agent.png")
 
-# ---------- Fig 6: v3 Latency Compare ----------
-df = pd.read_csv(f"{CSV}/v3_latency_comparison.csv")
-plt.figure()
-plt.plot(df.load, df.static, label="Static")
-plt.plot(df.load, df.agent, label="Agent")
+# Fig 6
+fig = plt.figure()
+plt.plot(df.time, df.latency)
 plt.axhline(50, linestyle="--", color="red")
-plt.xlabel("Load")
-plt.ylabel("Latency (ms)")
-plt.title("Latency: Static vs Agent — Aegis-Grid v3.x")
-plt.legend()
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig6_v3_latency_compare.png", dpi=300)
-plt.close()
+plt.title("Latency Bound Preservation — v3")
+save(fig, "fig6_v3_latency_compare.png")
 
-# ---------- Fig 7: v4 Safety ----------
+# Fig 7
 df = pd.read_csv(f"{CSV}/v4_control_safety.csv")
-plt.figure()
-plt.plot(df.time, df.normal, label="Normal")
-plt.plot(df.time, df.attack, label="Delayed Attack")
-plt.xlabel("Time")
-plt.ylabel("Control Action")
-plt.title("Fail-Secure Cyber-Physical Safety — Aegis-Grid v4.0")
+fig = plt.figure()
+plt.plot(df.time, df.state_normal, label="Normal")
+plt.plot(df.time, df.state_under_attack, label="Attack")
 plt.legend()
-plt.tight_layout()
-plt.savefig(f"{OUT}/fig7_v4_safety.png", dpi=300)
-plt.close()
+plt.title("Fail-Secure Control — v4")
+save(fig, "fig7_v4_safety.png")
 
-print("[OK] All 7 paper figures generated successfully")
+print("[OK] All upgraded paper figures generated")
