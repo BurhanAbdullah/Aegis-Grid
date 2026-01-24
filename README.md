@@ -1,71 +1,61 @@
-Aegis-Grid
-==========
+Aegis-Grid: Evolutionary Research Repository
+Aegis-Grid is a comprehensive research framework dealing with Agentic Security for Cyber-Physical Systems (CPS). It explores how autonomous digital agents can protect critical infrastructure (like power grids) from high-sophistication attacks (Quantum Adversaries, Infinite Compute, Physical Compromise).
 
-Aegis-Grid is a research framework for studying adaptive, agent-based
-security mechanisms in cyber-physical power systems.
+This repository contains the complete evolutionary history of the project, from initial Python prototypes to the final Bash-based auditing tools and future quantum concepts.
 
-The framework focuses on fail-secure communication, where messages are
-either delivered correctly within defined constraints or intentionally
-invalidated. The emphasis is on robustness under packet loss, delay,
-and active interference.
+📂 Repository Structure & Version Guide
+The codebase is organized by evolutionary stage. Choose the version that matches your research intent:
 
-This repository is intended for research inspection, model comparison,
-and methodological study.
+🟢 The "Core" (Stable & Published)
+Use these versions for reproducing paper results or understanding the core theory.
 
---------------------------------------------------
+v3.0-final (The Paper Artifact)
 
-Versioned Research Structure
+Focus: Agentic Elastic Defense
+Tech: Bash / Awk / Gnuplot (No External Dependencies)
+Description: This is the pure simulation core used for the published results. It is designed for maximum transparency and auditability. It treats security as a control loop (Pressure vs. Mitigation costs) rather than just cryptography.
+Key Files: 
+experiments/simulate_attack_fog_of_war.sh
+, agents/secure_agent.sh
+v3.0-agentic (The Implementation)
 
-Each version in this repository represents a distinct modeling scope
-and threat surface. Versions are not incremental releases but separate
-research stages.
+Focus: Python Integration
+Tech: Python 3.9+
+Description: The "Productized" version of v3.0 logic. Ideally used if you want to inspect how these agents would be written in a standard object-oriented language.
 
-v1  Baseline fail-secure communication and fragmentation semantics  
-v2  Adaptive thresholding and sustained attack pressure modeling  
-v3  Agent-based autonomous security control  
-v3.3 Extended cyber-physical timing evaluation  
-v4  Grid-aware security constraints and safety coupling  
-v5  Conceptual post-cryptographic and quantum-adversarial model  
+🟡 Early Prototypes (Historical)
+Useful for seeing how the cryptographic stack evolved.
 
-Each version contains its own documentation and is independently
-inspectable.
+v1.0.0
 
---------------------------------------------------
+Focus: Basic 7-Layer Stack
+Description: The original proof-of-concept. Implements a static cryptographic stack with simple decision rules.
+v2.0
 
-Model-Level Comparison
+Focus: Cryptographic Stealth
+Description: Introduced "Indistinguishable Dummies" and traffic analysis resistance.
+🔴 Experimental & Future (Active Research)
+These versions are volatile, conceptual, or focused on specific sub-domains.
 
-A qualitative comparison across all versions is provided in:
+v4.0-cyberphysical
 
-docs/MODEL_COMPARISON.md
+Focus: Hardware & Physics
+Description: Moves beyond network packets to model the actual physics of the grid. Contains control-room and substation models.
 
-This comparison:
-- uses no plots
-- introduces no new data
-- makes no performance claims
-- compares assumptions, scope, and threat models only
+v5-concept
 
---------------------------------------------------
+Focus: Post-Cryptography / Information Theoretic
+Description: A "Sci-Fi" exploration of security against an adversary with infinite compute. Abandoning encryption in favor of "Time-Bounded Secrecy" (data that self-destructs or becomes irrelevant before it can be cracked).
+🚀 Quick Start (Reproduction)
+To run the standard "Fog of War" simulation (v3.0):
 
-Reproducibility and Auditability
+cd v3.0-final/experiments
+chmod +x simulate_attack_fog_of_war.sh
+./simulate_attack_fog_of_war.sh
+This will generate attack_data.dat which models how the agent adapts its security threshold in response to entropy noise and simulated packet loss.
 
-All figures and results in this repository are generated directly from
-analytical expressions or raw simulation outputs.
-
-No data points are removed.  
-No smoothing or curve fitting is applied.  
-Parameters are stated explicitly in scripts or documentation.  
-All generation code is included in the repository.
-
-Relevant files include:
-
-docs/FIGURE_PROVENANCE.md  
-audit_version_completeness.sh  
-
---------------------------------------------------
-
-Scope Disclaimer
-
-Aegis-Grid is a research framework and not a production security system.
-Some core logic is abstracted. Results are provided for inspection,
-reproducibility, and academic discussion only.
-
+🤝 Citation & Usage
+Primary Author: Burhan Abdullah
+License: Proprietary / Research Use Only (See 
+LICENSE
+ in specific folders
