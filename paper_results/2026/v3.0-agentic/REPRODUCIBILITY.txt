@@ -1,0 +1,5 @@
+1268fcb3734ae22e7a0512f47a5b398891600180e2da8c64a1cff5db043d39ca  paper_results/2026/v3.0-agentic/sensitivity_matrix.csv
+91a80779cbfa30079deda5333d1e39939960f7005fc30950de3352dc58b59e4b  paper_results/2026/v3.0-agentic/terminal.log
+c404b75888a5a66785965966129929ccca5330a8e1a9152dbc51d7520f360065  paper_results/2026/v3.0-agentic/sensitivity_matrix_elastic.csv
+99804efeb22a3e82c5f0716b98d6c54728dfe1ecb8a6786eac8f8753980f2526  paper_results/2026/v3.0-agentic/REPRODUCIBILITY.txt
+612627a81a3b7eda81db555315feb35752c25af4e58d5e92167abd0fa3295a7a  paper_results/2026/v3.0-agentic/counts.csv
