@@ -1,0 +1,15 @@
+Fail-Secure Reconstruction Model — v2.0
+
+Validity Window:
+  validity_window = 5 ms
+
+Reconstruction Rule:
+  reconstruction_result = 1 if packets_received == total_expected
+  reconstruction_result = 0 otherwise
+
+Properties:
+- Deterministic
+- No randomness
+- No partial success
+- No averaging
+- Structural behavior only (not performance)
