@@ -2,14 +2,14 @@
 ![Aegis-Grid Banner](.github/aegis-grid-banner.png)
 
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🛡️  A E G I S – G R I D
+
+         🛡️  A E G I S – G R I D
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🔒 A Research Framework for Fail-Secure, Agent-Based  
 Communication in Cyber-Physical Power Systems
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 📘 1. Motivation and Context
@@ -36,7 +36,7 @@ approximate, or reinterpret late or malformed information.
 This choice is not made for performance reasons. It is made to preserve
 physical safety and analytical clarity.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 📕 2. Conceptual Overview
@@ -65,7 +65,7 @@ it could technically be delivered.
 This approach intentionally sacrifices availability in favor of
 predictability and safety.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 🧠 3. Design Philosophy and Research Stance
@@ -100,7 +100,7 @@ deliberately, not accumulated accidentally.
 Results are intended to be inspected, questioned, and reproduced, not
 optimized or marketed.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 🗂️ 4. Versioned Research Structure
@@ -199,8 +199,6 @@ cryptographic assumptions are weakened or removed.
 This version makes no implementation claims. Its purpose is to stress
 test architectural assumptions rather than propose solutions.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 
 📊 5. Model-Level Comparison
 ──────────────────────────
@@ -219,7 +217,7 @@ Instead, it focuses on:
 
 The intent is to clarify trade-offs, not to claim superiority.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 🔎 6. Reproducibility and Methodological Rigor
@@ -239,7 +237,7 @@ Parameters are explicitly stated and version-scoped.
 The repository includes scripts and documentation sufficient to trace
 each result back to its origin.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 🎯 7. Intended Audience and Use
@@ -257,7 +255,7 @@ deployment artifact.
 
 Using it as such would be a category error.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 ⚠️ 8. Scope and Responsibility Disclaimer
@@ -274,7 +272,7 @@ discussion only.
 No claim is made regarding operational suitability, regulatory
 compliance, or deployment safety.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 
 📜 9. License and Contact
