@@ -40,3 +40,13 @@ The directory `releases/` mirrors GitHub release tags exactly.
 
 Reviewers may inspect any release independently without relying on
 branch history or commit ordering.
+
+Baseline Comparison Note
+
+Quantitative baseline comparisons included in paper_results/2026 are
+model-based and analytical. No experimental measurements are claimed for
+third-party systems such as IEC 62351, encrypted-only traffic, or IDS-based
+security frameworks.
+
+These comparisons are intended to highlight semantic differences in
+security guarantees rather than performance benchmarks.
