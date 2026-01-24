@@ -12,8 +12,7 @@ Communication in Cyber-Physical Power Systems
 
 
 
-📘 1. Motivation and Context
-──────────────────────────
+📘 1. Motivation 
 
 Aegis-Grid exists because most contemporary security models for
 cyber-physical power systems implicitly assume conditions that do not
@@ -40,7 +39,7 @@ physical safety and analytical clarity.
 
 
 📕 2. Conceptual Overview
-───────────────────────
+
 
 At a high level, Aegis-Grid can be understood as an exploration of one
 question:
@@ -69,7 +68,7 @@ predictability and safety.
 
 
 🧠 3. Design Philosophy and Research Stance
-─────────────────────────────────────────
+
 
 Aegis-Grid is intentionally conservative in its claims and aggressive
 in its assumptions.
@@ -104,14 +103,14 @@ optimized or marketed.
 
 
 🗂️ 4. Versioned Research Structure
-────────────────────────────────
+
 
 The framework is organized as a sequence of research stages.
 These stages are not upgrades, patches, or releases.
 
 They are deliberately independent viewpoints on the same core problem.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🟢 v1 — Baseline Fail-Secure Communication
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -129,7 +128,7 @@ This version exists to answer a simple question:
 What does the simplest possible fail-secure communication model look
 like when all ambiguity is removed?
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🟡 v2 — Adaptive Thresholding Under Pressure
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -144,7 +143,7 @@ Unbounded flexibility is treated as a liability rather than a strength.
 The goal is to study whether correctness can be preserved when the
 system is forced to operate near its limits.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🟠 v3 — Agent-Based Autonomous Security
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -160,7 +159,7 @@ understood.
 The focus is on how local decision-making interacts with global system
 safety.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🟣 v3.3 — Extended Cyber-Physical Timing
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -175,7 +174,7 @@ Late information is not degraded or flagged. It is invalidated.
 This version exists to test whether security logic remains coherent when
 physical time becomes the dominant constraint.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🔵 v4 — Grid-Aware Security Constraints
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -187,7 +186,7 @@ constraints of the power system itself.
 This version does not claim to improve security. It claims to reduce
 misalignment between security decisions and physical safety.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ⚫ v5 — Conceptual Post-Cryptographic Model
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -241,7 +240,7 @@ each result back to its origin.
 
 
 🎯 7. Intended Audience and Use
-─────────────────────────────
+
 
 This repository is intended for readers who are interested in:
 
@@ -259,7 +258,7 @@ Using it as such would be a category error.
 
 
 ⚠️ 8. Scope and Responsibility Disclaimer
-────────────────────────────────────────
+
 
 Aegis-Grid is a research framework.
 
