@@ -1,0 +1,9 @@
+Model,Metric,Score
+AegisGrid,LatencyFeasible,0.9999
+AegisGrid,TrafficLeakage,0.0200
+EncryptedOnly,LatencyFeasible,1.0000
+EncryptedOnly,TrafficLeakage,0.0200
+IEC62351,LatencyFeasible,1.0000
+IEC62351,TrafficLeakage,0.0000
+IDSAdaptive,LatencyFeasible,1.0000
+IDSAdaptive,TrafficLeakage,0.0100
