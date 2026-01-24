@@ -33,3 +33,10 @@ All figures and tables referenced in the paper are located in:
 paper_results/2026/
 
 No other plots in this repository are used for claims or evaluation.
+
+## Release Alignment
+
+The directory `releases/` mirrors GitHub release tags exactly.
+
+Reviewers may inspect any release independently without relying on
+branch history or commit ordering.
