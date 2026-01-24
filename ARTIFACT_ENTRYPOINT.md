@@ -25,3 +25,11 @@ research stages.
 - No folders are deprecated or deleted.
 - Versions are not incremental releases; they represent distinct models.
 - Only v3.0-final and v4.0-cyberphysical are intended for execution.
+
+## Paper Results (2026)
+
+All figures and tables referenced in the paper are located in:
+
+paper_results/2026/
+
+No other plots in this repository are used for claims or evaluation.
