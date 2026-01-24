@@ -1,0 +1,3 @@
+condition,status,action
+Normal,1,execute
+Attack,0,drop
