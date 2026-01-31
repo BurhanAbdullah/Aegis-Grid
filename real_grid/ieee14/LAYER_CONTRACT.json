@@ -1,0 +1,10 @@
+{
+  "L1_identity": "Key valid, role declared",
+  "L2_structure": "Packet size <= 256 bytes",
+  "L3_crypto": "HMAC verified",
+  "L4_timing": "PMU GPS skew <= 50ms, SCADA <= 2s",
+  "L5_pressure": "Pressure < threshold",
+  "L6_physics": "PMU consensus, ROCOF, voltage, angle safe",
+  "L7_authorization": "PMU measure only, SCADA control only",
+  "L7_control": "AGC bounded and disabled during islanding"
+}
