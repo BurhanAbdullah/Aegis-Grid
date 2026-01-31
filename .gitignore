@@ -24,3 +24,6 @@ v2_model/
 plots/*.png
 archive/
 *.tmp
+
+# LLM audit outputs (generated, not source)
+audit/llm/LLM_STATE_REPORT_*.txt
