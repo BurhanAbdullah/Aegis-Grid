@@ -1,4 +1,0 @@
-numpy
-pycryptodome
-matplotlib
-scipy

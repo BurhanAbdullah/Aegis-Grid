@@ -1,4 +1,0 @@
-Version: 1.0.0
-Release Date: 2026-01-17
-Architecture: Agentic-Resilient (Classical)
-Status: Verified
