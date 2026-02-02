@@ -12,17 +12,17 @@
 
 📘 1. Motivation 
 
-Aegis-Grid exists because most contemporary security models for cyber-physical power systems implicitly assume conditions that do not hold in practice.
+*Aegis-Grid exists because most contemporary security models for cyber-physical power systems implicitly assume conditions that do not hold in practice.
 
-In particular, they often assume that communication failures degrade gracefully, that delayed data can be safely reused, or that security mechanisms can be layered independently of physical system behaviour.
+*In particular, they often assume that communication failures degrade gracefully, that delayed data can be safely reused, or that security mechanisms can be layered independently of physical system behaviour.
 
-This framework is built on the opposite assumption.
+*This framework is built on the opposite assumption.
 
-In safety-critical cyber-physical systems, communication that violates its constraints is not merely suboptimal. It is actively dangerous.
+*In safety-critical cyber-physical systems, communication that violates its constraints is not merely suboptimal. It is actively dangerous.
 
-Aegis-Grid therefore adopts a fail-secure stance from the outset. Messages are either delivered correctly within declared constraints or they are explicitly invalidated. There is no attempt to salvage, approximate, or reinterpret late or malformed information.
+*Aegis-Grid therefore adopts a fail-secure stance from the outset. Messages are either delivered correctly within declared constraints or they are explicitly invalidated. There is no attempt to salvage, approximate, or reinterpret late or malformed information.
 
-This choice is not made for performance reasons. It is made to preserve physical safety and analytical clarity.
+*This choice is not made for performance reasons. It is made to preserve physical safety and analytical clarity.
 
 
 
@@ -30,11 +30,11 @@ This choice is not made for performance reasons. It is made to preserve physical
 📕 2. Conceptual Overview
 
 
-At a high level, Aegis-Grid can be understood as an exploration of one question:
+*At a high level, Aegis-Grid can be understood as an exploration of one question:
 
-•	What does secure communication look like when correctness is defined by physical system safety rather than network reliability?
+*What does secure communication look like when correctness is defined by physical system safety rather than network reliability?
 
-•	To answer this, the framework models communication not as a transport problem, but as a constrained decision process embedded within a cyber-physical system.
+*To answer this, the framework models communication not as a transport problem, but as a constrained decision process embedded within a cyber-physical system.
 
 
 Each message is evaluated against a set of explicit criteria:
@@ -54,50 +54,45 @@ This approach intentionally sacrifices availability in favor of predictability a
 🧠 3. Design Philosophy and Research Stance
 
 
-Aegis-Grid is intentionally conservative in its claims and aggressivein its assumptions.
+*Aegis-Grid is intentionally conservative in its claims and aggressivein its assumptions.
 
-It does not attempt to demonstrate superior throughput, latency, orscalability. Instead, it attempts to make failure modes explicit and
-auditable.
+*It does not attempt to demonstrate superior throughput, latency, orscalability. Instead, it attempts to make failure modes explicit and auditable.
 
-Several guiding principles shape the framework.
+*Several guiding principles shape the framework.
 
 🔐 Fail-Secure First  
-Security mechanisms are evaluated by how they fail, not how theyperform under ideal conditions.
+*Security mechanisms are evaluated by how they fail, not how theyperform under ideal conditions.
 
 📐 Explicitness Over Convenience  
-All assumptions are declared. Hidden defaults are treated as design errors.
+*All assumptions are declared. Hidden defaults are treated as design errors.
 
 ⚙️ Physical Correctness Over Network Correctness  
-A message that is correct at the network layer but harmful to the physical system is considered invalid.
+*A message that is correct at the network layer but harmful to the physical system is considered invalid.
 
 🧩 Separation of Research Questions  
-Each version isolates a specific question. Complexity is introduced deliberately, not accumulated accidentally.
+*Each version isolates a specific question. Complexity is introduced deliberately, not accumulated accidentally.
 
 🔍 Reproducibility as a Primary Goal  
-Results are intended to be inspected, questioned, and reproduced, not optimised or marketed.
-
-
-
-
+*Results are intended to be inspected, questioned, and reproduced, not optimised or marketed.
 
 
 🗂️ 4. Versioned Research Structure
 
 
-The framework is organized as a sequence of research stages. These stages are not upgrades, patches, or releases.
+*The framework is organized as a sequence of research stages. These stages are not upgrades, patches, or releases.
 
-They are deliberately independent viewpoints on the same core problem.
+*They are deliberately independent viewpoints on the same core problem.
 
 
 🟢 v1  Baseline Fail-Secure Communication
 
-Version 1 establishes the minimal semantics required for fail-secure communication.
+*Version 1 establishes the minimal semantics required for fail-secure communication.
 
 •	It focuses on correctness under fragmentation, reassembly, and strict acceptance rules.
 
 •	No adaptation is permitted. No learning occurs. Every decision is deterministic and traceable.
 
-This version exists to answer a simple question:
+*This version exists to answer a simple question:
 
 What does the simplest possible fail-secure communication model look like when all ambiguity is removed?
 
@@ -269,9 +264,6 @@ Releases in Aegis-Grid serve a different purpose.
 •	Once a release is published, it is never modified.
 
 •	A release may point to one or more tags, but the tag remains the authoritative record of the research state.
-
-
-
 • Tags preserve research reality  
 • Releases preserve citation stability  
 
