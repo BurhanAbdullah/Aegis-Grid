@@ -1,17 +1,13 @@
 ACADEMIC USE ONLY - REDISTRIBUTION PROHIBITED
 Copyright (c) 2026 Burhan Abdullah.
 
-This repository contains proprietary research on Agentic Secure Grid Communication.
-Unauthorized copying, modification, or distribution via scraping or manual replication 
-is strictly prohibited. 
+This repository contains proprietary research on Agentic Secure Grid Communication. Unauthorized copying, modification, or distribution via scraping or manual replication  is strictly prohibited. 
 
 ADDITIONAL RESTRICTION (RESEARCH CONTEXT)
 
-Core agent decision logic, adaptive thresholds, and mitigation mechanisms
-described in this repository are part of an original research contribution.
+Core agent decision logic, adaptive thresholds, and mitigation mechanisms described in this repository are part of an original research contribution.
 
 Reproduction of results is permitted.
-Direct reuse, reimplementation, or derivative works of the agent logic
-without explicit attribution or permission is prohibited.
+Direct reuse, reimplementation, or derivative works of the agent logic without explicit attribution or permission is prohibited.
 
-This clause supplements, not replaces, the primary license.
+*This clause supplements, not replaces, the primary license.
