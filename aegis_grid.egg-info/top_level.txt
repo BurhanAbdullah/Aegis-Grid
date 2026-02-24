@@ -1,7 +1,0 @@
-aegis_grid
-agents
-core
-network
-protocol
-simulation
-v2_model

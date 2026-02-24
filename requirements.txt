@@ -1,4 +1,7 @@
-numpy
-pycryptodome
-matplotlib
-scipy
+# Aegis-Grid dependencies — pinned for reproducibility
+# Generated: 2026-02-24
+
+numpy==2.4.1
+matplotlib==3.10.8
+scipy==1.16.3
+pycryptodome==3.23.0

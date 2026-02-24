@@ -27,3 +27,8 @@ archive/
 
 # LLM audit outputs (generated, not source)
 audit/llm/LLM_STATE_REPORT_*.txt
+
+# Build artifacts
+*.egg-info/
+dist/
+build/

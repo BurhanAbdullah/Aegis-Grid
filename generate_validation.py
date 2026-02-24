@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from core.crypto.encryption import AegisCrypt
-from core.crypto.entropy import calculate_entropy
+from core.crypto.entropy import shannon_entropy as calculate_entropy
 
 def run_validation():
     key = os.urandom(32)
