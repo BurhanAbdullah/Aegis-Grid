@@ -8,18 +8,12 @@
 *.zip
 private_keys/
 .proprietary_core/
-.proprietary_core/
 
 # protected agent logic (intentional)
 protected/
 
 # protected logic
-core/
-agents/
-v2_model/
-*.log
 plots/*.png
-archive/
 *.tmp
 
 # LLM audit outputs (generated, not source)

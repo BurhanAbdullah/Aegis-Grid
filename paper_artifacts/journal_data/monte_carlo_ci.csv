@@ -1,26 +1,4 @@
 packet_loss,N,mean,lower_ci,upper_ci
-
-  [ -f "$f" ] && echo "--- $f ---" && cat "$f" && echo ""
-cat .novelty_state 2>/dev/null
-cat README.md 2>/dev/null
-cat VERSION 2>/dev/null
-cat main.py 2>/dev/null
-done
-echo ""
-echo "===== CORE FILES ====="
-echo "===== KEY PYTHON FILES ====="
-echo "===== MAIN ENTRY ====="
-echo "===== NETWORK & AGENTS ====="
-echo "===== NOVELTY STATE ====="
-echo "===== README ====="
-echo "===== REPO STRUCTURE ====="
-echo "===== SCRIPTS ====="
-echo "===== VERSION ====="
-find . -type f | grep -v '.git/' | sort
-for f in aegis_grid/*.py; do
-for f in core/* agents/* protocol/* simulation/*; do
-for f in network/*.py agents/*.py; do
-for f in scripts/*.py scripts/*.sh; do
 0.0,10,1.0,1.0,1.0
 0.0,20,1.0,1.0,1.0
 0.0,30,1.0,1.0,1.0
