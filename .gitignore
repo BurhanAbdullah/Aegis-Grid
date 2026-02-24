@@ -1,10 +1,7 @@
-__pycache__/
-*.pyc
 *.log
 .DS_Store
 *.pem
 *.key
-__pycache__/
 .env
 .internal_docs/
 .vault/
@@ -32,3 +29,10 @@ audit/llm/LLM_STATE_REPORT_*.txt
 *.egg-info/
 dist/
 build/
+
+# Python cache — all depths (both patterns required)
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
