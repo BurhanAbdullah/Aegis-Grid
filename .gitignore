@@ -1,29 +1,49 @@
+# Python
 __pycache__/
-*.pyc
-*.log
-.DS_Store
-*.pem
-*.key
-__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.installed.cfg
+
+# Virtual environments
 .env
-.internal_docs/
-.vault/
-*.zip
-private_keys/
-.proprietary_core/
-.proprietary_core/
+.venv
+env/
+venv/
+ENV/
 
-# protected agent logic (intentional)
-protected/
+# Jupyter
+.ipynb_checkpoints/
 
-# protected logic
-core/
-agents/
-v2_model/
+# Logs and runtime artifacts
 *.log
-plots/*.png
-archive/
-*.tmp
+error_log.txt
+*.pid
 
-# LLM audit outputs (generated, not source)
-audit/llm/LLM_STATE_REPORT_*.txt
+# OS
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Test/coverage
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.tox/
+
+# Docs build
+docs/_build/

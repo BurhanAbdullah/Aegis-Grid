@@ -1,6 +1,6 @@
 from Crypto.Cipher import AES
 
-class AegisShield:
+class AegisCrypt:
     def __init__(self, key):
         self.key = key
 

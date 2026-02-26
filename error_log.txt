@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/workspaces/agentic-secure-grid-communication/main.py", line 3, in <module>
-    from protocol.sender import generate_traffic
-  File "/workspaces/agentic-secure-grid-communication/protocol/sender.py", line 3, in <module>
-    from core.crypto import CryptoEngine
-  File "/workspaces/agentic-secure-grid-communication/core/crypto.py", line 13
-    return data        cd /workspaces/agentic-secure-grid-communication && python main.py 2>&1 | tee error_log.txt
-                       ^^
-SyntaxError: invalid syntax
