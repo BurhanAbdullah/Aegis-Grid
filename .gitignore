@@ -1,7 +1,6 @@
-# ── Python ──────────────────────────────────────────────────────────────────
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
 *.pyo
 *.pyd
 *.so
@@ -10,81 +9,41 @@ __pycache__/
 dist/
 build/
 eggs/
-parts/
-var/
-sdist/
-develop-eggs/
 .installed.cfg
-lib/
-lib64/
 
-# ── Virtual environments ─────────────────────────────────────────────────────
+# Virtual environments
 .env
 .venv
 env/
 venv/
 ENV/
-env.bak/
-venv.bak/
 
-# ── Jupyter ──────────────────────────────────────────────────────────────────
+# Jupyter
 .ipynb_checkpoints/
-*.ipynb
 
-# ── Logs & runtime artifacts ─────────────────────────────────────────────────
+# Logs and runtime artifacts
 *.log
 error_log.txt
 *.pid
-*.seed
-*.pid.lock
 
-# ── OS junk ──────────────────────────────────────────────────────────────────
+# OS
 .DS_Store
-.DS_Store?
 ._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# ── IDE / editors ────────────────────────────────────────────────────────────
-.vscode/settings.json
+# IDEs
 .idea/
 *.swp
 *.swo
 *~
-*.orig
 
-# ── Test / coverage artifacts ─────────────────────────────────────────────────
+# Test/coverage
 htmlcov/
-.tox/
 .coverage
 .coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
 .pytest_cache/
+.tox/
 
-# ── Simulation outputs (keep scripts, not raw outputs) ───────────────────────
-*.csv
-*.dat
-*.npy
-*.npz
-
-# ── Compiled docs ─────────────────────────────────────────────────────────────
+# Docs build
 docs/_build/
-docs/build/
-
-# ── Distribution / packaging ──────────────────────────────────────────────────
-.Python
-*.manifest
-*.spec
-MANIFEST
-
-# ── Research-specific ────────────────────────────────────────────────────────
-# Uncomment below if you want to exclude generated figures:
-# paper_results/2026/*.png
-# paper_results/2026/*.pdf

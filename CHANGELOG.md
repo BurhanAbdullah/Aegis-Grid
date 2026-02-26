@@ -1,41 +1,36 @@
 # Changelog
 
-All notable changes to Aegis-Grid are documented here.  
-This file follows the research versioning philosophy described in `README.md`.  
-Tags represent frozen research states; releases represent archival snapshots.
+All notable changes to Aegis-Grid are documented here.
+Tags are frozen research states. Releases are archival snapshots for citation.
 
 ---
 
-## [2026.1] — 2026-01-24
-**Release:** Aegis-Grid Research Package 2026.1  
-First public archival release. Captures the complete v1–v5 research sequence,
-Monte Carlo simulation results, formal security theorems, and the accompanying
-paper draft.
+## [2026.1] - 2026-01-24
 
-### Included Research States
-- `v1` — Baseline Fail-Secure (Rigid): deterministic, no adaptation
-- `v2` — Adaptive Thresholding Under Pressure: CAP-bounded parameter tuning
-- `v2_model` — Extended v2 model artefacts
-- `v3` — Agentic Elastic Defense: autonomous agent layer (L6)
-- `v3.3` — Extended Cyber-Physical Timing: tight physical deadline coupling
-- `v4` — Grid-Aware Security Constraints: grid-state-derived policies
-- `v5` — Quantum-Adversarial (Max Resilience): conceptual post-cryptographic model
+First public archival release. Captures the complete v1-v5 research sequence,
+Monte Carlo simulation results, formal security theorems, and paper draft.
 
-### Repository Improvements (post-initial-release)
-- Removed `error_log.txt` from version control
-- Removed `aegis_grid.egg-info/` from version control
-- Renamed `Pressure:` → `Pressure.md` (cross-platform compatibility)
-- Comprehensive `.gitignore` added
+### Research States
+- v1   - Baseline Fail-Secure (Rigid): deterministic, no adaptation
+- v2   - Adaptive Thresholding Under Pressure: CAP-bounded tuning
+- v3   - Agentic Elastic Defense: autonomous agent layer (L6)
+- v3.3 - Extended Cyber-Physical Timing: tight physical deadline coupling
+- v4   - Grid-Aware Security Constraints: grid-state-derived policies
+- v5   - Quantum-Adversarial (Max Resilience): post-cryptographic model
+
+### Repo Hygiene (post-release)
+- Removed error_log.txt from version control
+- Removed aegis_grid.egg-info/ from version control
+- Renamed 'Pressure:' to Pressure.md (cross-platform fix)
+- Comprehensive .gitignore added
 - GitHub Actions CI pipeline added
-- `CHANGELOG.md` added
-- Version tags applied to each research state
+- CHANGELOG.md added
+- Research-state tags applied to v1-v5
 
 ---
 
-## How to Cite a Specific Research State
+## Checkout a specific research state
 
-```bash
-git checkout tags/<tag-name>
-```
+    git checkout tags/research/v3-final
 
-See `README.md` § 10 for the full tagging and release philosophy.
+See README.md section 10 for the full tagging philosophy.

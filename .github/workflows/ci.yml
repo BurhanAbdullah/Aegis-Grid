@@ -2,9 +2,9 @@ name: Aegis-Grid CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   test:
@@ -12,10 +12,8 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -28,18 +26,18 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest pytest-cov
 
-      - name: Run tests
-        run: |
-          pytest tests/ -v --tb=short --cov=aegis_grid --cov-report=term-missing 2>/dev/null \
-            || pytest tests/ -v --tb=short 2>/dev/null \
-            || echo "No tests discovered — add tests to tests/ directory"
-
-      - name: Check for syntax errors in all Python files
+      - name: Syntax check all Python files
         run: |
           find . -name "*.py" -not -path "./.git/*" -not -path "./archive/*" | \
-          while read f; do
-            python -m py_compile "$f" && echo "OK: $f" || echo "SYNTAX ERROR: $f"
-          done
+          xargs -I{} python -m py_compile {} && echo "All files OK"
+
+      - name: Run tests
+        run: |
+          if [ -d tests ] && find tests -name "*.py" | grep -q .; then
+            pytest tests/ -v --tb=short
+          else
+            echo "No tests found yet - add them to tests/"
+          fi
 
   lint:
     runs-on: ubuntu-latest
@@ -48,10 +46,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install flake8
-        run: pip install flake8
-      - name: Lint with flake8
+      - name: Lint (errors only)
         run: |
-          # Warn only — don't fail CI on style issues for a research repo
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics \
-            --exclude=.git,archive,v1,v2,v3,v4,v5 || true
+          pip install flake8 -q
+          flake8 . --count --select=E9,F63,F7,F82 \
+            --exclude=.git,archive,v1,v2,v3,v4,v5 \
+            --show-source --statistics || true
