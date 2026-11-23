@@ -18,7 +18,7 @@ L6  detector / parameter policy                               aegis_pq/detector.
 L7  fallback controller at the plant interface                experiments (Milestone 6)
 ```
 
-## 2. Primitives (all from `cryptography` 50.0.1, OpenSSL 3.5.x backend)
+## 2. Primitives (all from `cryptography` 50.0.1, statically linked OpenSSL 4.0.2)
 
 | Function | Primitive | Standard |
 |---|---|---|

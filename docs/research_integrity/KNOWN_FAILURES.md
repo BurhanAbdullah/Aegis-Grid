@@ -23,5 +23,6 @@ with the fixing commit and the test that guards them.
 | KF-016 | M4 | Shaping at Δ = 2 ms delivers only 43 % of 20 ms-deadline event messages | EXP-005/006 | OPEN — reported; Δ = 1 ms meets it at ×4.3 bandwidth |
 | KF-017 | M5 | Every detector raises false adaptations in benign congestion episodes | EXP-007 | OPEN — reported |
 | KF-018 | M6 | AGC integrator wind-up causes +1.15 Hz overshoot after a 240 s command outage | EXP-008 | OPEN — follow-up EXP-012 |
-| KF-019 | M7 | AGP/1 handshake (≈5 ms, 20 kB) is slower and larger than TLS 1.3 with ML-KEM/ML-DSA (≈2.6 ms server-auth); per-message latency ≈2× TLS (Python record/AONT path) | EXP-009 | OPEN — reported |
+| KF-019 | M7 | AGP/1 handshake is slower than mutually authenticated TLS 1.3 with the same primitives (5.74 ms vs 4.79 ms wall, EXP-009 final); per-message latency ≈2× TLS (Python record/AONT path). Byte comparison was unmatched (TLS sent the CA certificate both ways, DEC-013) | EXP-009, EXP-013 | OPEN — reported |
 | KF-020 | M1–M7 | EXP-006/007/008 environment.json shows git_dirty=true caused only by an untracked result directory (provenance logic since fixed to separate untracked files) | environment.json | DOCUMENTED |
+| KF-021 | M1–M8 | Docs and code comments stated that `cryptography` uses OpenSSL 3.5; environment.json shows its statically linked OpenSSL is 4.0.2 (3.5.9 is Python `ssl`, used only by the TLS baseline) | environment.json, `backend.openssl_version_text()` | FIXED (text corrected) |

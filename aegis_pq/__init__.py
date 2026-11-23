@@ -13,7 +13,7 @@ aont        package-transform all-or-nothing transform (M3)
 erasure     systematic Reed-Solomon (k-of-n) erasure code over GF(2^8) (M3)
 pipeline    message -> AONT -> erasure code -> fixed-size encrypted packets (M3)
 
-All cryptographic primitives come from the `cryptography` package (OpenSSL 3.5
-backend). Nothing here implements ML-KEM, ML-DSA, AES or SHA-2 from scratch.
+All cryptographic primitives come from the `cryptography` package (statically linked
+OpenSSL 4.0 in the pinned build). Nothing here implements ML-KEM, ML-DSA, AES or SHA-2 from scratch.
 """
 __version__ = "6.0.0-dev"

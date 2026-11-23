@@ -35,7 +35,7 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Date:** 2026-11-23
 - **Issue:** R2 (protocol completeness), R1 (parameter sets, negotiation, native vs hybrid, handshake cost). No PQ code existed (BASELINE_AUDIT §3).
 - **Alternatives:** (a) narrow the paper to "AES-GCM with assumed PQ key exchange"; (b) use TLS 1.3 with hybrid groups only; (c) implement a purpose-built handshake on library primitives.
-- **Decision:** (c) for the proposed architecture, using `cryptography` 50.0.1 (OpenSSL 3.5 backend) for ML-KEM, ML-DSA, X25519, AES-GCM, HKDF, X.509 — no primitive implemented from scratch. TLS 1.3 is used as a **baseline** (Milestone 7), not discarded.
+- **Decision:** (c) for the proposed architecture, using `cryptography` 50.0.1 (statically linked OpenSSL 4.0.2; corrected 2026-11-23, KF-021) for ML-KEM, ML-DSA, X25519, AES-GCM, HKDF, X.509 — no primitive implemented from scratch. TLS 1.3 is used as a **baseline** (Milestone 7), not discarded.
 - **Scientific impact:** PQ costs become measurements of this implementation instead of imported literature values. A custom handshake has not had the scrutiny TLS 1.3 has; this is stated as a limitation and the paper must not claim the protocol is proven secure.
 - **Verification:** 46 security tests (`tests/security/test_protocol.py`); mutation smoke check (disabling replay, deadline or CA-signature checks makes ≥1 test fail).
 

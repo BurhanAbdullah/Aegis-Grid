@@ -33,7 +33,7 @@ are committed on `research-integrity-remediation`).
 - **Hypothesis (pre-run):** Full handshake CPU cost (both parties) is in the low milliseconds on x86-64 and dominated by ML-DSA signing; per-record AEAD cost is in microseconds.
 - **Method:** `python3 experiments/runners/exp002_crypto_bench.py experiments/configs/EXP-002_crypto_bench.json`; `perf_counter_ns`, warm-up 50, GC disabled during timing; 5000 samples (fast ops), 1000 (keygen/sign/cert validation), 300 handshakes per suite.
 - **Seed:** not applicable (keys from OS CSPRNG; timing study).
-- **Environment:** `environment.json` in run directory (Python 3.13.18, cryptography 50.0.1, OpenSSL 3.5.9, Intel Xeon 2.1 GHz VM).
+- **Environment:** `environment.json` in run directory (Python 3.13.18, cryptography 50.0.1 with OpenSSL 4.0.2, Python ssl with OpenSSL 3.5.9, Intel Xeon 2.1 GHz VM; corrected, KF-021).
 - **Result path:** `results/raw/EXP-002/run_20261123T165540Z/` (development run, uncommitted working tree — `git_dirty: true`). Superseded for the manuscript by the frozen run in Milestone 7.
 - **Outcome (dev run, medians):** ML-KEM-768 encaps 39 µs / decaps 36 µs; ML-DSA-65 sign 786 µs (p99 3786 µs, rejection-sampling tail) / verify 189 µs; AES-256-GCM 1 KiB ≈0.8 µs; record seal/open 3–7 µs; full handshake 3.4–4.7 ms CPU; handshake wire size 17.0–24.8 kB.
 - **Interpretation:** Handshake cost is small relative to a 50–100 ms budget on this machine but exceeds a 3 ms protection budget by itself; embedded devices were not measured.
