@@ -1,0 +1,5 @@
+git_commit=65f83bf4bcfd496c0265d1e550f7dfc1177d68a3
+python=Python 3.13.18
+platform=Linux-6.18.44-fc-v726-x86_64-with-glibc2.39
+pycryptodome=3.23.0
+date_utc=2026-11-23T16:47:01Z

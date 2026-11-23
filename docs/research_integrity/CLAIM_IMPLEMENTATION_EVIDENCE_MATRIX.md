@@ -1,0 +1,61 @@
+# Claim–Implementation–Evidence Matrix
+
+Living document. Each row is updated when a milestone changes its status; the
+history is in git. Status vocabulary: VERIFIED · IMPLEMENTED — NOT FULLY TESTED ·
+PARTIALLY IMPLEMENTED · SIMULATED · ANALYTICAL ONLY · PROPOSED · MISSING ·
+INCONSISTENT · NOT REPRODUCIBLE.
+
+Revision log of this file:
+- **M1 baseline (2026-11-23)** — statuses below reflect `main@65f83bf`.
+
+## A. Research components (baseline, Milestone 1)
+
+| Research component | Manuscript claim | Actual implementation (main@65f83bf) | Tests | Experimental evidence | Integrity status |
+|---|---|---|---|---|---|
+| Cryptographic protocol | ML-KEM + ML-DSA (FIPS 203/204), IND-CCA2 | AES-GCM helper class; RSA-2048 PKCS#1 v1.5 CA; no protocol state machine | none | none | MISSING |
+| Key establishment | Session key from PQ KEM | none (random `master_key = os.urandom(32)` in `main.py`) | none | none | MISSING |
+| Encryption | PQ encryption E_PQ | `AegisCrypt.seal` AES-GCM (random 16-B nonce from pycryptodome); unused by the experiment path | none | none | PARTIALLY IMPLEMENTED |
+| Authentication | ML-DSA signing | RSA-2048 sign/verify of a challenge; `SignatureEngine` = SHA-256(key‖data) | none (legacy verify scripts fail) | none | INCONSISTENT |
+| Replay protection | "Sequence number rejection" (Table 7) | none | none | none | MISSING |
+| Fragmentation | AONT, negligible MI for strict subsets | XOR pad + pad-as-fragment | none | EXP-001: 88.4 % of plaintext recovered from a strict subset | INCONSISTENT |
+| Reconstruction | All-or-nothing, order-independent | concatenation in received order | none | EXP-001: fails on reordered fragments | INCONSISTENT |
+| Traffic shaping | Constant rate λ, padded sizes, dummies | sleep interval = window/len(packets); no size padding | none | none | PARTIALLY IMPLEMENTED |
+| Traffic-analysis resistance | KS p>0.93, "indistinguishable" | none | none | no KS/classifier code in any branch | MISSING |
+| Adaptive detection | CAP Eq. (14), θ | `cap = 0.85·cap + error`, θ=0.35 | none | none (Fig. 9 no source) | INCONSISTENT |
+| Threshold selection | θ*=0.45 from sweep, FAR≈0 | constant 0.35 | none | none (Fig. 10 no source) | MISSING |
+| Packet loss | Bernoulli + Gilbert–Elliott, 2000 MC | Bernoulli (unseeded); "GE" script is i.i.d. | none | EXP-001 probe 2/3 | INCONSISTENT |
+| Cyber-physical model | Plant with safe set S_safe | none (`'execute' if status else 'drop'`; shell toy model in `v4/`) | none | none | MISSING |
+| Safety constraints | X(t) ∈ S_safe | none | none | none | MISSING |
+| Fallback control | U_safe applied when M̂=⊥ | binary drop | none | Fig. 11 hand-written CSV | MISSING |
+| Benchmarking | O(N) timing <45 ms; PQ costs from ARM Cortex-M literature | none | none | none | MISSING |
+| Baselines | TLS / IEC 62351 comparison tables | hand-assigned scores | none | none | ANALYTICAL ONLY (unsupported scores) |
+| Statistical analysis | 95 % CI, KS | Wald CI (negative bounds), no KS | none | EXP-001 probe 3 | INCONSISTENT |
+| Reproducibility | "All figures generated from simulation outputs" | most figures have no generator; no seeds | CI suppresses failures | EXP-000 | NOT REPRODUCIBLE |
+
+## B. Manuscript claim audit (baseline)
+
+Location refers to `ieee paper3.docx` section headings (the manuscript has no
+consistent section numbers — itself a defect).
+
+| # | Manuscript claim | Location | Evidence required | Evidence available (M1) | Status | Required action |
+|---|---|---|---|---|---|---|
+| C1 | Integrates ML-KEM/ML-DSA (FIPS 203/204) | Abstract, §III L1 | Working implementation + measurements | none | MISSING | Implement and measure (M2) or remove |
+| C2 | "All modelled properties are satisfied under sub-50 ms ... in simulations and emulations" | Abstract | Emulation runs | Emulation listed as *planned* in the same paper | INCONSISTENT | Remove "emulation" unless performed |
+| C3 | Adaptive agents reduce worst-case latency to 35 ms (from 48 ms) | Abstract, §IV, Table 5, Conclusion | Latency measurement under load | constants in `gen_v3_latency_compare_csv.py` | NO MEASUREMENT | Replace with measured result (M5/M7) |
+| C4 | GOOSE <4 ms motivation | §I | Evaluation at 3–4 ms | evaluation at 50 ms only | INCONSISTENT (Reviewer 2) | Scope traffic classes explicitly |
+| C5 | XOR-based AONT; I(M;F′)≈0; "no extractable information" | §III L2, Fig. 6 | Construction + proof/bound | XOR transform leaks (EXP-001) | INCONSISTENT | Replace construction, state computational bound (M3) |
+| C6 | Gu et al. [18] establish bounds | §III L2 | Correct citation | [18] is a COPA-DATA web page; Gu et al. is [24] | INCORRECT CITATION | Fix (M8) |
+| C7 | KS p>0.93 ⇒ indistinguishable | §IV, Fig. 7, Table 4/5 | Test code + traces | none | NO SOURCE | Multivariate attacker on held-out traces (M4) |
+| C8 | CAP crosses θ, θ*=0.45, FAR≈0, detection within 2 steps | §IV, Figs. 9–10 | Sweep code + data | none; θ=0.35 in code | NO SOURCE / INCONSISTENT | Formalise and evaluate vs EWMA/CUSUM (M5) |
+| C9 | Fail-secure: X(t)∈S_safe, "no instance of unsafe actuation" | §IV, Fig. 11, Prop. 5 | Plant model, safe-set analysis | none | MISSING | Named power-system model (M6) |
+| C10 | O(N) timing; T_total<45 ms; "proven 5 ms safety margin" | §IV Fig. 12, Conclusion | Timing measurements | none | NO SOURCE | Measure (M2/M7); remove "proven" |
+| C11 | Markov burst-loss (Gilbert–Elliott) results | §IV Fig. 5 | GE implementation | i.i.d. implementation | INCONSISTENT | Implement GE (M3) |
+| C12 | 2000 MC trials with 95 % CI | §IV Fig. 4 | Seeded runs, valid CI | unseeded; Wald CI with negative bounds | NOT REPRODUCIBLE | Wilson/Clopper–Pearson CI, seeds (M3) |
+| C13 | PQ overhead "modelled from published Cortex-M benchmarks" | §II, §IV | Citation + values used | no citation, no values in code | MISSING | Measure on available hardware; cite external values only as labelled references |
+| C14 | Baseline comparison (Tables 4, 6; Fig. 13) | §IV–V | Measured baselines at matched settings | hand-assigned scores | UNSUPPORTED | Implement TLS 1.3 / IEC 62351-style baselines (M7) |
+| C15 | "traffic-indistinguishable communication without compromising real-time determinism" | Conclusion | — | — | OVERCLAIM | Rewrite (M8) |
+| C16 | 2022 "Turkey blackout linked to a cyberattack" | §III L7 | Citation | none | UNCITED FACTUAL CLAIM | Verify or remove (M8) |
+| C17 | Frontiers study [31] confirms exponential-decay temporal structure | §III L6 | Statement in source | not verified | UNVERIFIED | Verify or remove (M8) |
+| C18 | Table 3 "Monte Carlo trials 2000", "Validity window 20–100 ms" | §IV Table 3 | Configs | partially (MC script only) | PARTIAL | Replace with config files |
+| C19 | Sections numbered II..VII inconsistently; "VII. CONCLUSION" only numbered heading | whole paper | — | — | FORMAT DEFECT | Fix (M8) |
+| C20 | Duplicate references [1]=[30], [13]=[20], [22]=[33] | References | — | — | FORMAT DEFECT | Fix (M8) |
