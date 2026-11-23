@@ -1,0 +1,60 @@
+{
+  "exp_id": "EXP-011",
+  "description": "Same attacker pipeline as EXP-006, unchanged, applied to EXP-010 traces",
+  "input_run": "LATEST:EXP-010",
+  "seed": 11011,
+  "split_sessions": {
+    "train": [
+      0,
+      24
+    ],
+    "validation": [
+      24,
+      32
+    ],
+    "test": [
+      32,
+      40
+    ]
+  },
+  "bootstrap": 2000,
+  "permutations": 1000,
+  "attacker_ASSUMPTION": "observer sees arrival time and UDP payload size of every datagram on the path and knows the 250 ms window alignment (stronger than a real observer)",
+  "models": {
+    "logreg": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ]
+    },
+    "knn": {
+      "n_neighbors": [
+        5,
+        15,
+        45
+      ]
+    },
+    "random_forest": {
+      "max_depth": [
+        4,
+        8,
+        null
+      ],
+      "n_estimators": [
+        300
+      ]
+    },
+    "hist_gbdt": {
+      "learning_rate": [
+        0.05,
+        0.1
+      ],
+      "max_leaf_nodes": [
+        15,
+        31
+      ]
+    }
+  }
+}

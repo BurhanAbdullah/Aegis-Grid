@@ -47,7 +47,8 @@ def environment():
         crypto_ossl = None
     return {
         "git_commit": _git("rev-parse", "HEAD"),
-        "git_dirty": bool(_git("status", "--porcelain")),
+        "git_dirty": bool(_git("status", "--porcelain", "--untracked-files=no")),   # tracked files modified
+        "git_untracked": [l[3:] for l in _git("status", "--porcelain").splitlines() if l.startswith("??")][:50],
         "python": platform.python_version(),
         "platform": platform.platform(),
         "machine": platform.machine(),

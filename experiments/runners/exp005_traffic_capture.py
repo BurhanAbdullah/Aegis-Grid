@@ -63,6 +63,17 @@ def receiver_proc(port_q, out_conn):
     out_conn.close()
 
 
+def producer_proc(msgs, t0_ns, k, n, q):
+    """Decoupled variant: AONT + RS run in a separate process at generation time,
+    so the emission loop only seals and sends (one record per tick)."""
+    snd = Sender(None, k, n)
+    for (t, c, b, dl, m) in msgs:
+        wait_until(t0_ns + int(t * 1e6))
+        mid, frags = snd.fragment(m)
+        q.put((mid, c, t, dl, frags))
+    q.put(None)
+
+
 def schedule(cfg, rng):
     w = cfg["workload_ASSUMPTION"]
     nwin = int(cfg["session_s"] * 1000 / cfg["window_ms"])
@@ -109,16 +120,32 @@ def run_condition(cfg, cond, msgs, pki):
                 s.sendto(r, dst)
             sends.append((time.monotonic_ns() - t0_ns, mid))
     else:
-        period = 2.0 if cond == "shaped_2ms" else 1.0
+        period = 2.0 if cond.startswith("shaped_2ms") else 1.0
+        decoupled = cond.endswith("_decoupled")
         sh = ConstantRateShaper(tx, period)
         end_ms = cfg["session_s"] * 1000 + cfg["drain_ms"]
         j, i = 0, 0
+        if decoupled:
+            import queue as _queue
+            pq = mp.Queue()
+            prod = mp.Process(target=producer_proc, args=(msgs, t0_ns, cfg["k"], cfg["n"], pq)); prod.start()
         while True:
             tt = i * period
             if tt > end_ms:
                 break
             wait_until(t0_ns + int(tt * 1e6))
-            while j < len(msgs) and msgs[j][0] <= tt:
+            while decoupled:
+                try:
+                    item = pq.get_nowait()
+                except _queue.Empty:
+                    break
+                if item is None:
+                    decoupled = "done"; break
+                mid, c, t, dl, frags = item
+                meta[mid] = (c, t, dl)
+                for f in frags:
+                    sh.enqueue(f, t0_ms + t, dl, tag=mid)
+            while not decoupled and j < len(msgs) and msgs[j][0] <= tt:
                 t, c, b, dl, m = msgs[j]
                 mid, frags = snd.fragment(m)
                 meta[mid] = (c, t, dl)
@@ -128,6 +155,8 @@ def run_condition(cfg, cond, msgs, pki):
             rec, tag = sh.tick(clock.now_ms())
             s.sendto(rec, dst)
             i += 1
+        if cond.endswith("_decoupled"):
+            prod.join()
         sends.append(("shaper_stats", sh.stats))
     time.sleep(0.05)
     s.sendto(END, dst)

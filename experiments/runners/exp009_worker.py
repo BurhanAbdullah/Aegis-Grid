@@ -51,7 +51,7 @@ def tls_run(a):
     import ssl
     from baselines import tls13
     ca, crt, key = tls13.make_pki(a["tmp"], a["sig"])
-    sctx, cctx = tls13.contexts(ca, crt, key)
+    sctx, cctx = tls13.contexts(ca, crt, key, a.get("mutual", False))
     cb, sb, grp, cipher = tls13.memory_handshake(sctx, cctx)
     ls = socket.socket(); ls.bind(("127.0.0.1", 0)); ls.listen(64); port = ls.getsockname()[1]
     q = mp.Queue()
@@ -81,7 +81,7 @@ def tls_run(a):
         time.sleep(0.2); t.close()
     lat = q.get(); p.join()
     per_record = 5 + 1 + 16           # TLS 1.3 record header + inner content type + AEAD tag
-    return {"protocol": "TLS 1.3", "group": tls13.GROUP_IDS.get(grp, hex(grp)), "cert": a["sig"], "cipher": cipher,
+    return {"protocol": "TLS 1.3", "group": tls13.GROUP_IDS.get(grp, hex(grp)), "cert": a["sig"], "cipher": cipher, "mutual_auth": a.get("mutual", False),
             "handshake_bytes_c2s": cb, "handshake_bytes_s2c": sb, "handshake_wall_us": summarize(hs),
             "oneway_us": summarize(lat), "wire_bytes_per_message": a["msg_bytes"] + 8 + per_record + 40,
             "transport": "TCP (TCP_NODELAY)", "note": "wire bytes include 40 B IPv4+TCP header, no options"}

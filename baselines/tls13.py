@@ -36,7 +36,11 @@ def make_pki(directory, sig="mldsa65", cn="rtu-07"):
         return b.sign(ikey, None if sig == "mldsa65" else hashes.SHA256())
     cak = gen(); can = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, "grid-ca")])
     cac = cert("grid-ca", cak, cak, can, True); sk = gen(); sc = cert(cn, sk, cak, can, False)
+    ck = gen(); cc = cert("cc-01", ck, cak, can, False)          # client certificate for mutual TLS
     p = lambda n: os.path.join(directory, f"{sig}_{n}")
+    open(p("cli.pem"), "wb").write(cc.public_bytes(serialization.Encoding.PEM))
+    open(p("cli.key"), "wb").write(ck.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
+                                                    serialization.NoEncryption()))
     open(p("ca.pem"), "wb").write(cac.public_bytes(serialization.Encoding.PEM))
     open(p("srv.pem"), "wb").write(sc.public_bytes(serialization.Encoding.PEM))
     open(p("srv.key"), "wb").write(sk.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
@@ -44,11 +48,16 @@ def make_pki(directory, sig="mldsa65", cn="rtu-07"):
     return p("ca.pem"), p("srv.pem"), p("srv.key")
 
 
-def contexts(ca, crt, key):
+def contexts(ca, crt, key, mutual=False):
+    """Server/client contexts. mutual=True requires and verifies a client certificate
+    (matched to AGP/1, which always authenticates both parties)."""
     s = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); s.minimum_version = ssl.TLSVersion.TLSv1_3
     s.load_cert_chain(crt, key)
     c = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT); c.minimum_version = ssl.TLSVersion.TLSv1_3
     c.load_verify_locations(ca)
+    if mutual:
+        s.verify_mode = ssl.CERT_REQUIRED; s.load_verify_locations(ca)
+        c.load_cert_chain(crt.replace("srv.pem", "cli.pem"), key.replace("srv.key", "cli.key"))
     return s, c
 
 

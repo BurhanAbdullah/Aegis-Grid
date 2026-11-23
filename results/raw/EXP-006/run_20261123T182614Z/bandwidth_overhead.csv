@@ -1,0 +1,5 @@
+condition,datagrams,payload_bytes,sessions,datagrams_per_s,wire_bytes_per_s,overhead_vs_unshaped,note
+padded,124810,12231380,40,260.0208333333333,32762.625,1.0826745470422567,shaped conditions include a drain period of 300 ms after each session
+shaped_1ms,492040,48219920,40,1025.0833333333333,129160.5,4.268241199636824,shaped conditions include a drain period of 300 ms after each session
+shaped_2ms,246040,24111920,40,512.5833333333334,64585.5,2.134294091453224,shaped conditions include a drain period of 300 ms after each session
+unshaped,124810,11030516,40,260.0208333333333,30260.825,1.0,shaped conditions include a drain period of 300 ms after each session

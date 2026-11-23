@@ -1,0 +1,57 @@
+{
+  "exp_id": "EXP-010",
+  "description": "Follow-up to EXP-005/006 (registered before running): EXP-006 found that the attacker separates active from steady windows under constant-rate shaping (AUC 0.79-0.83) through inter-arrival-time tails. Hypothesis: the leak comes from AONT+RS computation inside the emission loop; moving it to a separate producer process should reduce the attacker's AUC. New sessions (seed 10010); coupled shaped_2ms repeated as within-run reference.",
+  "seed": 10010,
+  "sessions": 40,
+  "session_s": 12.0,
+  "window_ms": 250.0,
+  "drain_ms": 300.0,
+  "k": 5,
+  "n": 7,
+  "max_message_bytes": 128,
+  "conditions": [
+    "shaped_2ms",
+    "shaped_2ms_decoupled",
+    "shaped_1ms_decoupled"
+  ],
+  "workload_ASSUMPTION": {
+    "telemetry": {
+      "period_ms": 40.0,
+      "bytes": 64,
+      "deadline_ms": 100.0,
+      "note": "periodic measurement report (PMU-like stream, 25 frames/s) present in every window"
+    },
+    "event": {
+      "offsets_ms": [
+        0,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "bytes": 96,
+      "deadline_ms": 20.0,
+      "note": "status-change burst with doubling retransmission interval, modelled on the GOOSE retransmission pattern"
+    },
+    "command": {
+      "offsets_ms": [
+        0,
+        20
+      ],
+      "bytes": 128,
+      "deadline_ms": 100.0,
+      "note": "supervisory select + operate pair"
+    },
+    "event_start_ms": [
+      10.0,
+      120.0
+    ],
+    "classes": [
+      "steady",
+      "event",
+      "command"
+    ]
+  }
+}

@@ -21,3 +21,15 @@ def test_tls13_pq_group_and_mldsa_cert_verified(tmp_path):
     assert ssl.OPENSSL_VERSION.startswith("OpenSSL 3.5")
     assert tls13.GROUP_IDS.get(grp) == "X25519MLKEM768"   # default group of OpenSSL 3.5, verified on the wire
     assert sb > 5000                                       # ML-DSA-65 certificate chain + signature
+
+
+def test_tls13_mutual_auth_requires_client_cert(tmp_path):
+    ca, crt, key = tls13.make_pki(str(tmp_path), "mldsa65")
+    sctx, cctx = tls13.contexts(ca, crt, key, mutual=True)
+    cb, sb, grp, _ = tls13.memory_handshake(sctx, cctx)
+    assert cb > 5000                                       # client now sends an ML-DSA-65 certificate + signature
+    sctx2, _ = tls13.contexts(ca, crt, key, mutual=True)
+    _, cnoc = tls13.contexts(ca, crt, key, mutual=False)
+    import pytest
+    with pytest.raises(Exception):
+        tls13.memory_handshake(sctx2, cnoc)
