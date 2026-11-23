@@ -112,7 +112,8 @@ def main(cfg_path):
             raw[f"record open {n}B ({s.name})"] = timeit(lambda: b_ch.open(next(it)), NF, W) if len(recs) >= NF + W else []
 
     # ---- write raw samples (long format) and summary
-    with open(os.path.join(run, "samples_us.csv"), "w", newline="") as f:
+    import gzip
+    with gzip.open(os.path.join(run, "samples_us.csv.gz"), "wt", newline="") as f:
         w = csv.writer(f); w.writerow(["operation", "sample_index", "time_us"])
         for op, v in raw.items():
             for j, x in enumerate(v):
