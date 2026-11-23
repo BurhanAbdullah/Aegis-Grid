@@ -122,6 +122,88 @@ def fig_cap():
     save(fig, "Fig7_cap_vs_baselines", d, [r])
 
 
+def fig_traffic():
+    r6 = run("EXP-006"); runs = [r6]
+    R = pd.read_csv(os.path.join(r6, "classifier_test_results.csv")); R["source"] = "EXP-006"
+    ov = pd.read_csv(os.path.join(r6, "bandwidth_overhead.csv"))
+    try:
+        r11 = run("EXP-011"); R11 = pd.read_csv(os.path.join(r11, "classifier_test_results.csv")); R11["source"] = "EXP-011"
+        R11 = R11[R11.condition.str.endswith("decoupled") | (R11.condition == "shaped_2ms")]
+        R11["condition"] = R11.condition.where(R11.condition != "shaped_2ms", "shaped_2ms (repeat)")
+        R = pd.concat([R, R11]); runs.append(r11)
+    except SystemExit:
+        pass
+    B = R[R.task == "binary"]
+    conds = list(dict.fromkeys(B.condition))
+    models = ["logreg", "knn", "random_forest", "hist_gbdt"]
+    fig, ax = plt.subplots(1, 2, figsize=(7.0, 2.7), gridspec_kw={"width_ratios": [2.2, 1]})
+    w = 0.2
+    for i, m in enumerate(models):
+        s = B[B.model == m].set_index("condition").reindex(conds)
+        ax[0].errorbar(np.arange(len(conds)) + (i - 1.5) * w, s.roc_auc, yerr=[s.roc_auc - s.roc_auc_ci_lo, s.roc_auc_ci_hi - s.roc_auc],
+                       fmt="o", ms=3.5, color=C[i], label=m.replace("_", " "), elinewidth=1)
+    ax[0].axhline(0.5, color=MUTED, ls=":", lw=1); ax[0].text(len(conds) - 0.6, 0.51, "chance", fontsize=6, color=MUTED, ha="right")
+    ax[0].set_xticks(range(len(conds))); ax[0].set_xticklabels([c.replace("_", "\n", 1) for c in conds], fontsize=6.3)
+    ax[0].set_ylim(0.4, 1.02); ax[0].set_ylabel("Test ROC-AUC (steady vs active)\n95 % session-bootstrap CI")
+    ax[0].legend(fontsize=6.3, ncol=4, loc="lower left"); ax[0].set_title("(a)", loc="left", fontsize=8)
+    o = ov.set_index("condition").reindex(["unshaped", "padded", "shaped_2ms", "shaped_1ms"])
+    ax[1].bar(range(4), o.wire_bytes_per_s / 1e3, color=[C[1], C[1], C[0], C[0]], width=0.6)
+    ax[1].set_xticks(range(4)); ax[1].set_xticklabels(["unshaped", "padded", "shaped\n2 ms", "shaped\n1 ms"], fontsize=6.3)
+    ax[1].set_ylabel("Wire throughput (kB/s)"); ax[1].set_title("(b)", loc="left", fontsize=8)
+    for i, v in enumerate(o.overhead_vs_unshaped):
+        ax[1].text(i, o.wire_bytes_per_s.iloc[i] / 1e3 + 2, f"×{v:.2f}", ha="center", fontsize=6)
+    fig.tight_layout(); save(fig, "Fig6_traffic_attacker", R, runs)
+
+
+def fig_latency():
+    r = run("EXP-005"); m = pd.read_csv(os.path.join(r, "messages.csv.gz"))
+    fig, ax = plt.subplots(1, 3, figsize=(7.0, 2.4), sharey=True)
+    conds = ["unshaped", "padded", "shaped_2ms", "shaped_1ms"]
+    for j, cl in enumerate(["event", "command", "telemetry"]):
+        for i, c in enumerate(conds):
+            x = np.sort(m[(m["class"] == cl) & (m.condition == c) & m.delivered].latency_ms.values)
+            n = ((m["class"] == cl) & (m.condition == c)).sum()
+            ax[j].step(x, np.arange(1, len(x) + 1) / n, where="post", color=C[i], label=c.replace("_", " "))
+        dl = m[m["class"] == cl].deadline_ms.iloc[0]
+        ax[j].axvline(dl, color=MUTED, ls=":", lw=1); ax[j].set_xscale("log")
+        ax[j].set_title(f"({'abc'[j]}) {cl}, deadline {dl:g} ms", loc="left", fontsize=7.5)
+        ax[j].set_xlabel("End-to-end latency (ms)")
+    ax[0].set_ylabel("Fraction of messages\ndelivered by latency")
+    fig.tight_layout(); h, l = ax[0].get_legend_handles_labels()
+    fig.legend(h, l, loc="upper center", ncol=4, fontsize=6.5, bbox_to_anchor=(0.5, 0.0))
+    summ = m.groupby(["condition", "class"]).agg(delivered=("delivered", "mean"), p50=("latency_ms", "median"),
+                                                 p99=("latency_ms", lambda x: x.quantile(.99))).reset_index()
+    save(fig, "Fig5b_latency_by_class", summ, [r])
+
+
+def fig_agc():
+    r = run("EXP-008"); t = pd.read_csv(os.path.join(r, "timeseries.csv.gz")); cfg = json.load(open(os.path.join(r, "config.json")))
+    f0 = cfg["limits_ASSUMPTION"]["f_nominal_hz"]; band = cfg["limits_ASSUMPTION"]["steady_state_band_hz"]
+    fig, ax = plt.subplots(1, 2, figsize=(7.0, 2.6), sharey=False)
+    for i, sc in enumerate(["no_attack", "drop_60s", "drop_120s", "drop_240s"]):
+        s = t[(t.scenario == sc) & (t.receiver == "secure_failsecure")]
+        ax[0].plot(s.t_s, s.f_hz - f0, color=C[i], label=sc.replace("_", " "))
+    a0 = cfg["attack_start_s"]
+    ax[0].axvspan(a0, a0 + 240, color="#f3f2ee", zorder=0)
+    for y in (-band, band):
+        ax[0].axhline(y, color=MUTED, ls=":", lw=1)
+    ax[0].set_xlabel("Time (s)"); ax[0].set_ylabel("Frequency deviation (Hz)")
+    ax[0].set_title("(a) AGC commands dropped; U_safe = hold", loc="left", fontsize=7.5); ax[0].legend(fontsize=6.3)
+    for i, (sc, rc, lab) in enumerate([("forge_60s", "insecure_accept_all", "forged, unauthenticated"),
+                                       ("forge_60s", "secure_failsecure", "forged, AGP/1 fail-secure"),
+                                       ("replay_60s", "insecure_accept_all", "replayed, unauthenticated"),
+                                       ("delay_10s_60s", "insecure_accept_all", "10 s stale, unauthenticated")]):
+        s = t[(t.scenario == sc) & (t.receiver == rc)]
+        ax[1].plot(s.t_s, s.f_hz - f0, color=C[[1, 0, 2, 3][i]], label=lab)
+    ax[1].axvspan(a0, a0 + 60, color="#f3f2ee", zorder=0)
+    for y in (-band, band):
+        ax[1].axhline(y, color=MUTED, ls=":", lw=1)
+    ax[1].set_xlabel("Time (s)"); ax[1].set_title("(b) forged / replayed / delayed commands", loc="left", fontsize=7.5)
+    ax[1].legend(fontsize=6.3)
+    fig.tight_layout()
+    save(fig, "Fig8_agc_ieee14", pd.read_csv(os.path.join(r, "summary.csv")), [r])
+
+
 if __name__ == "__main__":
     which = sys.argv[1:] or [n for n in dir() if n.startswith("fig_")]
     for n in which:

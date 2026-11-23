@@ -85,13 +85,18 @@ def simulate(cfg, sc, receiver, pki):
     a0, a1 = cfg["attack_start_s"], cfg["attack_start_s"] + sc["duration_s"]
     recorded, delayed, log = [[] for _ in gov], [], []
     accepted = rejected = 0
+    acked_prev = True
     t = 0.5
     while t < cfg["t_end_s"] - 1e-9:
         t_next = round(t + T, 6)
         clock.t_ms = t_base + t * 1000
         w = float(np.mean(ss.GENROU.omega.v))
         ace = beta * (w - 1.0)
-        pagc -= ki * T * ace
+        # anti-windup option: integrate only if every plant acknowledged the previous command
+        # (acknowledgement = the plant accepted a valid, fresh command in the previous round;
+        # the acknowledgement path is assumed to be authenticated and subject to the same attack)
+        if not cfg.get("anti_windup", False) or acked_prev:
+            pagc -= ki * T * ace
         attack_on = sc["attack"] != "none" and a0 <= t < a1
         inbox = [[] for _ in gov]
         for i, L in enumerate(links):
@@ -113,14 +118,18 @@ def simulate(cfg, sc, receiver, pki):
         for (td, i, recs) in [d for d in delayed if d[0] <= t]:
             inbox[i] += recs
         delayed = [d for d in delayed if d[0] > t]
+        acked_now = [False] * len(links)
         for i, L in enumerate(links):
             if not inbox[i]:
                 continue
             v = L.deliver(inbox[i])
+            if v is not None and abs(v - pagc / len(gov)) < 1e-12:
+                acked_now[i] = True
             if v is not None:
                 applied[i] = v; accepted += 1
             else:
                 rejected += 1
+        acked_prev = all(acked_now)
         ss.TGOV1.set(src="paux0", idx=gov, attr="v", value=list(applied * R))
         # load ramp, applied at the AGC instants
         dP = max(0.0, (t - cfg["ramp_start_s"])) * sc["ramp_pu_per_min"] / 60.0
