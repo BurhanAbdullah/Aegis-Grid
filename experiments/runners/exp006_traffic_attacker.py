@@ -200,8 +200,9 @@ def main(path):
                                     sessions=("session", "nunique")).reset_index()
     ov["datagrams_per_s"] = ov.datagrams / (ov.sessions * dur)
     ov["wire_bytes_per_s"] = (ov.payload_bytes + 28 * ov.datagrams) / (ov.sessions * dur)
-    base = float(ov[ov.condition == "unshaped"].wire_bytes_per_s.iloc[0])
-    ov["overhead_vs_unshaped"] = ov.wire_bytes_per_s / base
+    # EXP-011 input (EXP-010) has no unshaped condition: the ratio is then left empty (NaN)
+    base = ov[ov.condition == "unshaped"].wire_bytes_per_s
+    ov["overhead_vs_unshaped"] = ov.wire_bytes_per_s / float(base.iloc[0]) if len(base) else np.nan
     ov["note"] = "shaped conditions include a drain period of %g ms after each session" % cap["drain_ms"]
     ov.to_csv(os.path.join(run, "bandwidth_overhead.csv"), index=False)
     L = msgs.groupby(["condition", "class"]).agg(
