@@ -28,7 +28,7 @@ def main(path):
         if out.returncode != 0:
             raise RuntimeError(out.stderr)
         r = json.loads(out.stdout.strip().splitlines()[-1]); r["name"] = c["name"]
-        if c["mode"] == "tls" and r["group"] != c["groups"]:
+        if c["mode"] == "tls" and r["group"].lower() != c["groups"].lower():
             raise RuntimeError(f"negotiated {r['group']} != requested {c['groups']}")
         raw.append(r)
         hs = r.get("handshake_wall_us", {})
