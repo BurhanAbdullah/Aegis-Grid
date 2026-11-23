@@ -1,0 +1,26 @@
+{
+  "AGP1_MLKEM768_MLDSA65_AES256GCM_SHA384": {
+    "client_hello": 1246,
+    "server_hello": 9963,
+    "client_finish": 8833,
+    "total": 20042
+  },
+  "AGP1_X25519MLKEM768_MLDSA65_AES256GCM_SHA384": {
+    "client_hello": 1278,
+    "server_hello": 9995,
+    "client_finish": 8833,
+    "total": 20106
+  },
+  "AGP1_MLKEM1024_MLDSA87_AES256GCM_SHA384": {
+    "client_hello": 1630,
+    "server_hello": 12401,
+    "client_finish": 10791,
+    "total": 24822
+  },
+  "AGP1_MLKEM768_MLDSA44_AES256GCM_SHA256": {
+    "client_hello": 1246,
+    "server_hello": 8418,
+    "client_finish": 7288,
+    "total": 16952
+  }
+}

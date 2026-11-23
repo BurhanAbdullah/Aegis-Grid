@@ -1,0 +1,66 @@
+[
+  {
+    "model": "bernoulli",
+    "mean_loss": 0.1,
+    "mean_burst": 1,
+    "k": 5,
+    "n": 7,
+    "seed": 20361123,
+    "messages": 3000,
+    "delivered": 2914,
+    "p_delivery": 0.9713333333333334,
+    "ci95_lo": 0.9647328426363577,
+    "ci95_hi": 0.976728295965235,
+    "receiver_rejects": {
+      "insufficient_fragments": 86
+    }
+  },
+  {
+    "model": "bernoulli",
+    "mean_loss": 0.05,
+    "mean_burst": 1,
+    "k": 10,
+    "n": 10,
+    "seed": 20361124,
+    "messages": 3000,
+    "delivered": 1791,
+    "p_delivery": 0.597,
+    "ci95_lo": 0.5793347179182267,
+    "ci95_hi": 0.6144171854290601,
+    "receiver_rejects": {
+      "insufficient_fragments": 1209
+    }
+  },
+  {
+    "model": "gilbert",
+    "mean_loss": 0.05,
+    "mean_burst": 5,
+    "k": 10,
+    "n": 13,
+    "seed": 20361125,
+    "messages": 3000,
+    "delivered": 2763,
+    "p_delivery": 0.921,
+    "ci95_lo": 0.9108004647994692,
+    "ci95_hi": 0.9301227445738065,
+    "receiver_rejects": {
+      "insufficient_fragments": 228
+    }
+  },
+  {
+    "model": "gilbert",
+    "mean_loss": 0.1,
+    "mean_burst": 5,
+    "k": 5,
+    "n": 5,
+    "seed": 20361126,
+    "messages": 3000,
+    "delivered": 2457,
+    "p_delivery": 0.819,
+    "ci95_lo": 0.8048173718835159,
+    "ci95_hi": 0.832366722629726,
+    "receiver_rejects": {
+      "insufficient_fragments": 394
+    }
+  }
+]
