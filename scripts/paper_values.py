@@ -46,6 +46,10 @@ def main():
         V[f"open64_{k}_med_us"] = f(s.loc[f"record open 64B ({name})", "median_us"], 1)
     wb = json.load(open(os.path.join(r, "handshake_wire_bytes.json")))
     V["hs_wire_bytes"] = wb
+    e = json.load(open(os.path.join(r, "environment.json")))
+    V.update(env_cpu=e["cpu_model"], env_cores=e["cpu_count"], env_python=e["python"], env_crypto=e["packages"]["cryptography"],
+             env_crypto_openssl=e["cryptography_openssl"].split()[1], env_ssl_openssl=e["python_ssl_openssl"].split()[1],
+             env_sklearn=e["packages"]["scikit-learn"], env_andes=e["packages"]["andes"])
     for k, name in {"0101": "AGP1_MLKEM768_MLDSA65_AES256GCM_SHA384", "0102": "AGP1_X25519MLKEM768_MLDSA65_AES256GCM_SHA384",
                     "0201": "AGP1_MLKEM1024_MLDSA87_AES256GCM_SHA384", "0301": "AGP1_MLKEM768_MLDSA44_AES256GCM_SHA256"}.items():
         V[f"hs{k}_bytes"] = int(wb[name]["total"])
@@ -149,6 +153,8 @@ def main():
         V[f"p9_{i}_name"] = x.configuration
         for m in ("handshake_wall_ms_median", "handshake_wall_ms_p99", "handshake_bytes_total", "oneway_us_median", "oneway_us_p99", "wire_bytes_per_96B_message"):
             V[f"p9_{i}_{m}"] = None if pd.isna(x[m]) else f(x[m], 2)
+    V["p9_ratio_agp_tls"] = f(V["p9_6_handshake_wall_ms_median"] / V["p9_0_handshake_wall_ms_median"], 1)
+    assert "0x0101" in V["p9_6_name"] and "mutual" in V["p9_0_name"] and "X25519MLKEM768" in V["p9_0_name"]
     # EXP-013 TLS chain-matched
     try:
         r = latest("EXP-013"); SRC["EXP-013"] = r
