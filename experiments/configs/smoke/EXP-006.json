@@ -1,0 +1,59 @@
+{
+  "exp_id": "EXP-006",
+  "description": "Passive traffic-analysis attacker on EXP-005 traces: per-window activity classification (steady / event / command and steady vs active) with session-disjoint train/validation/test splits (SMOKE: reduced model grid; k-NN k <= training windows)",
+  "input_run": "LATEST:EXP-005",
+  "seed": 6006,
+  "split_sessions": {
+    "train": [
+      0,
+      3
+    ],
+    "validation": [
+      3,
+      4
+    ],
+    "test": [
+      4,
+      6
+    ]
+  },
+  "bootstrap": 50,
+  "permutations": 20,
+  "attacker_ASSUMPTION": "observer sees arrival time and UDP payload size of every datagram on the path and knows the 250 ms window alignment (stronger than a real observer)",
+  "models": {
+    "logreg": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ]
+    },
+    "knn": {
+      "n_neighbors": [
+        3,
+        5
+      ]
+    },
+    "random_forest": {
+      "max_depth": [
+        4,
+        8,
+        null
+      ],
+      "n_estimators": [
+        50
+      ]
+    },
+    "hist_gbdt": {
+      "learning_rate": [
+        0.05,
+        0.1
+      ],
+      "max_leaf_nodes": [
+        15,
+        31
+      ]
+    }
+  }
+}

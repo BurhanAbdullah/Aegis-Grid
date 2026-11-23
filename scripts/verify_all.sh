@@ -28,8 +28,8 @@ bad = {k: (v, version(k)) for k, v in req.items() if version(k) != v}
 assert not bad, bad
 assert ssl.OPENSSL_VERSION.startswith("OpenSSL 3.5"), ssl.OPENSSL_VERSION
 PY
-then record "environment (pinned versions, OpenSSL 3.5)" PASS "requirements-remediation.txt matched"
-else record "environment (pinned versions, OpenSSL 3.5)" FAIL "version mismatch; see requirements-remediation.txt"; fi
+then record "environment (pinned versions)" PASS "requirements-remediation.txt matched"
+else record "environment (pinned versions)" FAIL "version mismatch; see requirements-remediation.txt"; fi
 
 # 2. byte-compile new code
 run "compile aegis_pq baselines experiments" python3 -m compileall -q aegis_pq baselines experiments
@@ -76,6 +76,12 @@ if [ $SMOKE = 1 ]; then
   run "smoke EXP-003" python3 experiments/runners/exp003_reliability.py experiments/configs/smoke/EXP-003.json
   run "smoke EXP-007" python3 experiments/runners/exp007_cap_detection.py experiments/configs/smoke/EXP-007.json
   run "smoke EXP-009" python3 experiments/runners/exp009_protocol_baselines.py experiments/configs/smoke/EXP-009.json
+  run "smoke EXP-002" python3 experiments/runners/exp002_crypto_bench.py experiments/configs/smoke/EXP-002.json
+  run "smoke EXP-004" python3 experiments/runners/exp004_partial_capture.py experiments/configs/smoke/EXP-004.json
+  run "smoke EXP-005" python3 experiments/runners/exp005_traffic_capture.py experiments/configs/smoke/EXP-005.json
+  run "smoke EXP-006 (on smoke EXP-005)" python3 experiments/runners/exp006_traffic_attacker.py experiments/configs/smoke/EXP-006.json
+  run "smoke EXP-008" python3 experiments/runners/exp008_cyberphysical_agc.py experiments/configs/smoke/EXP-008.json
+  run "smoke EXP-013" python3 experiments/runners/exp013_tls_chain_matched.py experiments/configs/smoke/EXP-013.json
 else
   record "experiment smoke runs" SKIPPED "pass --smoke to run (writes to a temporary directory)"
 fi

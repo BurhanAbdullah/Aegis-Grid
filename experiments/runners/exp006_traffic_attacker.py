@@ -105,7 +105,11 @@ def main(path):
     cfg = load_config(path)
     src = cfg["input_run"]
     if src.startswith("LATEST:"):
-        src = sorted(glob.glob(os.path.join(ROOT, "results", "raw", src[7:], "run_*")))[-1]
+        base = os.environ.get("AEGIS_RESULTS_DIR", os.path.join(ROOT, "results", "raw"))
+        done = [d for d in sorted(glob.glob(os.path.join(base, src[7:], "run_*")))
+                if os.path.exists(os.path.join(d, "status.json"))
+                and json.load(open(os.path.join(d, "status.json")))["status"] == "COMPLETED"]
+        src = done[-1]                      # latest COMPLETED run (in-progress and failed runs skipped)
     cfg["input_run_resolved"] = os.path.relpath(src, ROOT)
     run = start(cfg["exp_id"], cfg)
     rng = np.random.default_rng(cfg["seed"])
