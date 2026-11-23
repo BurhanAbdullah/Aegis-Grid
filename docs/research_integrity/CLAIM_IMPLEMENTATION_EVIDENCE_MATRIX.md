@@ -72,3 +72,11 @@ consistent section numbers — itself a defect).
 | C18 | Table 3 "Monte Carlo trials 2000", "Validity window 20–100 ms" | §IV Table 3 | Configs | partially (MC script only) | PARTIAL | Replace with config files |
 | C19 | Sections numbered II..VII inconsistently; "VII. CONCLUSION" only numbered heading | whole paper | — | — | FORMAT DEFECT | Fix (M8) |
 | C20 | Duplicate references [1]=[30], [13]=[20], [22]=[33] | References | — | — | FORMAT DEFECT | Fix (M8) |
+
+## A3. Update after Milestone 3
+| Claim | New status | Evidence |
+|---|---|---|
+| C5 (AONT, no information from partial sets) | REPLACED — package-transform AONT, computational bound, scoped to key-compromise; ANALYTICALLY DERIVED + SIMULATION RESULT | aegis_pq/aont.py, docs/fragmentation_aont.md, EXP-004 |
+| C11 (Markov burst-loss results) | IMPLEMENTED (Gilbert–Elliott); manuscript conclusion contradicted (burst less harmful for k=n) | aegis_pq/netmodel.py, EXP-003 |
+| C12 (MC with 95 % CI) | IMPLEMENTED — seeded, Wilson CI, validated against real pipeline | EXP-003 abstraction_check.json |
+| Reconstruction / DoS (R2) | k-of-n Reed–Solomon added (scope addition, DEC-008) | aegis_pq/erasure.py, EXP-003 |

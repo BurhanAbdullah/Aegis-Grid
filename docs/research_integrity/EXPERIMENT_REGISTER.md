@@ -38,3 +38,23 @@ are committed on `research-integrity-remediation`).
 - **Outcome (dev run, medians):** ML-KEM-768 encaps 39 µs / decaps 36 µs; ML-DSA-65 sign 786 µs (p99 3786 µs, rejection-sampling tail) / verify 189 µs; AES-256-GCM 1 KiB ≈0.8 µs; record seal/open 3–7 µs; full handshake 3.4–4.7 ms CPU; handshake wire size 17.0–24.8 kB.
 - **Interpretation:** Handshake cost is small relative to a 50–100 ms budget on this machine but exceeds a 3 ms protection budget by itself; embedded devices were not measured.
 - **Manuscript relevance:** R1 (PQC benchmarks, handshake overhead), R2 (protocol costs).
+
+## EXP-003 — Delivery probability under i.i.d. and burst loss
+- **Research question:** How does the probability that a message is reconstructed depend on (k, n), loss rate and burstiness, and does erasure coding or two-path transmission help?
+- **Hypothesis (pre-run):** k = n delivery decays as (1−p)^n under i.i.d. loss; burst loss at equal mean rate changes the decay; k < n restores delivery under i.i.d. loss.
+- **Method:** `python3 experiments/runners/exp003_reliability.py experiments/configs/EXP-003_reliability.json`. Part A Monte Carlo (20 000 trials/point, Wilson 95 % CI, analytic i.i.d. reference); Part B real pipeline (AEAD records + receiver, 3000 messages, 4 cases); Part C byte overhead.
+- **Seed:** 20261123 + point index (Part A); 20361123 + case index (Part B).
+- **Result path:** `results/raw/EXP-003/run_20261123T170017Z/` (development run on uncommitted tree; frozen rerun in M7).
+- **Outcome:** k = n Bernoulli 5 %: 0.774 (5/5) → 0.212 (30/30), matching (1−p)^n. Gilbert 5 %, burst 5: 0.909 → 0.702. Coded Bernoulli 10 %: 0.977–0.999; Gilbert 10 % burst 5: ≈0.85–0.91. Two-path: no benefit under burst. Abstraction check: 4/4 CIs overlap.
+- **Interpretation:** Burst loss is less harmful than i.i.d. for k = n (contradicts manuscript). Erasure coding is necessary for availability. Label: SIMULATION RESULT.
+- **Manuscript relevance:** R2 (DoS, erasure coding, multipath), manuscript Figs. 4–5 replaced.
+
+## EXP-004 — Partial-capture plaintext recovery
+- **Research question:** How much plaintext can an observer with exposed record keys recover from k−1 fragments, legacy XOR vs AONT+RS?
+- **Hypothesis (pre-run):** legacy XOR leaks most bytes; AONT+RS recovery equals byte-guessing chance (1/256).
+- **Method:** `python3 experiments/runners/exp004_partial_capture.py experiments/configs/EXP-004_partial_capture.json`; 2000 random 256-byte messages per configuration. Legacy: unmask all held fragments with the pad (N−1 of N held, pad included). AONT+RS: fill the missing shard with zeros, RS-decode, invert the AONT ignoring the integrity check.
+- **Seed:** 4242.
+- **Result path:** `results/raw/EXP-004/run_20261123T170052Z/`.
+- **Outcome:** XOR 0.750 (N=5), 0.889, 0.947, 0.966 (N=30). AONT+RS mean 0.0039–0.0040, max 0.027.
+- **Interpretation:** Confirms the construction change (DEC-008). This is an empirical check of one attack strategy, not a proof; the bound is in docs/fragmentation_aont.md. Label: SIMULATION RESULT.
+- **Manuscript relevance:** R2 (AONT security), claim C5.

@@ -1,0 +1,26 @@
+[
+  {
+    "case": "bernoulli loss=0.1 burst=1 k=5 n=7",
+    "pipeline": 0.9713333333333334,
+    "montecarlo": 0.9767,
+    "ci_overlap": true
+  },
+  {
+    "case": "bernoulli loss=0.05 burst=1 k=10 n=10",
+    "pipeline": 0.597,
+    "montecarlo": 0.59645,
+    "ci_overlap": true
+  },
+  {
+    "case": "gilbert loss=0.05 burst=5 k=10 n=13",
+    "pipeline": 0.921,
+    "montecarlo": 0.9259,
+    "ci_overlap": true
+  },
+  {
+    "case": "gilbert loss=0.1 burst=5 k=5 n=5",
+    "pipeline": 0.819,
+    "montecarlo": 0.8198,
+    "ci_overlap": true
+  }
+]

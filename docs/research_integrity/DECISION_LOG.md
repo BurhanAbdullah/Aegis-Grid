@@ -48,3 +48,11 @@ Entries are append-only; superseded decisions are marked, not deleted.
 ## DEC-007 — Benchmark scope and labelling
 - **Date:** 2026-11-23
 - **Decision:** All timing numbers are HARDWARE MEASUREMENTS on a virtualised x86-64 VM (EXP-002). They are not presented as embedded/RTU/Cortex-M results. If published embedded benchmarks are cited, they are labelled "external reference value" with source.
+
+## DEC-008 — Replace the XOR "AONT"; add k-of-n erasure coding (scope change)
+- **Date:** 2026-11-23
+- **Issue:** R2: XOR transform is not IT-secure and needs a bound; all-fragments reconstruction is a DoS amplifier; evaluate erasure coding and multipath. EXP-001/EXP-004 show the legacy transform leaks 75–97 % of plaintext from N−1 fragments.
+- **Alternatives:** (a) keep XOR and narrow the claim; (b) Shamir secret sharing (IT-secure, n× expansion); (c) package-transform AONT + Reed–Solomon (computational, ≈n/k expansion).
+- **Decision:** (c). The legacy transform stays in `core/` only as the EXP-004 comparison. The layer is renamed "package-transform AONT" and the claim is computational (docs/fragmentation_aont.md §3). k-of-n erasure coding is a **scope addition**: k = n reproduces the original design; k < n is evaluated as the availability fix.
+- **Scientific impact:** The "no information from partial sets" claim survives only as a computational, key-compromise-scoped statement. A negative finding is reported: burst loss is less harmful than i.i.d. loss for k = n (EXP-003), contrary to the manuscript.
+- **Verification:** unit/integration tests (AONT round-trip, tamper rejection, MDS any-k decode, GE sampler equivalence, pipeline exactly-once delivery); EXP-003 abstraction check.

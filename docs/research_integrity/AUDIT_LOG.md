@@ -9,3 +9,4 @@ Chronological, append-only.
 - **16:55 — Manuscript figures** extracted from the author's docx and matched to repository data (BASELINE_AUDIT §5).
 - **M1 complete.** Deliverables: `BASELINE_AUDIT.md`, `CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md`, `DECISION_LOG.md` (DEC-001…004), `EXPERIMENT_REGISTER.md` (EXP-000/001), `KNOWN_FAILURES.md` (KF-001…012).
 - **17:05 — M2.** AGP/1 implemented (aegis_pq/), 46 security tests pass, mutation smoke detects disabled replay/deadline/CA checks; EXP-002 dev benchmark run.
+- **17:20 — M3.** Package-transform AONT + RS(k,n) + Gilbert–Elliott implemented; EXP-003/004 run; DEC-008; KF-004…007 fixed, KF-013/014 opened.
