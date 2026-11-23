@@ -20,8 +20,13 @@ SOURCES = []
 
 
 def run(exp, prefer=None):
-    runs = sorted(d for d in glob.glob(os.path.join(ROOT, "results", "raw", exp, "run_*"))
-                  if json.load(open(os.path.join(d, "status.json")))["status"] == "COMPLETED")
+    def usable(d):
+        p = os.path.join(d, "status.json")
+        if not os.path.exists(p):
+            return False                                   # run in progress
+        st = json.load(open(p))
+        return st["status"] == "COMPLETED" and "SUPERSEDED" not in st.get("note", "")
+    runs = sorted(d for d in glob.glob(os.path.join(ROOT, "results", "raw", exp, "run_*")) if usable(d))
     if prefer:
         runs = [r for r in runs if prefer in r] or runs
     if not runs:
@@ -61,7 +66,7 @@ def fig_reliability():
     fig.tight_layout()
     h, l = ax[0].get_legend_handles_labels()
     fig.legend(h, l, loc="upper center", ncol=6, fontsize=6.5, bbox_to_anchor=(0.5, 0.0))
-    save(fig, "Fig3_delivery_vs_loss", pd.concat([b, g]), [r])
+    save(fig, "Fig5_delivery_vs_loss", pd.concat([b, g]), [r])
 
 
 def fig_partial_capture():
@@ -73,7 +78,7 @@ def fig_partial_capture():
     ax.axhline(100 / 256, color=MUTED, ls=":", lw=1); ax.text(len(d) - 0.5, 100 / 256 + 2, "chance 0.39 %", ha="right", fontsize=6.5, color=MUTED)
     ax.set_xticks(range(len(d))); ax.set_xticklabels(d.label, fontsize=6)
     ax.set_ylabel("Plaintext bytes recovered (%)\nfrom k−1 fragments"); ax.set_ylim(0, 100)
-    fig.tight_layout(); save(fig, "Fig4_partial_capture", d.drop(columns="label"), [r])
+    fig.tight_layout(); save(fig, "Fig6_partial_capture", d.drop(columns="label"), [r])
 
 
 def fig_protocols():
@@ -90,7 +95,7 @@ def fig_protocols():
     ax[1].errorbar(d.oneway_us_p99, y, fmt="|", color=INK, ms=6)
     ax[1].set_yticks(y); ax[1].set_yticklabels([""] * len(d)); ax[1].invert_yaxis()
     ax[1].set_xlabel("One-way latency, 96-byte message (µs)")
-    fig.tight_layout(); save(fig, "Fig9_protocol_baselines", d, [r])
+    fig.tight_layout(); save(fig, "Fig11_protocol_baselines", d, [r])
 
 
 def fig_cap():
@@ -119,7 +124,7 @@ def fig_cap():
     ax[2].set_title("(c)", loc="left", fontsize=8)
     fig.tight_layout()
     h, l = ax[0].get_legend_handles_labels(); fig.legend(h, l, loc="upper center", ncol=6, fontsize=6.5, bbox_to_anchor=(0.5, 0.0))
-    save(fig, "Fig7_cap_vs_baselines", d, [r])
+    save(fig, "Fig9_cap_vs_baselines", d, [r])
 
 
 def fig_traffic():
@@ -152,7 +157,7 @@ def fig_traffic():
     ax[1].set_ylabel("Wire throughput (kB/s)"); ax[1].set_title("(b)", loc="left", fontsize=8)
     for i, v in enumerate(o.overhead_vs_unshaped):
         ax[1].text(i, o.wire_bytes_per_s.iloc[i] / 1e3 + 2, f"×{v:.2f}", ha="center", fontsize=6)
-    fig.tight_layout(); save(fig, "Fig6_traffic_attacker", R, runs)
+    fig.tight_layout(); save(fig, "Fig7_traffic_attacker", R, runs)
 
 
 def fig_latency():
@@ -173,7 +178,7 @@ def fig_latency():
     fig.legend(h, l, loc="upper center", ncol=4, fontsize=6.5, bbox_to_anchor=(0.5, 0.0))
     summ = m.groupby(["condition", "class"]).agg(delivered=("delivered", "mean"), p50=("latency_ms", "median"),
                                                  p99=("latency_ms", lambda x: x.quantile(.99))).reset_index()
-    save(fig, "Fig5b_latency_by_class", summ, [r])
+    save(fig, "Fig8_latency_by_class", summ, [r])
 
 
 def fig_agc():
@@ -184,6 +189,12 @@ def fig_agc():
         s = t[(t.scenario == sc) & (t.receiver == "secure_failsecure")]
         ax[0].plot(s.t_s, s.f_hz - f0, color=C[i], label=sc.replace("_", " "))
     a0 = cfg["attack_start_s"]
+    try:                                                   # EXP-012: same 240 s outage with anti-windup
+        r12 = run("EXP-012"); t12 = pd.read_csv(os.path.join(r12, "timeseries.csv.gz"))
+        s = t12[(t12.scenario == "drop_240s") & (t12.receiver == "secure_failsecure")]
+        ax[0].plot(s.t_s, s.f_hz - f0, color=C[3], ls="--", label="drop 240s, anti-windup (EXP-012)")
+    except SystemExit:
+        r12 = None
     ax[0].axvspan(a0, a0 + 240, color="#f3f2ee", zorder=0)
     for y in (-band, band):
         ax[0].axhline(y, color=MUTED, ls=":", lw=1)
@@ -201,7 +212,7 @@ def fig_agc():
     ax[1].set_xlabel("Time (s)"); ax[1].set_title("(b) forged / replayed / delayed commands", loc="left", fontsize=7.5)
     ax[1].legend(fontsize=6.3)
     fig.tight_layout()
-    save(fig, "Fig8_agc_ieee14", pd.read_csv(os.path.join(r, "summary.csv")), [r])
+    save(fig, "Fig10_agc_ieee14", pd.read_csv(os.path.join(r, "summary.csv")), [r] + ([r12] if r12 else []))
 
 
 if __name__ == "__main__":

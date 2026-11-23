@@ -132,5 +132,5 @@ A7 = [("obs", "z", ""), ("z", "cap", ""), ("cap", "P", "CAP ≥ θ"), ("N", "P",
 if __name__ == "__main__":
     make("Fig1_architecture", 700, 330, B1, A1)
     make("Fig2_handshake_sequence", 680, 400, B2, A2)
-    make("Fig5_receiver_fail_secure_flow", 690, 380, B5, A5, 5.5)
-    make("Fig7a_cap_policy", 520, 220, B7, A7, 5.0)
+    make("Fig4_receiver_fail_secure_flow", 690, 380, B5, A5, 5.5)
+    make("Fig3_cap_policy", 520, 220, B7, A7, 5.0)
