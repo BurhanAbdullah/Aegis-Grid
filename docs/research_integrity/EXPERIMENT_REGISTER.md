@@ -93,3 +93,34 @@ are committed on `research-integrity-remediation`).
 - **Result path:** `results/raw/EXP-008/run_20261123T182611Z/`.
 - **Outcome:** forge: insecure −0.55 Hz / +1.21 Hz excursion, outside the ±0.2 Hz band 2.5 s after attack start; AGP/1 rejected all forged records (150 AUTH_FAIL, 150 BAD_VERSION) and stayed within 0.082 Hz. Drop, held set-points: during a 120 s outage the band was not crossed (it was crossed 2.5 s *after* delivery resumed, by the wind-up overshoot below); during a 240 s outage the under-frequency band was crossed 176.5 s after the attack started (analytic estimate 200 s, which ignores AGC lag before the attack); at 0.2 pu/min after 78.5 s (analytic 100 s); at 0.05 pu/min the 242.5 s crossing is again the post-recovery overshoot (analytic hold limit 400 s exceeds the outage). **On recovery after a 240 s outage the accumulated AGC integral caused a +1.15 Hz overshoot** (integrator wind-up at the control centre) — fail-secure at the receiver alone does not prevent this. Delay (10 s stale): the insecure receiver that applied stale commands had a *smaller* deviation (0.031 Hz) than the fail-secure hold (0.082 Hz) — rejecting stale data is not always better for frequency, it is a safety policy. Replay: insecure 0.101 Hz vs 0.082 Hz.
 - **Label:** SIMULATION RESULT (plant model) with real protocol objects. Limits are ASSUMPTIONS (SOGL Annex III values applied to a 60 Hz test case).
+
+## EXP-009 — Protocol baselines at matched settings (AGP/1, TLS 1.3, HMAC)
+- **Research question:** What do the AGP/1 handshake and record path cost compared with TLS 1.3 using the same post-quantum primitives, classical TLS 1.3 and an IEC 62351-6-style HMAC scheme, over real loopback sockets between two processes?
+- **Hypothesis (pre-run):** AGP/1 is within a small factor of TLS 1.3 with the same primitives; it is slower per message because of Python-level record processing and erasure coding; HMAC is cheapest but gives no confidentiality.
+- **Method:** `exp009_protocol_baselines.py` + `exp009_worker.py`; 300 handshakes and 3000 messages of 96 B every 5 ms per configuration; TLS group forced by OPENSSL_CONF and verified from the ServerHello key_share; ML-DSA-65 or ECDSA P-256 certificates; TLS with server-only and mutual authentication, `num_tickets = 0`, 1-byte application ack after the handshake (as AGP/1's "ok" frame).
+- **Runs:** run_20261123T182246Z FAILED (case-sensitive group check; kept). run_20261123T182344Z COMPLETED but SUPERSEDED (server-only TLS and default session tickets; DEC-012). run_20261123T184325Z FAILED (mutual-TLS worker hang on ticket write; kept). **run_20261123T184800Z COMPLETED (final; code a32f4e9's parent f5cd291 + DEC-012 fix).**
+- **Outcome (final run, medians):** TLS 1.3 X25519MLKEM768 + ML-DSA-65 mutual: handshake 4.79 ms wall, 31 440 B; server-only: 2.97 ms, 11 642 B. TLS MLKEM768 mutual: 3.55 ms, 31 376 B. Classical X25519 + P-256 mutual: 2.39 ms, 2 197 B. AGP/1 0x0101: 5.74 ms, 20 042 B; 0x0102: 5.68 ms, 20 106 B; 0x0301: 3.62 ms, 15 174 B. One-way latency: TLS 136–150 µs (TCP); AGP/1 317 µs (k = n = 1) and 674 µs (RS(5,7)) (UDP, includes Python decode); HMAC 158 µs. All 3000 messages delivered in every configuration.
+- **Caveat found after the run (DEC-013):** in mutual mode OpenSSL auto-chaining sent the 5.4 kB CA certificate in both directions (verified: received chain lengths 2/2), whereas AGP/1 sends end-entity certificates only. The byte comparison is therefore not matched; EXP-013 measures the leaf-only case. The run is kept as is.
+- **Label:** HARDWARE MEASUREMENT on a virtualised x86-64 VM, loopback only (no WAN, no embedded device).
+- **Manuscript relevance:** R2 (comparison with TLS 1.3 / IEC 62351 at matched settings), R1 (practicality).
+
+## EXP-010 — Decoupled constant-rate shaping capture (registered before running, DEC-009)
+- **Research question:** Does moving AONT/RS fragmentation out of the emission loop (separate producer process) remove the timing leak found in EXP-006?
+- **Hypothesis (pre-run):** IAT jitter correlated with activity falls; attacker AUC falls towards 0.5 but may remain above it because of Python scheduling and garbage collection.
+- **Method:** `exp005_traffic_capture.py` with `EXP-010_decoupled_shaping.json`: 40 new sessions (seed 10010); conditions shaped_2ms (coupled reference), shaped_2ms_decoupled, shaped_1ms_decoupled.
+- **Outcome:** PENDING (running).
+
+## EXP-011 — Attacker on EXP-010 traces (registered before running)
+- **Method:** identical attacker, features, split and statistics as EXP-006 (seed 11011); input = latest completed EXP-010 run. No change to the attacker after seeing EXP-010.
+- **Outcome:** PENDING.
+
+## EXP-012 — AGC with integrator anti-windup (registered before running, DEC-011)
+- **Research question:** Does freezing the control-centre AGC integrator while plant acknowledgements are missing remove the post-outage overshoot of EXP-008?
+- **Method:** `exp008_cyberphysical_agc.py` with `EXP-012_agc_antiwindup.json` (`anti_windup: true`); otherwise identical to EXP-008.
+- **Outcome:** PENDING.
+
+## EXP-013 — TLS 1.3 mutual handshake with leaf-only chains (registered before running, DEC-013)
+- **Research question:** What are the TLS 1.3 mutual-authentication handshake bytes and CPU time when, as in AGP/1, only end-entity certificates are sent?
+- **Hypothesis (pre-run):** bytes fall by about 2 × 5.4 kB to ≈ 20.5 kB, close to AGP/1's 20 042 B; CPU time changes little.
+- **Method:** `exp013_tls_chain_matched.py`; in-memory handshakes (both parties in one process, as EXP-002 measures AGP/1), 300 per variant after 20 warm-up; variants default chain vs leaf-only (partial-chain trust of the peer's end-entity certificate); groups X25519MLKEM768 and MLKEM768. Run alone (timing-sensitive).
+- **Outcome:** PENDING.

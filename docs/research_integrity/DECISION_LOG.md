@@ -78,3 +78,9 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Date:** 2026-11-23
 - **Issue:** EXP-009 run_20261123T182344Z used server-only TLS authentication while AGP/1 authenticates both sides, so handshake bytes/time were not matched.
 - **Decision:** keep that run (labelled server-auth only) and add mutual-auth TLS configurations (run_20261123T184325Z); the manuscript compares AGP/1 with mutual TLS.
+
+## DEC-013 — Certificate chains in the mutual-TLS baseline
+- **Date:** 2026-11-23
+- **Issue:** after EXP-009 completed, inspection showed that OpenSSL auto-chaining includes the CA certificate (5442 B, ML-DSA-65) in both directions under mutual authentication, because each side's verify store contains the CA. AGP/1 sends end-entity certificates only. Python 3.13 exposes no switch for `SSL_MODE_NO_AUTO_CHAIN`, and `ChainCAFile` in the OpenSSL system-default configuration had no effect (tested).
+- **Decision:** keep EXP-009 unchanged and state the caveat. Register EXP-013, which measures leaf-only chains via partial-chain trust of the peer's end-entity certificate (leaf pinning). This changes TLS trust semantics (no CA path validation), so EXP-013 is used only for the byte and CPU comparison, not as a deployable configuration.
+- **Verification:** `test_tls13_mutual_autochain_sends_ca_and_leaf_only_does_not` asserts received chain lengths (2, 2) and (1, 1).
