@@ -1,0 +1,9 @@
+{
+  "exp_id": "EXP-013",
+  "description": "Follow-up to EXP-009 (DEC-013). In mutual mode OpenSSL auto-chaining sends the CA certificate in both directions, whereas AGP/1 sends only end-entity certificates. This run measures in-memory TLS 1.3 handshakes (both parties in one process, no network, same method as the EXP-002 AGP/1 handshake CPU measurement) with the default chains and with leaf-only chains: handshake bytes per direction, received chain lengths and total CPU time. HARDWARE MEASUREMENT on the VM.",
+  "handshakes": 300,
+  "warmup": 20,
+  "sig": "mldsa65",
+  "groups": ["X25519MLKEM768", "MLKEM768"],
+  "variants": ["mutual_default_chain", "mutual_leaf_only"]
+}

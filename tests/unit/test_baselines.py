@@ -33,3 +33,23 @@ def test_tls13_mutual_auth_requires_client_cert(tmp_path):
     import pytest
     with pytest.raises(Exception):
         tls13.memory_handshake(sctx2, cnoc)
+
+
+def _chains(sctx, cctx):
+    """Run an in-memory handshake and return the certificate chain lengths each side received."""
+    ci, co, si, so = (ssl.MemoryBIO() for _ in range(4))
+    c = cctx.wrap_bio(ci, co, server_hostname="rtu-07"); s = sctx.wrap_bio(si, so, server_side=True)
+    for _ in range(10):
+        for o, src, dst in ((c, co, si), (s, so, ci)):
+            try:
+                o.do_handshake()
+            except ssl.SSLWantReadError:
+                pass
+            dst.write(src.read())
+    return len(c.get_unverified_chain()), len(s.get_unverified_chain())
+
+
+def test_tls13_mutual_autochain_sends_ca_and_leaf_only_does_not(tmp_path):
+    ca, crt, key = tls13.make_pki(str(tmp_path), "mldsa65")
+    assert _chains(*tls13.contexts(ca, crt, key, mutual=True)) == (2, 2)        # OpenSSL auto-chaining adds the CA
+    assert _chains(*tls13.contexts(ca, crt, key, mutual=True, leaf_only=True)) == (1, 1)

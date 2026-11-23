@@ -48,18 +48,36 @@ def make_pki(directory, sig="mldsa65", cn="rtu-07"):
     return p("ca.pem"), p("srv.pem"), p("srv.key")
 
 
-def contexts(ca, crt, key, mutual=False):
+def contexts(ca, crt, key, mutual=False, leaf_only=False):
     """Server/client contexts. mutual=True requires and verifies a client certificate
-    (matched to AGP/1, which always authenticates both parties)."""
+    (matched to AGP/1, which always authenticates both parties).
+
+    With mutual=True and the default leaf_only=False, OpenSSL builds each sender's
+    certificate chain from its own verify store, which then contains the CA, so the
+    5.4 kB ML-DSA-65 CA certificate is sent in both directions (auto-chaining; Python
+    offers no switch to disable it). leaf_only=True matches AGP/1, which sends only the
+    end-entity certificate: each side trusts the peer's end-entity certificate directly
+    (X509 partial-chain trust, i.e. leaf pinning instead of CA validation). It is used
+    only to measure handshake bytes with equal chain lengths (EXP-013)."""
     s = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); s.minimum_version = ssl.TLSVersion.TLSv1_3
     s.load_cert_chain(crt, key)
     s.num_tickets = 0        # no session resumption tickets: AGP/1 has no resumption (matched setting);
                              # OpenSSL tickets would otherwise carry the client certificate (~16 kB extra with ML-DSA-65)
     c = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT); c.minimum_version = ssl.TLSVersion.TLSv1_3
+    cli, clik = crt.replace("srv.pem", "cli.pem"), key.replace("srv.key", "cli.key")
+    if leaf_only:
+        if not mutual:
+            raise ValueError("leaf_only applies to mutual authentication")
+        for x in (s, c):
+            x.verify_flags |= ssl.VERIFY_X509_PARTIAL_CHAIN
+        c.load_verify_locations(crt)
+        s.verify_mode = ssl.CERT_REQUIRED; s.load_verify_locations(cli)
+        c.load_cert_chain(cli, clik)
+        return s, c
     c.load_verify_locations(ca)
     if mutual:
         s.verify_mode = ssl.CERT_REQUIRED; s.load_verify_locations(ca)
-        c.load_cert_chain(crt.replace("srv.pem", "cli.pem"), key.replace("srv.key", "cli.key"))
+        c.load_cert_chain(cli, clik)
     return s, c
 
 
