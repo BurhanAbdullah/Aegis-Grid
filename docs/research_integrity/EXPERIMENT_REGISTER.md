@@ -27,3 +27,14 @@ are committed on `research-integrity-remediation`).
 - **Outcome:** (a) confirmed — mean 88.4 % (min 75 %, max 96.9 %) of plaintext bytes recovered when one masked fragment is missing; reordered fragments decode incorrectly; 28/30 fragments empty for a 14-byte message. (b) confirmed — |z| < 2 vs (1−p)^20 for all four transition probabilities; script draws state independently each step. (c) confirmed — 3 negative lower bounds, 10 zero-width intervals at mean 0. (d) confirmed — generator writes 48/35 constants; plotted CSV (max 56/33) has no generator.
 - **Interpretation:** Manuscript claims C5, C11, C12, C3 are not supported by the legacy code. Label: SIMULATION RESULT (probe 1) / CODE INSPECTION (b–d).
 - **Manuscript relevance:** R2 points on AONT, evaluation, reproducibility.
+
+## EXP-002 — Cryptographic and handshake CPU cost
+- **Research question:** What CPU time and wire size does each AGP/1 operation and the complete handshake cost on the available machine?
+- **Hypothesis (pre-run):** Full handshake CPU cost (both parties) is in the low milliseconds on x86-64 and dominated by ML-DSA signing; per-record AEAD cost is in microseconds.
+- **Method:** `python3 experiments/runners/exp002_crypto_bench.py experiments/configs/EXP-002_crypto_bench.json`; `perf_counter_ns`, warm-up 50, GC disabled during timing; 5000 samples (fast ops), 1000 (keygen/sign/cert validation), 300 handshakes per suite.
+- **Seed:** not applicable (keys from OS CSPRNG; timing study).
+- **Environment:** `environment.json` in run directory (Python 3.13.18, cryptography 50.0.1, OpenSSL 3.5.9, Intel Xeon 2.1 GHz VM).
+- **Result path:** `results/raw/EXP-002/run_20261123T165540Z/` (development run, uncommitted working tree — `git_dirty: true`). Superseded for the manuscript by the frozen run in Milestone 7.
+- **Outcome (dev run, medians):** ML-KEM-768 encaps 39 µs / decaps 36 µs; ML-DSA-65 sign 786 µs (p99 3786 µs, rejection-sampling tail) / verify 189 µs; AES-256-GCM 1 KiB ≈0.8 µs; record seal/open 3–7 µs; full handshake 3.4–4.7 ms CPU; handshake wire size 17.0–24.8 kB.
+- **Interpretation:** Handshake cost is small relative to a 50–100 ms budget on this machine but exceeds a 3 ms protection budget by itself; embedded devices were not measured.
+- **Manuscript relevance:** R1 (PQC benchmarks, handshake overhead), R2 (protocol costs).

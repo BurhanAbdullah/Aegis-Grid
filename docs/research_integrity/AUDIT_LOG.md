@@ -8,3 +8,4 @@ Chronological, append-only.
 - **16:52 — EXP-001.** Probes confirm XOR-transform leakage, i.i.d. "Markov" data, invalid CI, constant latency generator.
 - **16:55 — Manuscript figures** extracted from the author's docx and matched to repository data (BASELINE_AUDIT §5).
 - **M1 complete.** Deliverables: `BASELINE_AUDIT.md`, `CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md`, `DECISION_LOG.md` (DEC-001…004), `EXPERIMENT_REGISTER.md` (EXP-000/001), `KNOWN_FAILURES.md` (KF-001…012).
+- **17:05 — M2.** AGP/1 implemented (aegis_pq/), 46 security tests pass, mutation smoke detects disabled replay/deadline/CA checks; EXP-002 dev benchmark run.

@@ -7,6 +7,7 @@ INCONSISTENT · NOT REPRODUCIBLE.
 
 Revision log of this file:
 - **M1 baseline (2026-11-23)** — statuses below reflect `main@65f83bf`.
+- **M2 (2026-11-23)** — rows for protocol, key establishment, encryption, authentication, replay, benchmarking updated in §A2.
 
 ## A. Research components (baseline, Milestone 1)
 
@@ -31,6 +32,18 @@ Revision log of this file:
 | Baselines | TLS / IEC 62351 comparison tables | hand-assigned scores | none | none | ANALYTICAL ONLY (unsupported scores) |
 | Statistical analysis | 95 % CI, KS | Wald CI (negative bounds), no KS | none | EXP-001 probe 3 | INCONSISTENT |
 | Reproducibility | "All figures generated from simulation outputs" | most figures have no generator; no seeds | CI suppresses failures | EXP-000 | NOT REPRODUCIBLE |
+
+## A2. Updates after Milestone 2 (branch `research-integrity-remediation`)
+
+| Research component | New implementation | Tests | Evidence | Status |
+|---|---|---|---|---|
+| Cryptographic protocol | `aegis_pq/handshake.py`, `channel.py` (AGP/1, spec in `docs/protocol_specification.md`) | 46 security tests | EXP-002 | IMPLEMENTED — UNIT/SECURITY TESTED (not independently verified, no formal model) |
+| Key establishment | ML-KEM-768/1024, optional X25519 hybrid, HKDF schedule | handshake agreement for 4 suites; invalid key; tampered ct | EXP-002 | IMPLEMENTED — TESTED |
+| Encryption | AES-256-GCM record layer, TLS-1.3-style nonces | tamper, truncation, garbage, nonce-uniqueness | EXP-002 | IMPLEMENTED — TESTED |
+| Authentication | ML-DSA-44/65/87 transcript signatures, X.509 pinned CA | wrong CA, expired, wrong peer, CA-as-EE, bad signatures, downgrade | EXP-002 | IMPLEMENTED — TESTED (no revocation) |
+| Replay protection | per-epoch sliding window, deadline field | replay, reorder, too-old, late-then-replay | — | IMPLEMENTED — TESTED |
+| Rekeying / expiry | HKDF key update, epoch grace=1, lifetime cap | rotation, old-epoch erasure, epoch skip, expiry | — | IMPLEMENTED — TESTED |
+| Benchmarking | `experiments/runners/exp002_crypto_bench.py` | — | EXP-002 (x86-64 VM only) | HARDWARE MEASUREMENT (non-embedded) |
 
 ## B. Manuscript claim audit (baseline)
 
