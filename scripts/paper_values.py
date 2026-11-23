@@ -146,6 +146,12 @@ def main():
             if len(a):
                 V[k + "_min_during"] = f(a.f_hz.min() - f0, 3); V[k + "_max_after"] = f(s[s.t_s > a.t_s.max()].f_hz.max() - f0, 3)
             V[k + "_rejects"] = x.receiver_rejects
+            sc = next(c for c in cfg["scenarios"] if c["name"] == x.scenario)
+            if sc["attack"] != "none":
+                t_end = cfg["attack_start_s"] + sc["duration_s"]
+                band = cfg["limits_ASSUMPTION"]["steady_state_band_hz"]
+                o = s[(s.t_s >= t_end) & ((s.f_hz - f0).abs() > band)]
+                V[k + "_back_in_band_after_recovery_s"] = f(o.t_s.max() - t_end, 1) if len(o) else 0.0
     # EXP-009 protocols
     r = latest("EXP-009"); SRC["EXP-009"] = r
     P9 = pd.read_csv(os.path.join(r, "summary.csv"))
