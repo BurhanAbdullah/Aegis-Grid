@@ -40,3 +40,12 @@ from the original manuscript that are not implemented are listed at the end.
 - Embedded/RTU deployment and hardware PQC acceleration.
 - Model checking of the adaptive policy.
 - Multicast GOOSE/SV transport (AGP/1 is unicast over UDP).
+
+## Deployment note on shaping (EXP-006, EXP-011)
+When AONT and erasure coding run inside the emission loop, emission timing depends
+on message activity and a classifier detects it (EXP-006, ROC-AUC ≈0.8). Run
+fragmentation in a separate process or thread that only enqueues finished shards, so
+that the loop calling `ConstantRateShaper.tick()` does nothing else; with this
+arrangement no leak was detectable against the tested attacker (EXP-011). The
+reference implementation of this arrangement is `producer_proc` in
+`experiments/runners/exp005_traffic_capture.py`.

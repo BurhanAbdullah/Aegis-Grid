@@ -84,3 +84,9 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Issue:** after EXP-009 completed, inspection showed that OpenSSL auto-chaining includes the CA certificate (5442 B, ML-DSA-65) in both directions under mutual authentication, because each side's verify store contains the CA. AGP/1 sends end-entity certificates only. Python 3.13 exposes no switch for `SSL_MODE_NO_AUTO_CHAIN`, and `ChainCAFile` in the OpenSSL system-default configuration had no effect (tested).
 - **Decision:** keep EXP-009 unchanged and state the caveat. Register EXP-013, which measures leaf-only chains via partial-chain trust of the peer's end-entity certificate (leaf pinning). This changes TLS trust semantics (no CA path validation), so EXP-013 is used only for the byte and CPU comparison, not as a deployable configuration.
 - **Verification:** `test_tls13_mutual_autochain_sends_ca_and_leaf_only_does_not` asserts received chain lengths (2, 2) and (1, 1).
+
+## DEC-014 — Outcomes of the registered follow-ups
+- **Date:** 2026-11-23
+- **EXP-011:** the shaping leak was an implementation effect; the manuscript reports both EXP-006 (leak) and EXP-011 (no detectable leak after decoupling) and states the minimum detectable AUC. The decoupled arrangement exists in the experiment runner (`producer_proc` in exp005_traffic_capture.py); in the library, `ConstantRateShaper` only emits and leaves fragmentation to the caller. Deployment guidance (manuscript §VII-D, docs/architecture.md) recommends decoupling. No further iteration on test sessions.
+- **EXP-012:** control-centre anti-windup (freeze the AGC integrator while acknowledgements are missing) is added to the recommended deployment; it does not extend the safe hold time.
+- **EXP-013:** the manuscript compares AGP/1 with chain-matched TLS bytes and in-memory CPU; EXP-009 wall times remain the socket-level comparison.

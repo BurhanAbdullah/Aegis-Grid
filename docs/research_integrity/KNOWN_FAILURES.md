@@ -19,10 +19,12 @@ with the fixing commit and the test that guards them.
 | KF-012 | M1 | θ = 0.35 in code vs 0.45 in manuscript | `agents/secure_agent.py` | OPEN → M5 |
 | KF-013 | M3 | AONT bound weak for short shards (32 B message, k=20 ⇒ 40 unknown bits) | docs/fragmentation_aont.md §3 | OPEN — limitation, reported |
 | KF-014 | M3 | Erasure coding only partly restores delivery under bursts (≈0.85–0.91 at 10 %, burst 5); two-path no benefit | EXP-003 | OPEN — reported as result |
-| KF-015 | M4 | Constant-rate shaping leaks activity via emission-timing jitter (AUC 0.79–0.83) | EXP-006 | OPEN — follow-up EXP-010/011 |
+| KF-015 | M4 | Constant-rate shaping leaks activity via emission-timing jitter (AUC 0.79–0.83) | EXP-006 | MITIGATED — decoupled shaper: no detectable leak (AUC 0.48–0.56, EXP-011); not proof of indistinguishability |
 | KF-016 | M4 | Shaping at Δ = 2 ms delivers only 43 % of 20 ms-deadline event messages | EXP-005/006 | OPEN — reported; Δ = 1 ms meets it at ×4.3 bandwidth |
 | KF-017 | M5 | Every detector raises false adaptations in benign congestion episodes | EXP-007 | OPEN — reported |
-| KF-018 | M6 | AGC integrator wind-up causes +1.15 Hz overshoot after a 240 s command outage | EXP-008 | OPEN — follow-up EXP-012 |
+| KF-018 | M6 | AGC integrator wind-up causes +1.15 Hz overshoot after a 240 s command outage | EXP-008 | FIXED in design — anti-windup removes overshoot (EXP-012); hold-time limit remains |
 | KF-019 | M7 | AGP/1 handshake is slower than mutually authenticated TLS 1.3 with the same primitives (5.74 ms vs 4.79 ms wall, EXP-009 final); per-message latency ≈2× TLS (Python record/AONT path). Byte comparison was unmatched (TLS sent the CA certificate both ways, DEC-013) | EXP-009, EXP-013 | OPEN — reported |
 | KF-020 | M1–M7 | EXP-006/007/008 environment.json shows git_dirty=true caused only by an untracked result directory (provenance logic since fixed to separate untracked files) | environment.json | DOCUMENTED |
 | KF-021 | M1–M8 | Docs and code comments stated that `cryptography` uses OpenSSL 3.5; environment.json shows its statically linked OpenSSL is 4.0.2 (3.5.9 is Python `ssl`, used only by the TLS baseline) | environment.json, `backend.openssl_version_text()` | FIXED (text corrected) |
+| KF-022 | M7 | EXP-011 first run crashed in the bandwidth step (no unshaped condition in EXP-010) | run_20261123T191609Z | FIXED (d74c690), rerun COMPLETED, identical AUCs |
+| KF-023 | M7 | Mutual-TLS byte comparison unmatched: OpenSSL auto-chains the CA certificate | DEC-013 | FIXED by EXP-013 (leaf-only measurement) |

@@ -108,19 +108,30 @@ are committed on `research-integrity-remediation`).
 - **Research question:** Does moving AONT/RS fragmentation out of the emission loop (separate producer process) remove the timing leak found in EXP-006?
 - **Hypothesis (pre-run):** IAT jitter correlated with activity falls; attacker AUC falls towards 0.5 but may remain above it because of Python scheduling and garbage collection.
 - **Method:** `exp005_traffic_capture.py` with `EXP-010_decoupled_shaping.json`: 40 new sessions (seed 10010); conditions shaped_2ms (coupled reference), shaped_2ms_decoupled, shaped_1ms_decoupled.
-- **Outcome:** PENDING (running).
+- **Run:** `results/raw/EXP-010/run_20261123T185102Z/` (clean tree, commit 5a419ed). During sessions ≈13–17 the test suite (≈2 s) and the value-extraction script ran concurrently on the VM; recorded here for completeness.
+- **Outcome:** message delivery shaped_2ms 0.852, shaped_2ms_decoupled 0.851, shaped_1ms_decoupled 0.999 (all classes). Traces analysed in EXP-011.
+- **Label:** HARDWARE MEASUREMENT (VM loopback).
 
 ## EXP-011 — Attacker on EXP-010 traces (registered before running)
 - **Method:** identical attacker, features, split and statistics as EXP-006 (seed 11011); input = latest completed EXP-010 run. No change to the attacker after seeing EXP-010.
-- **Outcome:** PENDING.
+- **Runs:** run_20261123T191609Z FAILED — crashed in the bandwidth-overhead step after the classifier outputs were written (EXP-010 has no unshaped condition; ratio base missing). Runner fixed (d74c690, ratio left empty when there is no unshaped condition); **run_20261123T193132Z COMPLETED** (clean tree, c06fbd3). Classifier AUCs of the two runs are identical (deterministic seed), confirming the fix did not touch the attacker.
+- **Outcome:** coupled shaped_2ms (repeat on new sessions): AUC 0.73–0.77, permutation p = 0.001 — EXP-006 leak reproduced. **Decoupled 2 ms: AUC 0.48–0.56 (selected model RF 0.491, p = 0.597); decoupled 1 ms: 0.45–0.52 (p = 0.753)**; largest |Cliff's δ| 0.10 (was 0.45). Highest single AUC 0.565 (k-NN, CI 0.506–0.608) is below the minimum detectable AUC 0.577. KS on packet counts p = 1.0 in all conditions. Event delivery at Δ = 2 ms unchanged (0.43).
+- **Interpretation:** the EXP-006 leak was caused by fragmentation inside the emission loop. With decoupling, no leakage was detectable against this attacker at this sample size; indistinguishability is NOT established (MDE ≈ 0.58, attacker class limited). Label: SIMULATION RESULT on HARDWARE-MEASURED traces.
 
 ## EXP-012 — AGC with integrator anti-windup (registered before running, DEC-011)
 - **Research question:** Does freezing the control-centre AGC integrator while plant acknowledgements are missing remove the post-outage overshoot of EXP-008?
 - **Method:** `exp008_cyberphysical_agc.py` with `EXP-012_agc_antiwindup.json` (`anti_windup: true`); otherwise identical to EXP-008.
-- **Outcome:** PENDING.
+- **Run:** `results/raw/EXP-012/run_20261123T191609Z/` (clean tree, 9c255e6).
+- **Outcome:** 240 s outage: max deviation 0.266 Hz (EXP-008: 1.145 Hz); no over-frequency after recovery (max after −0.027 Hz); back inside ±0.2 Hz 8.5 s after delivery resumed (EXP-008: 40.5 s). Crossing during the outage unchanged (176.5 s), as expected — it is caused by the held set-point. 120 s outage: no band violation (EXP-008: post-recovery crossing). Label: SIMULATION RESULT.
 
 ## EXP-013 — TLS 1.3 mutual handshake with leaf-only chains (registered before running, DEC-013)
 - **Research question:** What are the TLS 1.3 mutual-authentication handshake bytes and CPU time when, as in AGP/1, only end-entity certificates are sent?
 - **Hypothesis (pre-run):** bytes fall by about 2 × 5.4 kB to ≈ 20.5 kB, close to AGP/1's 20 042 B; CPU time changes little.
 - **Method:** `exp013_tls_chain_matched.py`; in-memory handshakes (both parties in one process, as EXP-002 measures AGP/1), 300 per variant after 20 warm-up; variants default chain vs leaf-only (partial-chain trust of the peer's end-entity certificate); groups X25519MLKEM768 and MLKEM768. Run alone (timing-sensitive).
-- **Outcome:** PENDING.
+- **Run:** `results/raw/EXP-013/run_20261123T193445Z/` (clean tree, c3bbc9a), run alone after EXP-002.
+- **Outcome:** default chains 31 440 B (hybrid) / 31 376 B (ML-KEM-768), received chains 2/2; leaf-only 20 546 B / 20 482 B, chains 1/1 — hypothesis confirmed (AGP/1 0x0101: 20 042 B). CPU median, both parties: leaf-only 3.31 ms (hybrid) / 3.08 ms (ML-KEM-768); AGP/1 frozen EXP-002: 4.25 ms (0x0102) / 3.72 ms (0x0101). Label: HARDWARE MEASUREMENT.
+
+## Frozen reruns (clean tree) of EXP-002, EXP-003, EXP-004 — 2026-11-23
+- EXP-002 `run_20261123T193428Z` (c3bbc9a, run alone): replaces the development run for the manuscript. Medians: ML-KEM-768 encaps 23.3 µs / decaps 50.6 µs; ML-DSA-65 sign 824.9 µs (p99 4095 µs); handshake CPU 0x0101 3.72 ms, 0x0102 4.25 ms, 0x0201 5.19 ms, 0x0301 2.35 ms. Differences from the development run are run-to-run timing variation on a shared VM; both runs are kept.
+- EXP-003 `run_20261123T193131Z`, EXP-004 `run_20261123T193137Z` (c06fbd3; ran in parallel with EXP-011, not timing-sensitive): every value identical to the development runs (same seeds).
+- Development runs marked SUPERSEDED in their status note (kept).
