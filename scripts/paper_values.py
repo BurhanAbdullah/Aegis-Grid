@@ -46,6 +46,9 @@ def main():
         V[f"open64_{k}_med_us"] = f(s.loc[f"record open 64B ({name})", "median_us"], 1)
     wb = json.load(open(os.path.join(r, "handshake_wire_bytes.json")))
     V["hs_wire_bytes"] = wb
+    for k, name in {"0101": "AGP1_MLKEM768_MLDSA65_AES256GCM_SHA384", "0102": "AGP1_X25519MLKEM768_MLDSA65_AES256GCM_SHA384",
+                    "0201": "AGP1_MLKEM1024_MLDSA87_AES256GCM_SHA384", "0301": "AGP1_MLKEM768_MLDSA44_AES256GCM_SHA256"}.items():
+        V[f"hs{k}_bytes"] = int(wb[name]["total"])
     # EXP-003 reliability
     r = latest("EXP-003"); SRC["EXP-003"] = r
     d = pd.read_csv(os.path.join(r, "delivery_montecarlo.csv"))
@@ -60,6 +63,7 @@ def main():
         V[f"gil10b5_{k}_{n}"] = f(P("gilbert", k, n, 0.10, 5).p_delivery, 3)
         V[f"mp10b5_{k}_{n}"] = f(P("gilbert_2path", k, n, 0.10, 5).p_delivery, 3)
     V["trials"] = int(d.trials.iloc[0])
+    V["bern10_k5_equiv"] = f(P("bernoulli", 5, 5, 0.10).p_delivery, 3); V["gil10b5_k5_equiv"] = f(P("gilbert", 5, 5, 0.10, 5).p_delivery, 3)
     ab = json.load(open(os.path.join(r, "abstraction_check.json"))); V["abstraction_overlap"] = f"{sum(a['ci_overlap'] for a in ab)}/{len(ab)}"
     ov = pd.read_csv(os.path.join(r, "overhead_and_thresholds.csv"))
     o = ov[(ov.message_bytes == 32)].set_index(["k", "n"])
@@ -87,6 +91,7 @@ def main():
         for _, x in R[R.task == "multiclass"].iterrows():
             V[f"{exp[-3:]}_{x.condition}_{x.model}_mc_auc"] = f(x.roc_auc, 3)
         for c, g in R[R.task == "binary"].groupby("condition"):
+            V[f"{exp[-3:]}_{c}_best_auc"] = f(g.roc_auc.max(), 3); V[f"{exp[-3:]}_{c}_best_model"] = g.sort_values("roc_auc").model.iloc[-1]
             V[f"{exp[-3:]}_{c}_auc_range"] = f"{g.roc_auc.min():.2f}–{g.roc_auc.max():.2f}"
             V[f"{exp[-3:]}_{c}_ntest"] = int(g.n_test_windows.iloc[0])
         pm = pd.read_csv(os.path.join(r, "permutation_tests.csv"))
@@ -144,6 +149,21 @@ def main():
         V[f"p9_{i}_name"] = x.configuration
         for m in ("handshake_wall_ms_median", "handshake_wall_ms_p99", "handshake_bytes_total", "oneway_us_median", "oneway_us_p99", "wire_bytes_per_96B_message"):
             V[f"p9_{i}_{m}"] = None if pd.isna(x[m]) else f(x[m], 2)
+    # EXP-013 TLS chain-matched
+    try:
+        r = latest("EXP-013"); SRC["EXP-013"] = r
+        for _, x in pd.read_csv(os.path.join(r, "summary.csv")).iterrows():
+            k = f"p13_{x.group}_{x.variant}"
+            V[k + "_bytes"] = int(x.bytes_total); V[k + "_cpu_med_ms"] = f(x.cpu_us_median / 1e3); V[k + "_cpu_p99_ms"] = f(x.cpu_us_p99 / 1e3)
+            V[k + "_chains"] = f"{x.chain_len_server_to_client}/{x.chain_len_client_to_server}"
+    except SystemExit:
+        pass
+    # test counts (collected, not hand-typed)
+    import subprocess
+    def ntests(path):
+        o = subprocess.run(["python3", "-m", "pytest", "-q", "--collect-only", path], cwd=ROOT, capture_output=True, text=True).stdout
+        return int([l for l in o.splitlines() if "collected" in l or "tests" in l][-1].split()[0])
+    V["n_tests"] = ntests("tests"); V["n_security_tests"] = ntests("tests/security")
     V["_sources"] = {k: os.path.relpath(v, ROOT) for k, v in SRC.items()}
     json.dump(V, open(os.path.join(ROOT, "results", "paper_values.json"), "w"), indent=1, default=str)
     print(len(V), "values;", V["_sources"])
