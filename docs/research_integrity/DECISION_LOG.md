@@ -90,3 +90,9 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **EXP-011:** the shaping leak was an implementation effect; the manuscript reports both EXP-006 (leak) and EXP-011 (no detectable leak after decoupling) and states the minimum detectable AUC. The decoupled arrangement exists in the experiment runner (`producer_proc` in exp005_traffic_capture.py); in the library, `ConstantRateShaper` only emits and leaves fragmentation to the caller. Deployment guidance (manuscript §VII-D, docs/architecture.md) recommends decoupling. No further iteration on test sessions.
 - **EXP-012:** control-centre anti-windup (freeze the AGC integrator while acknowledgements are missing) is added to the recommended deployment; it does not extend the safe hold time.
 - **EXP-013:** the manuscript compares AGP/1 with chain-matched TLS bytes and in-memory CPU; EXP-009 wall times remain the socket-level comparison.
+
+## DEC-015 — Repository layout for the v6 artefact
+- **Date:** 2026-11-23
+- **Issue:** the top level mixed v1–v5 code, one-off shell scripts, audit dumps and the v6 implementation; `ARTIFACT_ENTRYPOINT.md` pointed to a non-existent directory (KF-011) and CI masked failures (KF-008).
+- **Decision:** move every legacy file unchanged into `legacy/` with `git mv` (history kept, nothing deleted). The only v6 dependency on legacy code is EXP-004, which now imports `legacy.core.fragmentation`; the frozen EXP-004 run is unaffected because its provenance records the commit that produced it. The broken `security_audit.yml` workflow is moved to `legacy/.github-workflows/`; `ci.yml` runs `verify_all.sh --smoke` in a Python 3.13 / OpenSSL 3.5 container. `setup.py` (legacy, pycryptodome) is replaced by `pyproject.toml` for `aegis_pq` and `baselines`.
+- **Verification:** `verify_all.sh --smoke` after the move (FINAL_VALIDATION_REPORT.md).

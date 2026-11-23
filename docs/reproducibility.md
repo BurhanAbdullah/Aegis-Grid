@@ -41,4 +41,5 @@ reproduce in distribution only and will differ on other hardware.
 
 ## Measured run times on the reference VM (from environment.json / status.json)
 EXP-002 0.3 min; EXP-003 0.1 min; EXP-004 0.1 min; EXP-005 33 min; EXP-006 6 min;
-EXP-007 1.9 min; EXP-008 16 min; EXP-009 3 min. EXP-010–013: see their run directories.
+EXP-007 1.9 min; EXP-008 16 min; EXP-009 3 min; EXP-010 25.1 min; EXP-011 2.9 min;
+EXP-012 14.9 min (ran concurrently with the failed EXP-011 attempt); EXP-013 0.1 min.

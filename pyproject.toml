@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aegis-grid"
+version = "6.0.0"
+description = "Time-bounded, fail-secure post-quantum communication for smart grid control messages (research artefact)"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [{ name = "Burhan U Din Abdullah" }]
+license = { file = "LICENSE" }
+dependencies = [
+    "cryptography>=50.0.1",
+    "numpy>=2.5",
+]
+
+[project.optional-dependencies]
+experiments = [
+    "scipy==1.18.1",
+    "scikit-learn==1.9.1",
+    "pandas==3.0.5",
+    "matplotlib==3.11.2",
+    "andes==2.0.0",
+]
+test = ["pytest==9.1.1"]
+
+[tool.setuptools]
+packages = ["aegis_pq", "baselines"]

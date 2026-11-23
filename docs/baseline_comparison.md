@@ -10,7 +10,7 @@ Baselines are implemented in `baselines/` and evaluated at matched settings.
 | Shewhart, EWMA (λ = 0.2), CUSUM (κ = 0.5) | `aegis_pq/detectors.py` | same normalised observables, same policy, thresholds calibrated on the same benign data to the same alarm fraction | EXP-007 |
 | Static n = 7, n = 10 | `AdaptationPolicy` with `Never` detector | same k and record size | EXP-007 |
 | Insecure accept-all receiver | `exp008_cyberphysical_agc.py` | same plant, ramp and attacks | EXP-008 |
-| Legacy XOR fragmentation | `core/` (kept only for this comparison) | same message sizes and fragment counts | EXP-004 |
+| Legacy XOR fragmentation | `legacy/core/` (kept only for this comparison) | same message sizes and fragment counts | EXP-004 |
 | Unshaped / padded traffic | `exp005_traffic_capture.py` | same workload, sessions and codes | EXP-005/006 |
 
 ## Main findings (from the registered runs)

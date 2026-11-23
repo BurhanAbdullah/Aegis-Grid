@@ -10,6 +10,11 @@ statements below cite the file, command, or raw output that supports them.
 Evidence labels used throughout: `VERIFIED` (re-executed in this audit),
 `CODE INSPECTION` (read, not executed), `NOT REPRODUCIBLE`, `NO SOURCE FOUND`.
 
+> Path note (M9, DEC-015): the paths below are those of `main@65f83bf` at audit
+> time. The legacy code and data have since been moved, unchanged, under
+> `legacy/` (for example `core/fragmentation.py` is now
+> `legacy/core/fragmentation.py`).
+
 ---
 
 ## 1. Repository snapshot (Phase 0 freeze)

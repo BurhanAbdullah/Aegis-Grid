@@ -7,7 +7,7 @@ Output: results/raw/EXP-001_audit_probes/probes.json
 """
 import csv, json, os, random, sys, subprocess, platform
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from core.fragmentation import aont_fragment, aont_reconstruct  # legacy code under audit
+from legacy.core.fragmentation import aont_fragment, aont_reconstruct  # legacy code under audit
 
 OUT = "results/raw/EXP-001_audit_probes"
 SEED = 20261123
@@ -53,7 +53,7 @@ res["probe1d_empty_fragments_for_14B_message_N30"] = sum(1 for f in fr if len(f)
 
 # --- Probe 2: is stochastic_loss.csv a Markov (Gilbert-Elliott) burst model? -------------
 stored = {}
-with open("paper_artifacts/journal_data/stochastic_loss.csv") as f:
+with open("legacy/paper_artifacts/journal_data/stochastic_loss.csv") as f:
     for r in csv.DictReader(f):
         stored[float(r["state_transition_prob"])] = float(r["success_rate"])
 res["probe2_stochastic_loss_vs_iid"] = {
@@ -65,7 +65,7 @@ res["probe2_note"] = ("paper_artifacts/journal_scripts/stochastic_loss.sh draws 
                       "stored values are within |z|<2 of (1-p)^20 for all four p values (see z_score).")
 
 # --- Probe 3: Monte Carlo CI file -------------------------------------------------------
-rows = list(csv.DictReader(open("paper_artifacts/journal_data/monte_carlo_ci.csv")))
+rows = list(csv.DictReader(open("legacy/paper_artifacts/journal_data/monte_carlo_ci.csv")))
 res["probe3_monte_carlo_ci"] = {
     "N_values_in_file": sorted({int(r["N"]) for r in rows}),
     "rows": len(rows),
@@ -76,7 +76,7 @@ res["probe3_monte_carlo_ci"] = {
 }
 
 # --- Probe 4: provenance of the 48 ms / 35 ms latency numbers --------------------------
-plotted = list(csv.DictReader(open("paper_artifacts/data/v3_latency_comparison.csv")))
+plotted = list(csv.DictReader(open("legacy/paper_artifacts/data/v3_latency_comparison.csv")))
 res["probe4_latency_csv"] = {
     "plotted_static_max_ms": max(float(r["static"]) for r in plotted),
     "plotted_agent_max_ms": max(float(r["agent"]) for r in plotted),

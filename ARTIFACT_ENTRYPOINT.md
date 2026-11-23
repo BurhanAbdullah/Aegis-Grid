@@ -1,52 +1,22 @@
-# Aegis-Grid — Research Artifact Entry Point
+# Aegis-Grid — Artifact Entry Point (v6.0-revision)
 
-This repository contains the complete evolutionary history of the Aegis-Grid
-research framework. Versions are intentionally preserved as independent
-research stages.
+All results of the revised manuscript come from the code at the top level of this
+repository. Earlier research states (v1–v5) are kept unchanged under `legacy/` for
+traceability and are **not** used for any v6 result, except the legacy XOR
+fragmentation (`legacy/core/fragmentation.py`), which EXP-004 evaluates as the
+baseline that the package-transform AONT replaces.
 
-## Recommended Entry Points (Reviewers)
+| Purpose | Location |
+|---|---|
+| Verify everything with one command | `./scripts/verify_all.sh [--smoke]` |
+| Protocol implementation | `aegis_pq/` |
+| Baselines (TLS 1.3, IEC 62351-6-style HMAC) | `baselines/` |
+| Experiment runners and configurations | `experiments/runners/`, `experiments/configs/` |
+| Raw results with provenance (config, environment, status) | `results/raw/EXP-0xx/run_*/` |
+| Every number quoted in the manuscript | `results/paper_values.json` (`scripts/paper_values.py`) |
+| Figures (600 dpi PNG, PDF, CSV) and draw.io diagrams | `figures/`, `figures/diagrams/` |
+| Experiment register, claim matrix, known failures, decisions | `docs/research_integrity/` |
+| Reproduction instructions | `docs/reproducibility.md` |
 
-### Primary Paper Artifact
-- `Aegis-Grid-Unified/core/`  
-  Corresponds to **v3.0-final**, used for all reported results.
-
-### Cyber-Physical Extension (Stabilized)
-- `Aegis-Grid-Unified/extensions/cyber_physical/v4.0-cyberphysical/`  
-  Includes a verified, dependency-safe simulation (`run_v4_simulation.sh`).
-
-### Historical Baselines
-- `archive/legacy/v1/`
-- `archive/legacy/v2/`
-
-### Conceptual / Non-Executable
-- `v5/` (theoretical only)
-
-## Important Notes
-- No folders are deprecated or deleted.
-- Versions are not incremental releases; they represent distinct models.
-- Only v3.0-final and v4.0-cyberphysical are intended for execution.
-
-## Paper Results (2026)
-
-All figures and tables referenced in the paper are located in:
-
-paper_results/2026/
-
-No other plots in this repository are used for claims or evaluation.
-
-## Release Alignment
-
-The directory `releases/` mirrors GitHub release tags exactly.
-
-Reviewers may inspect any release independently without relying on
-branch history or commit ordering.
-
-Baseline Comparison Note
-
-Quantitative baseline comparisons included in paper_results/2026 are
-model-based and analytical. No experimental measurements are claimed for
-third-party systems such as IEC 62351, encrypted-only traffic, or IDS-based
-security frameworks.
-
-These comparisons are intended to highlight semantic differences in
-security guarantees rather than performance benchmarks.
+Manuscript tables and figures map to experiments as listed in
+`docs/research_integrity/EXPERIMENT_REGISTER.md` and `figures/FIGURE_SOURCES.csv`.

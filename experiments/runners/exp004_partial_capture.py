@@ -6,7 +6,7 @@ captured only k−1 of them (one fewer than needed).
 
 Metric: fraction of plaintext bytes the adversary's best simple reconstruction
 gets right.  For random 256-byte messages, chance level is 1/256 ≈ 0.0039.
- * legacy XOR transform (core/fragmentation.py): adversary holds the pad
+ * legacy XOR transform (legacy/core/fragmentation.py): adversary holds the pad
    fragment and all masked fragments except one (N−1 of N).
  * AONT + RS(k,n): adversary holds k−1 shards; fills the missing shard with
    zeros, RS-decodes, inverts the AONT ignoring the integrity check.
@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 import numpy as np
 from experiments.common import start, finish, load_config, ROOT
 from aegis_pq import aont, erasure
-from core.fragmentation import aont_fragment          # legacy construction under audit
+from legacy.core.fragmentation import aont_fragment          # legacy construction under audit
 
 
 def main(path):

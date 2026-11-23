@@ -5,7 +5,7 @@ tested in `tests/unit/test_aont.py`, `tests/unit/test_erasure.py`, `tests/integr
 evaluated in EXP-003 (reliability) and EXP-004 (partial capture).
 
 ## 1. Why the original construction was replaced
-The legacy `core/fragmentation.py` XORs the message with one pad `K` and sends
+The legacy `legacy/core/fragmentation.py` XORs the message with one pad `K` and sends
 `K` as the last fragment. It is not an all-or-nothing transform: every
 fragment except the pad is `M_i ⊕ K_i` with the pad bytes reused, and the
 reconstruction depends on fragment order. EXP-001 and EXP-004 show that an
