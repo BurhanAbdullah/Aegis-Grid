@@ -83,18 +83,24 @@ def fig_partial_capture():
 
 def fig_protocols():
     r = run("EXP-009", prefer=os.environ.get("EXP009_RUN")); d = pd.read_csv(os.path.join(r, "summary.csv"))
-    d2 = d[d.handshake_wall_ms_median.notna()]
-    fig, ax = plt.subplots(1, 2, figsize=(7.0, 2.8))
-    y = np.arange(len(d2))
-    ax[0].barh(y, d2.handshake_wall_ms_median, color=[C[0] if c.startswith("AGP") else C[1] for c in d2.configuration], height=0.6)
-    ax[0].errorbar(d2.handshake_wall_ms_p99, y, fmt="|", color=INK, ms=6)
-    ax[0].set_yticks(y); ax[0].set_yticklabels([c.replace(", ", "\n", 1) for c in d2.configuration], fontsize=5.5)
-    ax[0].invert_yaxis(); ax[0].set_xlabel("Handshake wall time (ms); bar = median, | = p99")
+    fig, ax = plt.subplots(1, 2, figsize=(7.0, 3.1), sharey=True)
     y = np.arange(len(d))
-    ax[1].barh(y, d.oneway_us_median, color=[C[0] if c.startswith("AGP") else (C[2] if c.startswith("IEC") else C[1]) for c in d.configuration], height=0.6)
+    col = [C[0] if c.startswith("AGP") else (C[2] if c.startswith("IEC") else C[1]) for c in d.configuration]
+    for a in ax:
+        a.set_axisbelow(True)
+    hs = d.handshake_wall_ms_median
+    ax[0].barh(y, hs.fillna(0), color=col, height=0.6)
+    ax[0].errorbar(d.handshake_wall_ms_p99, y, fmt="|", color=INK, ms=6)
+    for yi, (m, b) in enumerate(zip(hs, d.handshake_bytes_total)):
+        ax[0].text((m if pd.notna(m) else 0) + 0.2, yi, f"{b / 1e3:.1f} kB" if pd.notna(b) else "no handshake (pre-shared key)",
+                   va="center", fontsize=5.5, color=MUTED)
+    ax[0].set_yticks(y); ax[0].set_yticklabels([c.replace(", ", "\n", 1) for c in d.configuration], fontsize=5.5)
+    ax[0].invert_yaxis(); ax[0].set_xlabel("Time (ms)")
+    ax[0].set_title("(a) handshake time; label = bytes", loc="left", fontsize=7.5)
+    ax[1].barh(y, d.oneway_us_median, color=col, height=0.6)
     ax[1].errorbar(d.oneway_us_p99, y, fmt="|", color=INK, ms=6)
-    ax[1].set_yticks(y); ax[1].set_yticklabels([""] * len(d)); ax[1].invert_yaxis()
-    ax[1].set_xlabel("One-way latency, 96-byte message (µs)")
+    ax[1].set_xlabel("Time (µs)")
+    ax[1].set_title("(b) one-way latency, 96-byte message", loc="left", fontsize=7.5)
     fig.tight_layout(); save(fig, "Fig11_protocol_baselines", d, [r])
 
 
@@ -147,10 +153,14 @@ def fig_traffic():
         s = B[B.model == m].set_index("condition").reindex(conds)
         ax[0].errorbar(np.arange(len(conds)) + (i - 1.5) * w, s.roc_auc, yerr=[s.roc_auc - s.roc_auc_ci_lo, s.roc_auc_ci_hi - s.roc_auc],
                        fmt="o", ms=3.5, color=C[i], label=m.replace("_", " "), elinewidth=1)
-    ax[0].axhline(0.5, color=MUTED, ls=":", lw=1); ax[0].text(len(conds) - 0.6, 0.51, "chance", fontsize=6, color=MUTED, ha="right")
-    ax[0].set_xticks(range(len(conds))); ax[0].set_xticklabels([c.replace("_", "\n", 1) for c in conds], fontsize=6.3)
+    ax[0].axhline(0.5, color=MUTED, ls=":", lw=1); ax[0].text(-0.4, 0.51, "chance", fontsize=6, color=MUTED, ha="left")
+    lab = {"unshaped": "unshaped", "padded": "padded", "shaped_2ms": "shaped\n2 ms", "shaped_1ms": "shaped\n1 ms",
+           "shaped_2ms (repeat)": "shaped 2 ms\nrepeat*", "shaped_2ms_decoupled": "decoupled\n2 ms*", "shaped_1ms_decoupled": "decoupled\n1 ms*"}
+    ax[0].set_xticks(range(len(conds))); ax[0].set_xticklabels([lab.get(c, c) for c in conds], fontsize=6.0)
+    if len(runs) > 1:
+        ax[0].text(0.99, -0.22, "* EXP-011 (new sessions)", transform=ax[0].transAxes, ha="right", fontsize=5.5, color=MUTED)
     ax[0].set_ylim(0.4, 1.02); ax[0].set_ylabel("Test ROC-AUC (steady vs active)\n95 % session-bootstrap CI")
-    ax[0].legend(fontsize=6.3, ncol=4, loc="lower left"); ax[0].set_title("(a)", loc="left", fontsize=8)
+    ax[0].legend(fontsize=6.3, ncol=2, loc="upper right"); ax[0].set_title("(a)", loc="left", fontsize=8); ax[1].set_axisbelow(True)
     o = ov.set_index("condition").reindex(["unshaped", "padded", "shaped_2ms", "shaped_1ms"])
     ax[1].bar(range(4), o.wire_bytes_per_s / 1e3, color=[C[1], C[1], C[0], C[0]], width=0.6)
     ax[1].set_xticks(range(4)); ax[1].set_xticklabels(["unshaped", "padded", "shaped\n2 ms", "shaped\n1 ms"], fontsize=6.3)

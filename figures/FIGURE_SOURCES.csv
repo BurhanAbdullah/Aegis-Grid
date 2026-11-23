@@ -1,2 +1,10 @@
 figure,source_run
-Fig7_cap_vs_baselines,results/raw/EXP-007/run_20261123T182604Z
+Fig10_agc_ieee14,results/raw/EXP-008/run_20261123T182611Z
+Fig10_agc_ieee14,results/raw/EXP-012/run_20261123T191609Z
+Fig9_cap_vs_baselines,results/raw/EXP-007/run_20261123T182604Z
+Fig8_latency_by_class,results/raw/EXP-005/run_20261123T170717Z
+Fig6_partial_capture,results/raw/EXP-004/run_20261123T193137Z
+Fig11_protocol_baselines,results/raw/EXP-009/run_20261123T184800Z
+Fig5_delivery_vs_loss,results/raw/EXP-003/run_20261123T193131Z
+Fig7_traffic_attacker,results/raw/EXP-006/run_20261123T182614Z
+Fig7_traffic_attacker,results/raw/EXP-011/run_20261123T193132Z

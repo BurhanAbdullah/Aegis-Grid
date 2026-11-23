@@ -177,7 +177,8 @@ def main():
         return int([l for l in o.splitlines() if "collected" in l or "tests" in l][-1].split()[0])
     V["n_tests"] = ntests("tests"); V["n_security_tests"] = ntests("tests/security")
     V["_sources"] = {k: os.path.relpath(v, ROOT) for k, v in SRC.items()}
-    json.dump(V, open(os.path.join(ROOT, "results", "paper_values.json"), "w"), indent=1, default=str)
+    out = os.environ.get("PAPER_VALUES_OUT", os.path.join(ROOT, "results", "paper_values.json"))
+    json.dump(V, open(out, "w"), indent=1, default=str)
     print(len(V), "values;", V["_sources"])
 
 
