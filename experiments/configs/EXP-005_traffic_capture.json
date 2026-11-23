@@ -1,0 +1,19 @@
+{
+  "exp_id": "EXP-005",
+  "description": "Real UDP-loopback traces of AGP/1 traffic for a grid workload with three activity classes per window, under four protection conditions; raw material for the traffic-analysis attacker (EXP-006)",
+  "seed": 5005,
+  "sessions": 40,
+  "session_s": 12.0,
+  "window_ms": 250.0,
+  "drain_ms": 300.0,
+  "k": 5, "n": 7,
+  "max_message_bytes": 128,
+  "conditions": ["unshaped", "padded", "shaped_2ms", "shaped_1ms"],
+  "workload_ASSUMPTION": {
+    "telemetry": {"period_ms": 40.0, "bytes": 64, "deadline_ms": 100.0, "note": "periodic measurement report (PMU-like stream, 25 frames/s) present in every window"},
+    "event": {"offsets_ms": [0, 2, 4, 8, 16, 32, 64], "bytes": 96, "deadline_ms": 20.0, "note": "status-change burst with doubling retransmission interval, modelled on the GOOSE retransmission pattern"},
+    "command": {"offsets_ms": [0, 20], "bytes": 128, "deadline_ms": 100.0, "note": "supervisory select + operate pair"},
+    "event_start_ms": [10.0, 120.0],
+    "classes": ["steady", "event", "command"]
+  }
+}
