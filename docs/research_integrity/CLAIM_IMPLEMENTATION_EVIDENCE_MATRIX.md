@@ -80,3 +80,26 @@ consistent section numbers — itself a defect).
 | C11 (Markov burst-loss results) | IMPLEMENTED (Gilbert–Elliott); manuscript conclusion contradicted (burst less harmful for k=n) | aegis_pq/netmodel.py, EXP-003 |
 | C12 (MC with 95 % CI) | IMPLEMENTED — seeded, Wilson CI, validated against real pipeline | EXP-003 abstraction_check.json |
 | Reconstruction / DoS (R2) | k-of-n Reed–Solomon added (scope addition, DEC-008) | aegis_pq/erasure.py, EXP-003 |
+
+## Status after M4–M8 (2026-11-23)
+
+| Claim | New status | Evidence |
+|---|---|---|
+| C1 ML-KEM/ML-DSA integration | IMPLEMENTED, TESTED, MEASURED (x86-64 VM) | aegis_pq/, tests/security, EXP-002, EXP-009 |
+| C2 "simulations and emulations" | REMOVED — results labelled hardware measurement / simulation / analytical / assumption | manuscript §V-A |
+| C3 latency 35 ms vs 48 ms | REMOVED — replaced by measured per-class latency | EXP-005 latency_delivery.csv |
+| C4 GOOSE motivation vs 50 ms evaluation | SCOPED — Table 1 traffic classes; no protection-class suitability claim | manuscript §III-C |
+| C5 AONT | REPLACED (see M3 table) | EXP-004, docs/fragmentation_aont.md |
+| C6 Gu et al. citation | FIXED | manuscript references |
+| C7 KS ⇒ indistinguishable | WITHDRAWN — multivariate attacker AUC 0.77–0.83 under shaping | EXP-006 (follow-up EXP-010/011) |
+| C8 CAP θ*=0.45, FAR≈0 | WITHDRAWN — CAP = EWMA/(1−α); calibrated θ = 3.84; 1.75 false adaptations/1000 benign epochs; not better than CUSUM/EWMA | EXP-007, Proposition 2 (DEC-010 pending author) |
+| C9 fail-secure ⇒ safe set | QUALIFIED — plant study; safe hold time bounded (176.5 s at 0.1 pu/min); wind-up overshoot; stale-data case | EXP-008 (follow-up EXP-012) |
+| C10 O(N) timing, "proven 5 ms margin" | REMOVED — measured handshake/record costs | EXP-002, EXP-009 |
+| C11, C12 | IMPLEMENTED (see M3 table) | EXP-003 |
+| C13 PQ costs from Cortex-M literature | REMOVED — own measurements; embedded not measured (BLOCKED) | EXP-002 |
+| C14 baseline comparison | IMPLEMENTED — TLS 1.3 (PQ hybrid, PQ, classical; mutual), HMAC; chain-matched bytes | EXP-009, EXP-013 |
+| C15 overclaims | REWRITTEN — manuscript Table 11 | manuscript |
+| C16 2022 blackout claim | REMOVED (no verifiable source) | manuscript |
+| C17 Frontiers [31] exponential decay | REMOVED; [31] cited only for HIL co-simulation | manuscript §II-E |
+| C18 Table 3 parameters | REPLACED by config files | experiments/configs |
+| C19, C20 numbering, duplicates | FIXED | manuscript build script (numbers by first citation; duplicates merged) |
