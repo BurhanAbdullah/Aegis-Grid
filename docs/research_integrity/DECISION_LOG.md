@@ -56,3 +56,25 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Decision:** (c). The legacy transform stays in `core/` only as the EXP-004 comparison. The layer is renamed "package-transform AONT" and the claim is computational (docs/fragmentation_aont.md §3). k-of-n erasure coding is a **scope addition**: k = n reproduces the original design; k < n is evaluated as the availability fix.
 - **Scientific impact:** The "no information from partial sets" claim survives only as a computational, key-compromise-scoped statement. A negative finding is reported: burst loss is less harmful than i.i.d. loss for k = n (EXP-003), contrary to the manuscript.
 - **Verification:** unit/integration tests (AONT round-trip, tamper rejection, MDS any-k decode, GE sampler equivalence, pipeline exactly-once delivery); EXP-003 abstraction check.
+
+## DEC-009 — Constant-rate shaping leaks through timing; registered follow-up instead of tuning
+- **Date:** 2026-11-23
+- **Issue:** EXP-006 rejects the pre-run hypothesis: a classifier separates steady from active windows under shaping (AUC 0.79–0.83) via IAT tails, while KS on packet counts reports p = 1.0.
+- **Decision:** Report EXP-006 as the primary result. Register EXP-010/011 *before* running: same attacker, new sessions (seed 10010), with fragmentation moved out of the emission loop (decoupled producer process) and the coupled 2 ms condition repeated as reference. Whatever EXP-011 shows is reported alongside EXP-006; no further iteration is made on the test sessions.
+- **Scientific impact:** The manuscript claim "traffic indistinguishability (KS p > 0.93)" is withdrawn. Any revised claim is limited to the measured AUC with CI under the stated attacker.
+
+## DEC-010 — CAP presented as an EWMA-type statistic (PENDING AUTHOR DECISION)
+- **Date:** 2026-11-23
+- **Issue:** CAP_k = α·CAP_{k−1} + e_k equals EWMA/(1−α) (ANALYTICALLY DERIVED, unit-tested). EXP-007: CAP is not better than CUSUM (fewer false adaptations) or EWMA (faster on ramps).
+- **Options put to the author (decision card):** reframe CAP as EWMA-based policy (recommended); drop L6; keep "novel metric" (not supported).
+- **Working assumption until answered:** reframe. The manuscript text is written so that the change can be reverted in one section if the author chooses otherwise.
+
+## DEC-011 — Cyber-physical study scope and U_safe
+- **Date:** 2026-11-23
+- **Decision:** AGC on the Andes IEEE 14-bus dynamic case; U_safe = hold the last validated set-point with primary droop active. Frequency limits from SOGL Annex III are used as illustrative limits (ASSUMPTION). Protection-class (≈3 ms) traffic is not studied in the plant model.
+- **Finding requiring a design addition:** control-centre integrator wind-up during outages (EXP-008). Follow-up EXP-012 registered before running (integrator frozen without acknowledgements); both results reported.
+
+## DEC-012 — TLS 1.3 baseline must authenticate both parties
+- **Date:** 2026-11-23
+- **Issue:** EXP-009 run_20261123T182344Z used server-only TLS authentication while AGP/1 authenticates both sides, so handshake bytes/time were not matched.
+- **Decision:** keep that run (labelled server-auth only) and add mutual-auth TLS configurations (run_20261123T184325Z); the manuscript compares AGP/1 with mutual TLS.

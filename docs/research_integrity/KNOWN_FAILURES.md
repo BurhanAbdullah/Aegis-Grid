@@ -19,3 +19,9 @@ with the fixing commit and the test that guards them.
 | KF-012 | M1 | θ = 0.35 in code vs 0.45 in manuscript | `agents/secure_agent.py` | OPEN → M5 |
 | KF-013 | M3 | AONT bound weak for short shards (32 B message, k=20 ⇒ 40 unknown bits) | docs/fragmentation_aont.md §3 | OPEN — limitation, reported |
 | KF-014 | M3 | Erasure coding only partly restores delivery under bursts (≈0.85–0.91 at 10 %, burst 5); two-path no benefit | EXP-003 | OPEN — reported as result |
+| KF-015 | M4 | Constant-rate shaping leaks activity via emission-timing jitter (AUC 0.79–0.83) | EXP-006 | OPEN — follow-up EXP-010/011 |
+| KF-016 | M4 | Shaping at Δ = 2 ms delivers only 43 % of 20 ms-deadline event messages | EXP-005/006 | OPEN — reported; Δ = 1 ms meets it at ×4.3 bandwidth |
+| KF-017 | M5 | Every detector raises false adaptations in benign congestion episodes | EXP-007 | OPEN — reported |
+| KF-018 | M6 | AGC integrator wind-up causes +1.15 Hz overshoot after a 240 s command outage | EXP-008 | OPEN — follow-up EXP-012 |
+| KF-019 | M7 | AGP/1 handshake (≈5 ms, 20 kB) is slower and larger than TLS 1.3 with ML-KEM/ML-DSA (≈2.6 ms server-auth); per-message latency ≈2× TLS (Python record/AONT path) | EXP-009 | OPEN — reported |
+| KF-020 | M1–M7 | EXP-006/007/008 environment.json shows git_dirty=true caused only by an untracked result directory (provenance logic since fixed to separate untracked files) | environment.json | DOCUMENTED |

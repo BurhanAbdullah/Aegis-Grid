@@ -61,6 +61,7 @@ def tls_run(a):
         for i in range(a["handshakes"] + 1):
             c, _ = ls.accept(); c.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             t = sctx.wrap_socket(c, server_side=True)
+            t.sendall(b"k")          # application-level ack, as AGP/1's "ok" frame: both sides finished
             if i == a["handshakes"]:
                 for _ in range(a["messages"]):
                     d = recv_exact(t, 8 + a["msg_bytes"]); lat.append((mono() - struct.unpack(">Q", d[:8])[0]) / 1e3)
@@ -72,6 +73,7 @@ def tls_run(a):
         t0 = mono()
         c = socket.create_connection(("127.0.0.1", port)); c.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         t = cctx.wrap_socket(c, server_hostname="rtu-07")
+        recv_exact(t, 1)
         if i < a["handshakes"]:
             hs.append((mono() - t0) / 1e3); t.close(); continue
         nxt = mono()

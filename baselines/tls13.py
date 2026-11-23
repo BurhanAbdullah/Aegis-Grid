@@ -53,6 +53,8 @@ def contexts(ca, crt, key, mutual=False):
     (matched to AGP/1, which always authenticates both parties)."""
     s = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER); s.minimum_version = ssl.TLSVersion.TLSv1_3
     s.load_cert_chain(crt, key)
+    s.num_tickets = 0        # no session resumption tickets: AGP/1 has no resumption (matched setting);
+                             # OpenSSL tickets would otherwise carry the client certificate (~16 kB extra with ML-DSA-65)
     c = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT); c.minimum_version = ssl.TLSVersion.TLSv1_3
     c.load_verify_locations(ca)
     if mutual:

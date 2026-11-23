@@ -1,0 +1,5 @@
+{
+  "status": "FAILED",
+  "note": "hung at the first mutual-TLS configuration: the client closed right after its handshake while the server was still writing session tickets (BrokenPipe in the server process). Fixed by an application-level 1-byte ack after the handshake (mirrors the AGP/1 ok frame) and num_tickets=0 (AGP/1 has no resumption). No results produced.",
+  "finished_utc": "20261123T184747Z"
+}
