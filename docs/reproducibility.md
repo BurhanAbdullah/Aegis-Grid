@@ -39,7 +39,6 @@ Stochastic experiments (EXP-003/004/006/007/008/011/012) reproduce exactly from
 their seeds on the pinned versions; timing experiments (EXP-002/005/009/010/013)
 reproduce in distribution only and will differ on other hardware.
 
-## Approximate run times on the reference VM
-EXP-002 ≈ 2 min; EXP-003 ≈ 5 min; EXP-004 < 1 min; EXP-005/010 ≈ 30–40 min;
-EXP-006/011 ≈ 10 min; EXP-007 ≈ 5 min; EXP-008/012 ≈ 15 min; EXP-009 ≈ 3 min;
-EXP-013 < 1 min.
+## Measured run times on the reference VM (from environment.json / status.json)
+EXP-002 0.3 min; EXP-003 0.1 min; EXP-004 0.1 min; EXP-005 33 min; EXP-006 6 min;
+EXP-007 1.9 min; EXP-008 16 min; EXP-009 3 min. EXP-010–013: see their run directories.
