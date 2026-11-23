@@ -1,0 +1,5 @@
+{
+  "status": "FAILED",
+  "note": "crashed in bandwidth-overhead step after classifier results were written: EXP-010 has no unshaped condition (ratio base missing). Classifier outputs in this directory are complete but the run is not used; rerun after fix.",
+  "finished_utc": "20261123T193112Z"
+}
