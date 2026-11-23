@@ -63,7 +63,8 @@ def environment():
 
 def start(exp_id, config):
     ts = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    d = os.path.join(ROOT, "results", "raw", exp_id, f"run_{ts}")
+    base = os.environ.get("AEGIS_RESULTS_DIR", os.path.join(ROOT, "results", "raw"))   # smoke runs go elsewhere
+    d = os.path.join(base, exp_id, f"run_{ts}")
     os.makedirs(d, exist_ok=False)
     json.dump(config, open(os.path.join(d, "config.json"), "w"), indent=2)
     env = environment(); env["started_utc"] = ts

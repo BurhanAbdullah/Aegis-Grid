@@ -1,0 +1,23 @@
+import os, ssl
+from baselines.iec62351_hmac import HmacSender, HmacReceiver
+from baselines import tls13
+
+
+def test_hmac_baseline_auth_replay_age():
+    k = os.urandom(32)
+    s, r = HmacSender(k), HmacReceiver(k, 1000)
+    a = s.seal(b"trip", 10)
+    assert r.open(a, 20) == b"trip"
+    assert r.open(a, 21) is None                       # replay
+    b = s.seal(b"x", 30)
+    assert r.open(b[:-1] + bytes([b[-1] ^ 1]), 31) is None
+    assert r.open(s.seal(b"y", 0), 5000) is None       # too old
+
+
+def test_tls13_pq_group_and_mldsa_cert_verified(tmp_path):
+    ca, crt, key = tls13.make_pki(str(tmp_path), "mldsa65")
+    sctx, cctx = tls13.contexts(ca, crt, key)
+    cb, sb, grp, cipher = tls13.memory_handshake(sctx, cctx)
+    assert ssl.OPENSSL_VERSION.startswith("OpenSSL 3.5")
+    assert tls13.GROUP_IDS.get(grp) == "X25519MLKEM768"   # default group of OpenSSL 3.5, verified on the wire
+    assert sb > 5000                                       # ML-DSA-65 certificate chain + signature
