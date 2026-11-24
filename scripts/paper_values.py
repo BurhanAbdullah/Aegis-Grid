@@ -35,7 +35,7 @@ def main():
             "mldsa44_sign": "ML-DSA-44 sign", "mldsa44_verify": "ML-DSA-44 verify", "mldsa65_sign": "ML-DSA-65 sign",
             "mldsa65_verify": "ML-DSA-65 verify", "mldsa87_sign": "ML-DSA-87 sign", "mldsa87_verify": "ML-DSA-87 verify",
             "x25519_exchange": "X25519 exchange", "x509_validate": "X.509 validate (ML-DSA-65 cert)",
-            "aesgcm_1k_enc": "AES-256-GCM encrypt 1024B"}
+            "aesgcm_1k_enc": "AES-256-GCM encrypt 1024B", "hkdf48": "HKDF-SHA384 expand 48B"}
     for k, op in pick.items():
         V[k + "_med_us"] = f(s.loc[op, "median_us"], 1); V[k + "_p99_us"] = f(s.loc[op, "p99_us"], 1)
     for k, name in {"0101": "AGP1_MLKEM768_MLDSA65_AES256GCM_SHA384", "0102": "AGP1_X25519MLKEM768_MLDSA65_AES256GCM_SHA384",
@@ -80,6 +80,15 @@ def main():
     for k in (5, 10, 20, 30):
         V[f"xor_leak_{k}"] = f(leg.loc[k, "mean_fraction_bytes_recovered"] * 100, 1)
     V["aont_leak_mean_max"] = f(new.mean_fraction_bytes_recovered.max() * 100, 2); V["aont_leak_trial_max"] = f(new["max"].max() * 100, 1)
+    # External: pqm4 Cortex-M4 cycle counts (data/external, ANALYTICALLY DERIVED, not measured here)
+    ext = pd.read_csv(os.path.join(ROOT, "data", "external", "pqm4_cortex_m4.csv")).set_index(["scheme", "operation"])
+    cyc = lambda s, o, c="cycles_avg": int(ext.loc[(s, o), c])
+    resp = cyc("ml-kem-768", "encaps") + cyc("ml-dsa-65", "sign") + 2 * cyc("ml-dsa-65", "verify")
+    init = cyc("ml-kem-768", "keygen") + cyc("ml-kem-768", "decaps") + cyc("ml-dsa-65", "sign") + 2 * cyc("ml-dsa-65", "verify")
+    V["m4_resp_mcycles"] = f(resp / 1e6, 1); V["m4_init_mcycles"] = f(init / 1e6, 1)
+    V["m4_resp_ms_100mhz"] = f(resp / 1e5, 0); V["m4_init_ms_100mhz"] = f(init / 1e5, 0)
+    V["m4_sign_max_mcycles"] = f(cyc("ml-dsa-65", "sign", "cycles_max") / 1e6, 1)
+    V["m4_sign_avg_mcycles"] = f(cyc("ml-dsa-65", "sign") / 1e6, 1)
     # EXP-006 / EXP-011 attacker, EXP-005 latency
     for exp in ("EXP-006", "EXP-011"):
         try:
@@ -155,6 +164,47 @@ def main():
                 band = cfg["limits_ASSUMPTION"]["steady_state_band_hz"]
                 o = s[(s.t_s >= t_end) & ((s.f_hz - f0).abs() > band)]
                 V[k + "_back_in_band_after_recovery_s"] = f(o.t_s.max() - t_end, 1) if len(o) else 0.0
+    # EXP-014 actuator headroom (TGOV1 limits) under the fail-secure hold
+    try:
+        r = latest("EXP-014")
+    except SystemExit:
+        r = None
+    if r:
+        SRC["EXP-014"] = r
+        A = pd.read_csv(os.path.join(r, "summary.csv")); T = pd.read_csv(os.path.join(r, "timeseries.csv.gz"))
+        cfg = json.load(open(os.path.join(r, "config.json"))); f0 = cfg["limits_ASSUMPTION"]["f_nominal_hz"]
+        band = cfg["limits_ASSUMPTION"]["steady_state_band_hz"]
+        ng = sum(1 for c in T.columns if c.startswith("pout_"))
+        for _, x in A.iterrows():
+            g = T[T.scenario == x.scenario]; k = f"014_{x.scenario}"
+            head = {j: (g[f"vmax_{j}"] - g[f"pout_{j}"]).min() for j in range(1, ng + 1)}
+            jmin = min(head, key=head.get)
+            V[k + "_min_headroom_pu"] = f(head[jmin], 3) + 0.0; V[k + "_min_headroom_gen"] = jmin
+            hit = g[np.isclose(g[f"pout_{jmin}"], g[f"vmax_{jmin}"], atol=1e-4)]
+            V[k + "_first_vmax_s"] = f(hit.t_s.min(), 1) if len(hit) else None
+            out = g[(g.t_s >= cfg["attack_start_s"]) & ((g.f_hz - f0).abs() > band)]
+            V[k + "_band_exit_s"] = f(out.t_s.min(), 1) if len(out) else None
+            if len(out):
+                pre = g[g.t_s <= out.t_s.min()]
+                he = {j: (pre[f"vmax_{j}"] - pre[f"pout_{j}"]).min() for j in range(1, ng + 1)}
+                V[k + "_headroom_at_exit_pu"] = f(min(he.values()), 3); V[k + "_headroom_at_exit_gen"] = min(he, key=he.get)
+            sc = next(c for c in cfg["scenarios"] if c["name"] == x.scenario)
+            if len(hit) and sc["attack"] != "none":
+                V[k + "_vmax_after_recovery_s"] = f(hit.t_s.min() - cfg["attack_start_s"] - sc["duration_s"], 1)
+            V[k + "_first_viol"] = None if pd.isna(x.first_ss_violation_after_attack_start_s) else f(x.first_ss_violation_after_attack_start_s, 1)
+            if pd.notna(x.get("analytic_hold_time_to_band_s", np.nan)):
+                V[k + "_analytic"] = f(x.analytic_hold_time_to_band_s, 0)
+                V[k + "_sim_over_analytic"] = f(x.first_ss_violation_after_attack_start_s / x.analytic_hold_time_to_band_s, 2)
+                # equal droops: required headroom per governor at the band edge = (band/f0)/R_i
+                sum_inv_r = x.analytic_hold_time_to_band_s * (x.ramp_pu_per_min / 60.0) * f0 / band
+                V["014_required_headroom_pu"] = f(band / f0 * sum_inv_r / ng, 3)
+        lo = T[(T.scenario == "no_attack")]
+        for j in range(1, ng + 1):
+            at = lo[np.isclose(lo[f"pout_{j}"], lo[f"vmin_{j}"], atol=1e-4)]
+            if len(at):
+                V["014_gov_at_vmin"] = j; V["014_gov_at_vmin_until_s"] = f(at.t_s.max(), 1)
+                V["014_gov_vmin_pu"] = f(lo[f"vmin_{j}"].iloc[0], 2)
+        V["014_n_gov"] = ng
     # EXP-009 protocols
     r = latest("EXP-009"); SRC["EXP-009"] = r
     P9 = pd.read_csv(os.path.join(r, "summary.csv"))

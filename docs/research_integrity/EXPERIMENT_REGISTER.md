@@ -135,8 +135,8 @@ are committed on `research-integrity-remediation`).
 - **Research question:** Do the turbine-governor limits (TGOV1 VMAX/VMIN) of the IEEE 14-bus case bind while set-points are held, and is the analytical hold time, which assumes unsaturated droop, therefore valid?
 - **Hypothesis (pre-run):** for load ramps up to 0.1 pu/min no governor reaches VMAX before the frequency leaves the ±0.2 Hz band; at 0.2 pu/min a limit may be reached. One governor (TGOV1_4) starts at VMIN = 0.3 pu in the base case, which explains the `gov_at_limit = 1` already present in EXP-008.
 - **Method:** `exp008_cyberphysical_agc.py` with per-governor mechanical power and limits logged (logging only; simulation unchanged); config `EXP-014_actuator_headroom.json` = EXP-008 settings, scenarios no_attack, drop_240s, drop_240s_ramp0.05, drop_240s_ramp0.2, fail-secure receiver.
-- **Run:** pending.
-- **Outcome:** pending.
+- **Run:** `results/raw/EXP-014/run_20261124T052924Z/` (commit f6be884, clean tree).
+- **Outcome:** hypothesis confirmed. Frequency results identical to EXP-008 (drop_240s: crossing 176.5 s, max deviation 1.145 Hz), so the added logging did not change the simulation. Required governor increase at the band edge 0.067 pu; smallest headroom of any governor up to the band exit 0.170 / 0.163 / 0.156 pu for ramps 0.05 / 0.1 / 0.2 pu/min, always generator 1. Generator 1 reached VMAX only at 0.2 pu/min, 72.5 s after delivery resumed. TGOV1_4 starts at VMIN (0.3 pu) until the ramp begins (20.5 s). Simulated crossing / Eq. (6) estimate: 0.61, 0.88, 0.79, so the quasi-steady estimate is not conservative. Label: SIMULATION RESULT.
 
 ## Frozen reruns (clean tree) of EXP-002, EXP-003, EXP-004 — 2026-11-23
 - EXP-002 `run_20261123T193428Z` (c3bbc9a, run alone): replaces the development run for the manuscript. Medians: ML-KEM-768 encaps 23.3 µs / decaps 50.6 µs; ML-DSA-65 sign 824.9 µs (p99 4095 µs); handshake CPU 0x0101 3.72 ms, 0x0102 4.25 ms, 0x0201 5.19 ms, 0x0301 2.35 ms. Differences from the development run are run-to-run timing variation on a shared VM; both runs are kept.

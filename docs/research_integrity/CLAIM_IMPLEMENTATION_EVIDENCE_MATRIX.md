@@ -93,7 +93,7 @@ consistent section numbers — itself a defect).
 | C6 Gu et al. citation | FIXED | manuscript references |
 | C7 KS ⇒ indistinguishable | WITHDRAWN — multivariate attacker AUC 0.77–0.83 under shaping | EXP-006 (follow-up EXP-010/011) |
 | C8 CAP θ*=0.45, FAR≈0 | WITHDRAWN — CAP = EWMA/(1−α); calibrated θ = 3.84; 1.75 false adaptations/1000 benign epochs; not better than CUSUM/EWMA | EXP-007, Proposition 2 (DEC-010, author decision: reframed as EWMA-based policy) |
-| C9 fail-secure ⇒ safe set | QUALIFIED — plant study; safe hold time bounded (176.5 s at 0.1 pu/min); wind-up overshoot; stale-data case | EXP-008 (follow-up EXP-012) |
+| C9 fail-secure ⇒ safe set | QUALIFIED — plant study; safe hold time bounded (176.5 s at 0.1 pu/min); wind-up overshoot; stale-data case | EXP-008 (follow-ups EXP-012, EXP-014: governor limits not binding before the band is left; hold-time estimate not conservative) |
 | C10 O(N) timing, "proven 5 ms margin" | REMOVED — measured handshake/record costs | EXP-002, EXP-009 |
 | C11, C12 | IMPLEMENTED (see M3 table) | EXP-003 |
 | C13 PQ costs from Cortex-M literature | REMOVED — own measurements; embedded not measured (BLOCKED) | EXP-002 |

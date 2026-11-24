@@ -1,0 +1,25 @@
+{
+  "git_commit": "f6be8847d413385e0c238aea7d4522ece4d71066",
+  "git_dirty": false,
+  "git_untracked": [
+    "results/raw/EXP-014/"
+  ],
+  "python": "3.13.18",
+  "platform": "Linux-6.18.44-fc-v819-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "cpu_count": 4,
+  "python_ssl_openssl": "OpenSSL 3.5.9 29 Sep 2026",
+  "cryptography_openssl": "OpenSSL 4.0.2 25 Aug 2026",
+  "packages": {
+    "cryptography": "50.0.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.5",
+    "matplotlib": "3.11.2",
+    "andes": "2.0.0"
+  },
+  "hardware_class": "virtualised x86-64 cloud VM (not embedded hardware)",
+  "started_utc": "20261124T052924Z"
+}
