@@ -34,7 +34,7 @@ assumption) is listed in
 ```bash
 python3.13 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt     # exact versions used for all registered runs
-./scripts/verify_all.sh                          # environment, tests, mutation checks, provenance, manuscript numbers
+./scripts/verify_all.sh                          # environment, tests, mutation checks, provenance, manuscript numbers, figures
 ./scripts/verify_all.sh --smoke                  # + reduced runs of every experiment runner (about 5 min)
 ```
 

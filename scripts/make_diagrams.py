@@ -6,7 +6,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "figures", "diagrams")
+OUT = os.path.join(os.environ["FIGURES_OUT"], "diagrams") if os.environ.get("FIGURES_OUT") else os.path.join(os.path.dirname(__file__), "..", "figures", "diagrams")
 FILL = {"snd": "#dbe8f8", "rcv": "#d7f0e6", "net": "#fde4d9", "pki": "#f3f2ee", "warn": "#fbe9c2", "plain": "#ffffff"}
 EDGE = "#3a3a38"
 
