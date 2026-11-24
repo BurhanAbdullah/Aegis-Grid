@@ -63,11 +63,11 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Decision:** Report EXP-006 as the primary result. Register EXP-010/011 *before* running: same attacker, new sessions (seed 10010), with fragmentation moved out of the emission loop (decoupled producer process) and the coupled 2 ms condition repeated as reference. Whatever EXP-011 shows is reported alongside EXP-006; no further iteration is made on the test sessions.
 - **Scientific impact:** The manuscript claim "traffic indistinguishability (KS p > 0.93)" is withdrawn. Any revised claim is limited to the measured AUC with CI under the stated attacker.
 
-## DEC-010 — CAP presented as an EWMA-type statistic (PENDING AUTHOR DECISION)
+## DEC-010 — CAP presented as an EWMA-type statistic (DECIDED BY THE AUTHOR)
 - **Date:** 2026-11-23
 - **Issue:** CAP_k = α·CAP_{k−1} + e_k equals EWMA/(1−α) (ANALYTICALLY DERIVED, unit-tested). EXP-007: CAP is not better than CUSUM (fewer false adaptations) or EWMA (faster on ramps).
 - **Options put to the author (decision card):** reframe CAP as EWMA-based policy (recommended); drop L6; keep "novel metric" (not supported).
-- **Working assumption until answered:** reframe. The manuscript text is written so that the change can be reverted in one section if the author chooses otherwise.
+- **Decision (author, 2026-11-24):** reframe CAP as an EWMA-based adaptation policy. The manuscript already used this framing, so no text changed.
 
 ## DEC-011 — Cyber-physical study scope and U_safe
 - **Date:** 2026-11-23

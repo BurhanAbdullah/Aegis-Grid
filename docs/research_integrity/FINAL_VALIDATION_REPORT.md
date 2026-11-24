@@ -80,10 +80,8 @@ command.
    entry, the volume and pages of Page (1954), Roberts (1959), Gilbert (1960),
    Elliott (1963) and Cliff (1993), and the issue number of the ANDES paper. Each
    is marked in the reference audit file delivered with the manuscript.
-3. **CAP framing (DEC-010).** The revision presents CAP as an EWMA-based
-   adaptation policy and reports that it does not detect better than CUSUM or
-   EWMA. This changes a contribution of the earlier paper and needs the author's
-   scientific confirmation.
+3. **CAP framing (DEC-010).** Decided by the author on 2026-11-24: CAP is
+   presented as an EWMA-based adaptation policy, as in the revised manuscript.
 4. **Journal template.** The manuscript uses the template of the earlier
    submission (IEEE Access style). If it is submitted to a different journal, the
    journal's own template applies.
@@ -106,5 +104,4 @@ command.
   remains in a safe set in general.
 - All experiments were run in one remediation session on one machine and have
   not been replicated independently.
-- The GitHub Actions workflow was rewritten but its first run happens when the
-  branch is pushed; its result is reported on the pull request.
+- The rewritten GitHub Actions workflow passed on its first run (PR #6).
