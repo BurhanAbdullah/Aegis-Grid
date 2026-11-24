@@ -28,3 +28,4 @@ with the fixing commit and the test that guards them.
 | KF-021 | M1–M8 | Docs and code comments stated that `cryptography` uses OpenSSL 3.5; environment.json shows its statically linked OpenSSL is 4.0.2 (3.5.9 is Python `ssl`, used only by the TLS baseline) | environment.json, `backend.openssl_version_text()` | FIXED (text corrected) |
 | KF-022 | M7 | EXP-011 first run crashed in the bandwidth step (no unshaped condition in EXP-010) | run_20261123T191609Z | FIXED (d74c690), rerun COMPLETED, identical AUCs |
 | KF-023 | M7 | Mutual-TLS byte comparison unmatched: OpenSSL auto-chains the CA certificate | DEC-013 | FIXED by EXP-013 (leaf-only measurement) |
+| KF-024 | post-merge | Attacker feature count stated as 36 in the manuscript, methodology, limitations and register; the runner computes 33 | `features()` in exp006_traffic_attacker.py; effect_sizes.csv | FIXED (count read from results: `006_n_features`) |

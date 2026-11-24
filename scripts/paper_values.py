@@ -105,6 +105,9 @@ def main():
         for _, x in ks.iterrows():
             V[f"{exp[-3:]}_{x.condition}_ks_{x.feature.replace(' ', '_')}_p"] = f(x.p_value, 3)
         e = pd.read_csv(os.path.join(r, "effect_sizes.csv")); e["a"] = e.cliffs_delta_active_vs_steady.abs()
+        nf = e.groupby("condition").feature.nunique()
+        assert nf.nunique() == 1, nf
+        V[f"{exp[-3:]}_n_features"] = int(nf.iloc[0])
         for c, g in e.groupby("condition"):
             t = g.sort_values("a").iloc[-1]; V[f"{exp[-3:]}_{c}_top_feature"] = t.feature; V[f"{exp[-3:]}_{c}_top_delta"] = f(t.cliffs_delta_active_vs_steady, 2)
         bw = pd.read_csv(os.path.join(r, "bandwidth_overhead.csv"))

@@ -5,7 +5,7 @@
 2. **Network.** Loopback only; no WAN delay, switching, TSN or wireless effects.
 3. **Assumed inputs.** Workload, attack families, channel parameters and frequency
    limits are ASSUMPTIONS (config keys `*_ASSUMPTION`).
-4. **Attacker strength.** 36 hand-designed features, window alignment known, four
+4. **Attacker strength.** 33 hand-designed features, window alignment known, four
    classical models; no deep sequence models, no training on the target network.
    Reported AUCs are lower bounds on attacker capability.
 5. **Shaping leaks timing** as implemented (EXP-006); indistinguishability is not
