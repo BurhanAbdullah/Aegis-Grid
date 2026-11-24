@@ -142,7 +142,11 @@ def simulate(cfg, sc, receiver, pki):
                     "pagc_cmd_pu": pagc, "applied_sum_pu": float(applied.sum()), "load_delta_pu": dP,
                     "pm_sum_pu": float(np.sum(ss.TGOV1.pout.v)), "attack": attack_on,
                     "gov_at_limit": int(np.sum(np.isclose(ss.TGOV1.pout.v, ss.TGOV1.VMAX.v, atol=1e-4) |
-                                               np.isclose(ss.TGOV1.pout.v, ss.TGOV1.VMIN.v, atol=1e-4)))})
+                                               np.isclose(ss.TGOV1.pout.v, ss.TGOV1.VMIN.v, atol=1e-4))),
+                    # per-governor mechanical power and limits (actuator headroom, EXP-014)
+                    **{f"pout_{j+1}": float(v) for j, v in enumerate(ss.TGOV1.pout.v)},
+                    **{f"vmax_{j+1}": float(v) for j, v in enumerate(ss.TGOV1.VMAX.v)},
+                    **{f"vmin_{j+1}": float(v) for j, v in enumerate(ss.TGOV1.VMIN.v)}})
         t = t_next
     rej = {}
     if receiver == "secure_failsecure":

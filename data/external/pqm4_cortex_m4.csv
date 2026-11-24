@@ -1,0 +1,7 @@
+scheme,implementation,operation,cycles_avg,cycles_min,cycles_max,executions
+ml-kem-768,m4fspeed,keygen,642096,639116,651103,10
+ml-kem-768,m4fspeed,encaps,658754,655785,667769,10
+ml-kem-768,m4fspeed,decaps,707827,704858,716842,10
+ml-dsa-65,m4f,keygen,2516006,2514337,2517453,1000
+ml-dsa-65,m4f,sign,6193171,2918295,26008621,1000
+ml-dsa-65,m4f,verify,2415944,2415109,2416730,1000

@@ -47,3 +47,10 @@ htmlcov/
 
 # Docs build
 docs/_build/
+
+# Editor and local tool state
+.vscode/
+.backup/
+.novelty_state/
+*.bak
+*.verify_bak

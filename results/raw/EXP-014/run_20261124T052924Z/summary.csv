@@ -1,0 +1,5 @@
+scenario,receiver,attack,duration_s,ramp_pu_per_min,f_min_hz,f_max_hz,max_abs_dev_hz,time_outside_ss_band_s,first_ss_violation_after_attack_start_s,instantaneous_band_violated,max_govs_at_limit,commands_accepted,rounds_with_only_invalid_records,receiver_rejects,analytic_hold_time_to_band_s
+no_attack,secure_failsecure,none,0,0.1,59.97439858237178,60.0,0.025601417628223544,0.0,,False,1,1050,0,{},
+drop_240s,secure_failsecure,drop,240,0.1,59.73433232461333,61.14522102650162,1.1452210265016234,106.0,176.5,True,1,450,0,{},200.0
+drop_240s_ramp0.05,secure_failsecure,drop,240,0.05,59.867305420553485,60.5846310533759,0.5846310533759009,24.0,242.5,False,1,450,0,{},400.0
+drop_240s_ramp0.2,secure_failsecure,drop,240,0.2,59.46749128088685,62.26455684481289,2.264556844812887,218.0,78.5,True,1,450,0,{},100.0

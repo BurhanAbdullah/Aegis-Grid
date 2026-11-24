@@ -16,7 +16,7 @@ remediation: every result is re-measured on a working implementation.
   Reed–Solomon k-of-n coding, constant-rate shaper, CAP and CUSUM/EWMA/Shewhart detectors.
 - `baselines/`: TLS 1.3 (classical, ML-KEM, hybrid; server-only and mutual) and
   IEC 62351-6-style HMAC.
-- Registered experiments EXP-002 to EXP-013 with raw outputs and provenance in `results/raw/`.
+- Registered experiments EXP-002 to EXP-014 with raw outputs and provenance in `results/raw/`.
 - `scripts/verify_all.sh`, `scripts/paper_values.py`, `scripts/check_manuscript_numbers.py`,
   600 dpi figures and draw.io diagrams.
 - 102 unit, integration and security tests; research-integrity records in `docs/research_integrity/`.
@@ -25,6 +25,9 @@ remediation: every result is re-measured on a working implementation.
 - v1–v5 code, scripts, data and documents moved unchanged to `legacy/` (`git mv`).
 - CI runs `verify_all.sh --smoke` on Python 3.13 / OpenSSL 3.5; failures fail the job.
 - Packaging moved from `setup.py` to `pyproject.toml`.
+- Repository cleanup: pinned versions in `requirements.txt` (was `requirements-remediation.txt`),
+  pytest configuration in `pyproject.toml`, stray editor and tool state removed,
+  `CITATION.cff` and folder READMEs added, `SECURITY.md` rewritten for v6.
 
 ### Withdrawn claims
 - See `docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md` and
@@ -61,4 +64,4 @@ Monte Carlo simulation results, formal security theorems, and paper draft.
 
     git checkout tags/research/v3-final
 
-See README.md section 10 for the full tagging philosophy.
+Research states v1–v5 are also kept unchanged under `legacy/`.

@@ -1,8 +1,8 @@
 # Reproducibility
 
 ## Environment
-- Python 3.13 with the exact versions in `requirements-remediation.txt`
-  (`pip install -r requirements-remediation.txt`). `cryptography` 50.0.1 ships a
+- Python 3.13 with the exact versions in `requirements.txt`
+  (`pip install -r requirements.txt`). `cryptography` 50.0.1 ships a
   statically linked OpenSSL (4.0.2 in the pinned build); the TLS baseline needs a
   Python whose `ssl` module is linked against OpenSSL ≥ 3.5 (ML-KEM groups and
   ML-DSA certificates). `scripts/verify_all.sh` checks both.
@@ -30,12 +30,13 @@ python3 experiments/runners/exp005_traffic_capture.py experiments/configs/EXP-01
 python3 experiments/runners/exp006_traffic_attacker.py experiments/configs/EXP-011_attacker_on_decoupled.json
 python3 experiments/runners/exp008_cyberphysical_agc.py experiments/configs/EXP-012_agc_antiwindup.json
 python3 experiments/runners/exp013_tls_chain_matched.py experiments/configs/EXP-013_tls_chain_matched.json
+python3 experiments/runners/exp008_cyberphysical_agc.py experiments/configs/EXP-014_actuator_headroom.json
 python3 scripts/paper_values.py      # manuscript numbers -> results/paper_values.json
 python3 scripts/make_figures.py      # figures/*.png (600 dpi), *.pdf, *.csv, FIGURE_SOURCES.csv
 python3 scripts/make_diagrams.py     # figures/diagrams/*.drawio (+ PNG/PDF)
 ```
 Set `AEGIS_RESULTS_DIR` to write runs elsewhere. Seeds are in the configs.
-Stochastic experiments (EXP-003/004/006/007/008/011/012) reproduce exactly from
+Stochastic experiments (EXP-003/004/006/007/008/011/012/014) reproduce exactly from
 their seeds on the pinned versions; timing experiments (EXP-002/005/009/010/013)
 reproduce in distribution only and will differ on other hardware.
 

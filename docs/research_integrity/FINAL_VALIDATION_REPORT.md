@@ -11,7 +11,7 @@ repository cleanup (commit `64e68f0`), exit status 0:
 
 | Stage | Status | Detail |
 |---|---|---|
-| environment (pinned versions) | PASS | `requirements-remediation.txt` matched; Python `ssl` on OpenSSL 3.5 |
+| environment (pinned versions) | PASS | `requirements.txt` matched; Python `ssl` on OpenSSL 3.5 |
 | compile aegis_pq, baselines, experiments | PASS | |
 | pytest (unit, integration, security) | PASS | 102 passed |
 | mutation: replay window | PASS | disabled check detected by the tests |
@@ -19,7 +19,7 @@ repository cleanup (commit `64e68f0`), exit status 0:
 | mutation: AONT canary | PASS | disabled check detected |
 | mutation: shaper late drop | PASS | disabled check detected |
 | result provenance files | PASS | every run directory has config, environment and status |
-| manuscript numbers vs results | PASS | 1126 manuscript values re-derived from 10 result runs and identical to `results/paper_values.json` |
+| manuscript numbers vs results | PASS | 1172 manuscript values re-derived from 11 result runs and identical to `results/paper_values.json` |
 | smoke runs EXP-002, 003, 004, 005, 006, 007, 008, 009, 013 | PASS | reduced configurations, written to a temporary directory |
 | embedded / RTU hardware benchmarks | BLOCKED | no embedded hardware available |
 
@@ -42,6 +42,7 @@ OpenSSL 3.5.9, scikit-learn 1.9.1, ANDES 2.0.0.
 | EXP-010/011 | Decoupled shaping (registered follow-up) | coupled leak reproduced (0.73–0.77); decoupled 0.48–0.56, below the minimum detectable AUC | HARDWARE MEASUREMENT (loopback) |
 | EXP-007 | CAP vs CUSUM, EWMA, Shewhart | CAP not better than CUSUM or EWMA (KF-017) | SIMULATION RESULT |
 | EXP-008/012 | Fail-secure AGC on IEEE 14-bus | forged commands rejected; hold time bounded; anti-windup removes overshoot | SIMULATION RESULT; limits are ASSUMPTION (SOGL) |
+| EXP-014 | Governor (actuator) limits during the fail-secure hold | limits not binding before the band is left; Eq. (6) estimate not conservative (0.61–0.88) | SIMULATION RESULT |
 | EXP-009/013 | AGP/1 vs TLS 1.3 and HMAC | AGP/1 5.74 ms vs TLS hybrid mutual 4.79 ms wall; chain-matched TLS 20 546 B vs AGP/1 20 042 B | HARDWARE MEASUREMENT (loopback) |
 
 Failed and superseded runs are kept and listed in `EXPERIMENT_REGISTER.md`.
@@ -120,4 +121,19 @@ corrected (KF-024).
 
 Run directories record the commit that produced them (for example `caaa726`).
 Because PR #6 was squash-merged, those commits are reachable only through the
-branch `research-integrity-remediation`, which must therefore be kept.
+branch `research-integrity-remediation`, which must therefore be kept. The same applies to the
+EXP-014 run (commit `f6be884`), reachable through the branch
+`fix-attacker-feature-count`. The EXP-014 and crosscheck commits were not part of
+the squash merge of PR #7 and reach `main` through the cleanup pull request.
+
+### Sentence-level reviewer crosscheck (2026-11-24)
+
+Every request in the reviews was split into individual asks and checked against
+the manuscript and response letter (matrix delivered with the manuscript).
+Items that were answered only in part were completed where possible:
+actuator limits and an explicit hold-time condition (EXP-014, Eq. (6)); a
+Cortex-M4 cost estimate from published pqm4 cycle counts (`data/external/`,
+labelled as external); the native-over-UDP and hybrid statements; the key-update
+cost; two verified references (Wang and Lu; Formby et al.); and, at the author's
+choice, a title that names the covered traffic classes. Measurements on embedded
+hardware remain BLOCKED.

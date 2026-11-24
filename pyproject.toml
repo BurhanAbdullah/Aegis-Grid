@@ -27,3 +27,7 @@ test = ["pytest==9.1.1"]
 
 [tool.setuptools]
 packages = ["aegis_pq", "baselines"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit", "tests/integration", "tests/security", "tests/regression"]
+addopts = "-ra"

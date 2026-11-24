@@ -1,88 +1,35 @@
-# Security Policy
+# Security policy
 
-## Scope and Intent
+## Scope
 
-Aegis-Grid is a **research and experimental framework** for secure communication
-in cyber-physical power systems. It is **not a consumer application**, **not an
-authentication app**, and **not intended for end-user deployment**.
+Aegis-Grid is a research artefact. It accompanies a manuscript and exists to
+make the reported measurements reproducible. It has not been hardened, audited
+or certified, and it must not be deployed on a real control network.
 
-Security in this repository is defined in terms of **research correctness,
-threat modeling, and reproducibility**, not operational uptime or patch SLAs.
+## Supported versions
 
----
+| Version | Status |
+|---|---|
+| 6.0 (`main`, tag `v6.0-revision`) | Maintained for the revised manuscript |
+| v1–v5 (`legacy/`, earlier tags) | Archived, not maintained; their security claims were audited and in part withdrawn (see below) |
 
-## Supported Versions
+## What the code relies on
 
-Only the following versions are considered *actively supported for research use*:
+- Post-quantum and classical primitives come from the `cryptography` package
+  (pinned in `requirements.txt`); nothing cryptographic is implemented from
+  scratch. A vulnerability in a primitive should be reported to that project.
+- The security properties claimed, and the assumptions behind them, are stated
+  in [`docs/threat_model.md`](docs/threat_model.md) and
+  [`docs/security_assumptions.md`](docs/security_assumptions.md).
+- Claims of the earlier versions that did not hold are listed in
+  [`docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md`](docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md),
+  and open defects, including negative results, in
+  [`docs/research_integrity/KNOWN_FAILURES.md`](docs/research_integrity/KNOWN_FAILURES.md).
 
-| Version | Status | Notes |
-|-------|--------|------|
-| v5.x  | Conceptual | Quantum / unbounded adversary threat model (theoretical) |
-| v4.x  | Supported | Agentic extensions and refinements |
-| v3.3  | Frozen | Experimental artifact used in publications |
-| < v3  | Unsupported | Archived or superseded |
+## Reporting a problem
 
-The **v3.3 experimental release** is intentionally frozen and must not be
-modified, to preserve reproducibility of published results.
-
----
-
-## Security Model
-
-Aegis-Grid does **not rely solely on cryptographic hardness assumptions**.
-Instead, security is achieved through:
-
-- Time-bounded validity
-- Fail-secure semantics
-- Fragmentation and all-or-nothing reconstruction
-- Traffic indistinguishability
-- Irreversible erasure after expiry
-
-Later versions (v5+) explicitly consider **quantum-capable and unbounded
-adversaries**.
-
----
-
-## Reporting Vulnerabilities
-
-This repository does **not** operate a bug bounty program.
-
-If you identify:
-- a flaw in the **threat model**
-- an inconsistency in **security claims**
-- an error affecting **experimental validity**
-
-please open a **GitHub Issue** with:
-- a clear description
-- affected version(s)
-- minimal reproduction steps (if applicable)
-
-Do **not** report consumer-security issues, authentication bugs, or mobile app
-vulnerabilities — they are out of scope.
-
----
-
-## Disclosure Policy
-
-Because this is research code:
-- Responsible disclosure timelines are **best-effort**
-- Fixes may take the form of **documentation updates**, not patches
-- Some issues may be addressed in **future versions only**
-
----
-
-## Non-Goals (Explicit)
-
-Aegis-Grid does **not** claim:
-- Production hardening
-- Regulatory compliance
-- Protection against physical-layer attacks
-- Consumer-grade security guarantees
-
----
-
-## Contact
-
-For academic or research-related security discussions, use GitHub Issues.
-Private contact may be requested only for coordinated research disclosure.
-
+Open a GitHub issue for a flaw in the protocol, the threat model, an
+implementation defect or an error that affects a reported result. Include the
+commit, the affected file or experiment, and the steps to reproduce it. There is
+no bug bounty and no response-time commitment; confirmed problems are recorded
+in `KNOWN_FAILURES.md` and fixed in the code or the documentation.
