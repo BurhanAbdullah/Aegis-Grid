@@ -1,0 +1,50 @@
+{
+  "exp_id": "EXP-014",
+  "description": "Actuator headroom under the fail-secure hold (registered before running, reviewer R2.6): same plant, AGC and receiver as EXP-008, with per-governor mechanical power and TGOV1 limits logged. Hypothesis: for load ramps up to 0.1 pu/min no governor reaches its upper limit VMAX before the frequency leaves the steady-state band, so the analytical hold time (which assumes unsaturated droop) is valid; at 0.2 pu/min a limit may be reached.",
+  "case": "ieee14/ieee14_full.xlsx",
+  "load_model": "constant power (p2p=1, q2q=1)",
+  "t_end_s": 420,
+  "agc_period_s": 2.0,
+  "agc_ki_per_s": 0.04,
+  "bias_beta_pu": 100.0,
+  "command_deadline_ms": 2000.0,
+  "ramp_start_s": 20,
+  "k": 5,
+  "n": 7,
+  "limits_ASSUMPTION": {
+    "f_nominal_hz": 60.0,
+    "steady_state_band_hz": 0.2,
+    "instantaneous_band_hz": 0.8,
+    "source": "frequency-quality defining parameters of Commission Regulation (EU) 2017/1485 (SOGL), Annex III, Continental Europe: max steady-state deviation 200 mHz, max instantaneous 800 mHz; applied to the 60 Hz test case as an illustrative limit, not a claim about any real system"
+  },
+  "attack_start_s": 60,
+  "scenarios": [
+    {
+      "name": "no_attack",
+      "ramp_pu_per_min": 0.1,
+      "attack": "none",
+      "duration_s": 0
+    },
+    {
+      "name": "drop_240s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "drop",
+      "duration_s": 240
+    },
+    {
+      "name": "drop_240s_ramp0.05",
+      "ramp_pu_per_min": 0.05,
+      "attack": "drop",
+      "duration_s": 240
+    },
+    {
+      "name": "drop_240s_ramp0.2",
+      "ramp_pu_per_min": 0.2,
+      "attack": "drop",
+      "duration_s": 240
+    }
+  ],
+  "receivers": [
+    "secure_failsecure"
+  ]
+}
