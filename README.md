@@ -1,8 +1,8 @@
 # Aegis-Grid v6
 
 Research artefact for the manuscript *A Time-Bounded and Fail-Secure Post-Quantum
-Communication Architecture for Smart Grid Cyber-Physical Systems: Design,
-Implementation and Measured Trade-offs* (revised version, tag `v6.0-revision`).
+Communication Architecture for Supervisory and Wide-Area Smart Grid Control:
+Design, Implementation and Measured Trade-offs* (revised version, tag `v6.0-revision`).
 
 Aegis-Grid is a layered communication architecture for control messages in smart
 grids. A message is useful only if it is authentic, fresh and delivered within the
