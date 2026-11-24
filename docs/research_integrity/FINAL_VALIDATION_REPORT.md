@@ -19,7 +19,7 @@ repository cleanup (commit `64e68f0`), exit status 0:
 | mutation: AONT canary | PASS | disabled check detected |
 | mutation: shaper late drop | PASS | disabled check detected |
 | result provenance files | PASS | every run directory has config, environment and status |
-| manuscript numbers vs results | PASS | 1124 manuscript values re-derived from 10 result runs and identical to `results/paper_values.json` |
+| manuscript numbers vs results | PASS | 1126 manuscript values re-derived from 10 result runs and identical to `results/paper_values.json` |
 | smoke runs EXP-002, 003, 004, 005, 006, 007, 008, 009, 013 | PASS | reduced configurations, written to a temporary directory |
 | embedded / RTU hardware benchmarks | BLOCKED | no embedded hardware available |
 
@@ -105,3 +105,19 @@ command.
 - All experiments were run in one remediation session on one machine and have
   not been replicated independently.
 - The rewritten GitHub Actions workflow passed on its first run (PR #6).
+
+## 6. Post-merge check (2026-11-24)
+
+A fresh clone of `main` at `826c74a` (squash merge of PR #6, tree identical to
+the reviewed branch head) passed `verify_all.sh --smoke`, and the manuscript and
+response letter rebuilt from its `results/paper_values.json` were identical to
+the delivered versions. Hand-typed numbers in the manuscript (configuration
+parameters and counts) were checked against the configurations and raw outputs.
+One error was found: the attacker feature count was given as 36 in the
+manuscript and three documents, while the runner computes 33. The count is now
+read from the results (`006_n_features`, `011_n_features`) and the text is
+corrected (KF-024).
+
+Run directories record the commit that produced them (for example `caaa726`).
+Because PR #6 was squash-merged, those commits are reachable only through the
+branch `research-integrity-remediation`, which must therefore be kept.
