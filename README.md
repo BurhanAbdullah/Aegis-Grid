@@ -33,7 +33,7 @@ assumption) is listed in
 
 ```bash
 python3.13 -m venv .venv && . .venv/bin/activate
-pip install -r requirements-remediation.txt     # exact versions used for all registered runs
+pip install -r requirements.txt     # exact versions used for all registered runs
 ./scripts/verify_all.sh                          # environment, tests, mutation checks, provenance, manuscript numbers
 ./scripts/verify_all.sh --smoke                  # + reduced runs of every experiment runner (about 5 min)
 ```
@@ -48,13 +48,14 @@ embedded-hardware stage is BLOCKED because no device was available.
 ```
 aegis_pq/          protocol implementation (AGP/1, AONT, erasure coding, shaping, detectors)
 baselines/         TLS 1.3 and IEC 62351-6-style HMAC baselines
-experiments/       runners and JSON configurations (EXP-002 ... EXP-013), smoke configurations
+experiments/       runners and JSON configurations (EXP-002 ... EXP-014), smoke configurations
 results/raw/       one directory per run: config, environment, status, raw CSV/JSON outputs
 results/paper_values.json   every number quoted in the manuscript, derived from results/raw
 figures/           600 dpi PNG + PDF + CSV for each figure; diagrams/ holds draw.io sources
 scripts/           verify_all.sh, paper_values.py, make_figures.py, make_diagrams.py, checks
-tests/             unit, integration and security tests (pytest)
+tests/             unit, integration, security and regression tests (pytest)
 docs/              architecture, protocol, threat model, methodology, limitations, research-integrity records
+data/external/     published third-party values (pqm4 cycle counts), labelled as external
 legacy/            earlier versions (v1–v5) kept unchanged for traceability; not used for v6 results
 ```
 
@@ -93,6 +94,11 @@ point only. Traffic shaping showed a measurable activity leak when fragmentation
 shared the emission loop (EXP-006); decoupling the producer removed any detectable
 leak at the tested sample size (EXP-011), which is not a proof of
 indistinguishability. See [`docs/limitations.md`](docs/limitations.md).
+
+## Citation
+
+Citation metadata is in [`CITATION.cff`](CITATION.cff). Security reporting is
+described in [`SECURITY.md`](SECURITY.md) and changes in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Licence
 

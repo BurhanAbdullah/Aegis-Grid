@@ -11,7 +11,7 @@ repository cleanup (commit `64e68f0`), exit status 0:
 
 | Stage | Status | Detail |
 |---|---|---|
-| environment (pinned versions) | PASS | `requirements-remediation.txt` matched; Python `ssl` on OpenSSL 3.5 |
+| environment (pinned versions) | PASS | `requirements.txt` matched; Python `ssl` on OpenSSL 3.5 |
 | compile aegis_pq, baselines, experiments | PASS | |
 | pytest (unit, integration, security) | PASS | 102 passed |
 | mutation: replay window | PASS | disabled check detected by the tests |
@@ -121,7 +121,10 @@ corrected (KF-024).
 
 Run directories record the commit that produced them (for example `caaa726`).
 Because PR #6 was squash-merged, those commits are reachable only through the
-branch `research-integrity-remediation`, which must therefore be kept.
+branch `research-integrity-remediation`, which must therefore be kept. The same applies to the
+EXP-014 run (commit `f6be884`), reachable through the branch
+`fix-attacker-feature-count`. The EXP-014 and crosscheck commits were not part of
+the squash merge of PR #7 and reach `main` through the cleanup pull request.
 
 ### Sentence-level reviewer crosscheck (2026-11-24)
 

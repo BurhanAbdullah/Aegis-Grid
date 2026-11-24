@@ -23,13 +23,13 @@ run() {   # run <name> <command...>
 if python3 - <<'PY'
 import ssl, sys
 from importlib.metadata import version
-req = {l.split("==")[0]: l.split("==")[1].strip() for l in open("requirements-remediation.txt") if "==" in l}
+req = {l.split("==")[0]: l.split("==")[1].strip() for l in open("requirements.txt") if "==" in l}
 bad = {k: (v, version(k)) for k, v in req.items() if version(k) != v}
 assert not bad, bad
 assert ssl.OPENSSL_VERSION.startswith("OpenSSL 3.5"), ssl.OPENSSL_VERSION
 PY
-then record "environment (pinned versions)" PASS "requirements-remediation.txt matched"
-else record "environment (pinned versions)" FAIL "version mismatch; see requirements-remediation.txt"; fi
+then record "environment (pinned versions)" PASS "requirements.txt matched"
+else record "environment (pinned versions)" FAIL "version mismatch; see requirements.txt"; fi
 
 # 2. byte-compile new code
 run "compile aegis_pq baselines experiments" python3 -m compileall -q aegis_pq baselines experiments

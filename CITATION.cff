@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it as below. The accompanying
+  manuscript is under review; cite the software until it is published.
+title: >-
+  Aegis-Grid v6: research artefact for a time-bounded, fail-secure
+  post-quantum communication architecture for supervisory and wide-area
+  smart grid control
+type: software
+authors:
+  - family-names: Abdullah
+    given-names: Burhan U Din
+version: 6.0.0
+repository-code: "https://github.com/BurhanAbdullah/Aegis-Grid"
+keywords:
+  - smart grid
+  - post-quantum cryptography
+  - ML-KEM
+  - ML-DSA
+  - fail-secure control
+  - traffic analysis
