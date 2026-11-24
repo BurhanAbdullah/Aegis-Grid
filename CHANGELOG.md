@@ -5,6 +5,34 @@ Tags are frozen research states. Releases are archival snapshots for citation.
 
 ---
 
+## [6.0.0] - 2026-11-23 (tag v6.0-revision)
+
+Revision in response to the reviews of the IJIS submission. Research-integrity
+remediation: every result is re-measured on a working implementation.
+
+### Added
+- `aegis_pq/`: AGP/1 handshake (ML-KEM, ML-DSA, optional X25519 hybrid), AES-256-GCM
+  records with replay window and authenticated deadline, package-transform AONT with
+  Reed–Solomon k-of-n coding, constant-rate shaper, CAP and CUSUM/EWMA/Shewhart detectors.
+- `baselines/`: TLS 1.3 (classical, ML-KEM, hybrid; server-only and mutual) and
+  IEC 62351-6-style HMAC.
+- Registered experiments EXP-002 to EXP-013 with raw outputs and provenance in `results/raw/`.
+- `scripts/verify_all.sh`, `scripts/paper_values.py`, `scripts/check_manuscript_numbers.py`,
+  600 dpi figures and draw.io diagrams.
+- 102 unit, integration and security tests; research-integrity records in `docs/research_integrity/`.
+
+### Changed
+- v1–v5 code, scripts, data and documents moved unchanged to `legacy/` (`git mv`).
+- CI runs `verify_all.sh --smoke` on Python 3.13 / OpenSSL 3.5; failures fail the job.
+- Packaging moved from `setup.py` to `pyproject.toml`.
+
+### Withdrawn claims
+- See `docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md` and
+  `KNOWN_FAILURES.md` (traffic indistinguishability, XOR AONT security, CAP novelty,
+  guaranteed safe plant behaviour).
+
+---
+
 ## [2026.1] - 2026-01-24
 
 First public archival release. Captures the complete v1-v5 research sequence,

@@ -1,0 +1,90 @@
+{
+  "exp_id": "EXP-012",
+  "description": "Follow-up to EXP-008 (registered before running): EXP-008 showed that the control-centre AGC integrator keeps accumulating while commands are blocked, and the accumulated set-point causes a +1.15 Hz overshoot when delivery resumes (drop_240s). Variant: the integrator is frozen while any plant fails to acknowledge a valid command. All other settings identical to EXP-008.",
+  "case": "ieee14/ieee14_full.xlsx",
+  "load_model": "constant power (p2p=1, q2q=1)",
+  "t_end_s": 420,
+  "agc_period_s": 2.0,
+  "agc_ki_per_s": 0.04,
+  "bias_beta_pu": 100.0,
+  "command_deadline_ms": 2000.0,
+  "ramp_start_s": 20,
+  "k": 5,
+  "n": 7,
+  "limits_ASSUMPTION": {
+    "f_nominal_hz": 60.0,
+    "steady_state_band_hz": 0.2,
+    "instantaneous_band_hz": 0.8,
+    "source": "frequency-quality defining parameters of Commission Regulation (EU) 2017/1485 (SOGL), Annex III, Continental Europe: max steady-state deviation 200 mHz, max instantaneous 800 mHz; applied to the 60 Hz test case as an illustrative limit, not a claim about any real system"
+  },
+  "attack_start_s": 60,
+  "scenarios": [
+    {
+      "name": "no_attack",
+      "ramp_pu_per_min": 0.1,
+      "attack": "none",
+      "duration_s": 0
+    },
+    {
+      "name": "drop_30s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "drop",
+      "duration_s": 30
+    },
+    {
+      "name": "drop_60s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "drop",
+      "duration_s": 60
+    },
+    {
+      "name": "drop_120s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "drop",
+      "duration_s": 120
+    },
+    {
+      "name": "drop_240s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "drop",
+      "duration_s": 240
+    },
+    {
+      "name": "drop_240s_ramp0.05",
+      "ramp_pu_per_min": 0.05,
+      "attack": "drop",
+      "duration_s": 240
+    },
+    {
+      "name": "drop_240s_ramp0.2",
+      "ramp_pu_per_min": 0.2,
+      "attack": "drop",
+      "duration_s": 240
+    },
+    {
+      "name": "delay_10s_60s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "delay",
+      "delay_s": 10,
+      "duration_s": 60
+    },
+    {
+      "name": "replay_60s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "replay",
+      "duration_s": 60
+    },
+    {
+      "name": "forge_60s",
+      "ramp_pu_per_min": 0.1,
+      "attack": "forge",
+      "forged_delta_pu_per_plant": -0.15,
+      "duration_s": 60
+    }
+  ],
+  "receivers": [
+    "secure_failsecure",
+    "insecure_accept_all"
+  ],
+  "anti_windup": true
+}

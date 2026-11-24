@@ -1,0 +1,1946 @@
+[
+ {
+  "session": 0,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2966,
+   "dummy": 3185,
+   "dropped_late": 380
+  },
+  "delivered": 390,
+  "messages": 478
+ },
+ {
+  "session": 0,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2972,
+   "dummy": 3179,
+   "dropped_late": 374
+  },
+  "delivered": 390,
+  "messages": 478
+ },
+ {
+  "session": 0,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3323,
+   "dummy": 8978,
+   "dropped_late": 23
+  },
+  "delivered": 476,
+  "messages": 478
+ },
+ {
+  "session": 1,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 2971,
+   "dummy": 9330,
+   "dropped_late": 11
+  },
+  "delivered": 426,
+  "messages": 426
+ },
+ {
+  "session": 1,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2744,
+   "dummy": 3407,
+   "dropped_late": 238
+  },
+  "delivered": 371,
+  "messages": 426
+ },
+ {
+  "session": 1,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2728,
+   "dummy": 3423,
+   "dropped_late": 254
+  },
+  "delivered": 370,
+  "messages": 426
+ },
+ {
+  "session": 2,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3061,
+   "dummy": 9240,
+   "dropped_late": 12
+  },
+  "delivered": 439,
+  "messages": 439
+ },
+ {
+  "session": 2,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2816,
+   "dummy": 3335,
+   "dropped_late": 257
+  },
+  "delivered": 379,
+  "messages": 439
+ },
+ {
+  "session": 2,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2818,
+   "dummy": 3333,
+   "dropped_late": 255
+  },
+  "delivered": 379,
+  "messages": 439
+ },
+ {
+  "session": 3,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3165,
+   "dummy": 9136,
+   "dropped_late": 13
+  },
+  "delivered": 454,
+  "messages": 454
+ },
+ {
+  "session": 3,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2871,
+   "dummy": 3280,
+   "dropped_late": 307
+  },
+  "delivered": 382,
+  "messages": 454
+ },
+ {
+  "session": 3,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2863,
+   "dummy": 3288,
+   "dropped_late": 315
+  },
+  "delivered": 382,
+  "messages": 454
+ },
+ {
+  "session": 4,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2889,
+   "dummy": 3262,
+   "dropped_late": 338
+  },
+  "delivered": 384,
+  "messages": 461
+ },
+ {
+  "session": 4,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2904,
+   "dummy": 3247,
+   "dropped_late": 323
+  },
+  "delivered": 386,
+  "messages": 461
+ },
+ {
+  "session": 4,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3218,
+   "dummy": 9083,
+   "dropped_late": 9
+  },
+  "delivered": 461,
+  "messages": 461
+ },
+ {
+  "session": 5,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3113,
+   "dummy": 9188,
+   "dropped_late": 9
+  },
+  "delivered": 446,
+  "messages": 446
+ },
+ {
+  "session": 5,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2844,
+   "dummy": 3307,
+   "dropped_late": 278
+  },
+  "delivered": 383,
+  "messages": 446
+ },
+ {
+  "session": 5,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2850,
+   "dummy": 3301,
+   "dropped_late": 272
+  },
+  "delivered": 382,
+  "messages": 446
+ },
+ {
+  "session": 6,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3141,
+   "dummy": 9160,
+   "dropped_late": 16
+  },
+  "delivered": 451,
+  "messages": 451
+ },
+ {
+  "session": 6,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2861,
+   "dummy": 3290,
+   "dropped_late": 296
+  },
+  "delivered": 383,
+  "messages": 451
+ },
+ {
+  "session": 6,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2866,
+   "dummy": 3285,
+   "dropped_late": 291
+  },
+  "delivered": 383,
+  "messages": 451
+ },
+ {
+  "session": 7,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2968,
+   "dummy": 3183,
+   "dropped_late": 350
+  },
+  "delivered": 394,
+  "messages": 474
+ },
+ {
+  "session": 7,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3302,
+   "dummy": 8999,
+   "dropped_late": 16
+  },
+  "delivered": 472,
+  "messages": 474
+ },
+ {
+  "session": 7,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2976,
+   "dummy": 3175,
+   "dropped_late": 342
+  },
+  "delivered": 395,
+  "messages": 474
+ },
+ {
+  "session": 8,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2858,
+   "dummy": 3293,
+   "dropped_late": 257
+  },
+  "delivered": 385,
+  "messages": 445
+ },
+ {
+  "session": 8,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3102,
+   "dummy": 9199,
+   "dropped_late": 13
+  },
+  "delivered": 445,
+  "messages": 445
+ },
+ {
+  "session": 8,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2851,
+   "dummy": 3300,
+   "dropped_late": 264
+  },
+  "delivered": 387,
+  "messages": 445
+ },
+ {
+  "session": 9,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2838,
+   "dummy": 3313,
+   "dropped_late": 242
+  },
+  "delivered": 384,
+  "messages": 440
+ },
+ {
+  "session": 9,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2842,
+   "dummy": 3309,
+   "dropped_late": 238
+  },
+  "delivered": 384,
+  "messages": 440
+ },
+ {
+  "session": 9,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 4
+  },
+  "shaper": {
+   "ticks": 12301,
+   "real": 3068,
+   "dummy": 9233,
+   "dropped_late": 12
+  },
+  "delivered": 438,
+  "messages": 440
+ },
+ {
+  "session": 10,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3404,
+   "dummy": 8897,
+   "dropped_late": 12
+  },
+  "delivered": 488,
+  "messages": 488
+ },
+ {
+  "session": 10,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 3042,
+   "dummy": 3109,
+   "dropped_late": 374
+  },
+  "delivered": 401,
+  "messages": 488
+ },
+ {
+  "session": 10,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 3034,
+   "dummy": 3117,
+   "dropped_late": 382
+  },
+  "delivered": 400,
+  "messages": 488
+ },
+ {
+  "session": 11,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2889,
+   "dummy": 3262,
+   "dropped_late": 296
+  },
+  "delivered": 387,
+  "messages": 455
+ },
+ {
+  "session": 11,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3168,
+   "dummy": 9133,
+   "dropped_late": 17
+  },
+  "delivered": 454,
+  "messages": 455
+ },
+ {
+  "session": 11,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2895,
+   "dummy": 3256,
+   "dropped_late": 290
+  },
+  "delivered": 387,
+  "messages": 455
+ },
+ {
+  "session": 12,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3131,
+   "dummy": 9170,
+   "dropped_late": 12
+  },
+  "delivered": 449,
+  "messages": 449
+ },
+ {
+  "session": 12,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2847,
+   "dummy": 3304,
+   "dropped_late": 296
+  },
+  "delivered": 381,
+  "messages": 449
+ },
+ {
+  "session": 12,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2854,
+   "dummy": 3297,
+   "dropped_late": 289
+  },
+  "delivered": 382,
+  "messages": 449
+ },
+ {
+  "session": 13,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2712,
+   "dummy": 3439,
+   "dropped_late": 242
+  },
+  "delivered": 366,
+  "messages": 422
+ },
+ {
+  "session": 13,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 2943,
+   "dummy": 9358,
+   "dropped_late": 11
+  },
+  "delivered": 422,
+  "messages": 422
+ },
+ {
+  "session": 13,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2716,
+   "dummy": 3435,
+   "dropped_late": 238
+  },
+  "delivered": 367,
+  "messages": 422
+ },
+ {
+  "session": 14,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2829,
+   "dummy": 3322,
+   "dropped_late": 258
+  },
+  "delivered": 381,
+  "messages": 441
+ },
+ {
+  "session": 14,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3078,
+   "dummy": 9223,
+   "dropped_late": 9
+  },
+  "delivered": 441,
+  "messages": 441
+ },
+ {
+  "session": 14,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2831,
+   "dummy": 3320,
+   "dropped_late": 256
+  },
+  "delivered": 381,
+  "messages": 441
+ },
+ {
+  "session": 15,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2834,
+   "dummy": 3317,
+   "dropped_late": 274
+  },
+  "delivered": 380,
+  "messages": 444
+ },
+ {
+  "session": 15,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3094,
+   "dummy": 9207,
+   "dropped_late": 14
+  },
+  "delivered": 444,
+  "messages": 444
+ },
+ {
+  "session": 15,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2826,
+   "dummy": 3325,
+   "dropped_late": 282
+  },
+  "delivered": 380,
+  "messages": 444
+ },
+ {
+  "session": 16,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3240,
+   "dummy": 9061,
+   "dropped_late": 15
+  },
+  "delivered": 465,
+  "messages": 465
+ },
+ {
+  "session": 16,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2932,
+   "dummy": 3219,
+   "dropped_late": 323
+  },
+  "delivered": 390,
+  "messages": 465
+ },
+ {
+  "session": 16,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2931,
+   "dummy": 3220,
+   "dropped_late": 324
+  },
+  "delivered": 389,
+  "messages": 465
+ },
+ {
+  "session": 17,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3133,
+   "dummy": 9168,
+   "dropped_late": 17
+  },
+  "delivered": 450,
+  "messages": 450
+ },
+ {
+  "session": 17,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2839,
+   "dummy": 3312,
+   "dropped_late": 311
+  },
+  "delivered": 379,
+  "messages": 450
+ },
+ {
+  "session": 17,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2844,
+   "dummy": 3307,
+   "dropped_late": 306
+  },
+  "delivered": 378,
+  "messages": 450
+ },
+ {
+  "session": 18,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2792,
+   "dummy": 3359,
+   "dropped_late": 225
+  },
+  "delivered": 379,
+  "messages": 431
+ },
+ {
+  "session": 18,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2796,
+   "dummy": 3355,
+   "dropped_late": 221
+  },
+  "delivered": 380,
+  "messages": 431
+ },
+ {
+  "session": 18,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3007,
+   "dummy": 9294,
+   "dropped_late": 10
+  },
+  "delivered": 431,
+  "messages": 431
+ },
+ {
+  "session": 19,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2922,
+   "dummy": 3229,
+   "dropped_late": 340
+  },
+  "delivered": 386,
+  "messages": 466
+ },
+ {
+  "session": 19,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2915,
+   "dummy": 3236,
+   "dropped_late": 347
+  },
+  "delivered": 386,
+  "messages": 466
+ },
+ {
+  "session": 19,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3246,
+   "dummy": 9055,
+   "dropped_late": 16
+  },
+  "delivered": 466,
+  "messages": 466
+ },
+ {
+  "session": 20,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3326,
+   "dummy": 8975,
+   "dropped_late": 13
+  },
+  "delivered": 477,
+  "messages": 477
+ },
+ {
+  "session": 20,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2976,
+   "dummy": 3175,
+   "dropped_late": 363
+  },
+  "delivered": 393,
+  "messages": 477
+ },
+ {
+  "session": 20,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2982,
+   "dummy": 3169,
+   "dropped_late": 357
+  },
+  "delivered": 393,
+  "messages": 477
+ },
+ {
+  "session": 21,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3307,
+   "dummy": 8994,
+   "dropped_late": 11
+  },
+  "delivered": 474,
+  "messages": 474
+ },
+ {
+  "session": 21,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2978,
+   "dummy": 3173,
+   "dropped_late": 340
+  },
+  "delivered": 395,
+  "messages": 474
+ },
+ {
+  "session": 21,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2973,
+   "dummy": 3178,
+   "dropped_late": 345
+  },
+  "delivered": 394,
+  "messages": 474
+ },
+ {
+  "session": 22,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2782,
+   "dummy": 3369,
+   "dropped_late": 242
+  },
+  "delivered": 376,
+  "messages": 432
+ },
+ {
+  "session": 22,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2785,
+   "dummy": 3366,
+   "dropped_late": 239
+  },
+  "delivered": 376,
+  "messages": 432
+ },
+ {
+  "session": 22,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3018,
+   "dummy": 9283,
+   "dropped_late": 6
+  },
+  "delivered": 432,
+  "messages": 432
+ },
+ {
+  "session": 23,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2852,
+   "dummy": 3299,
+   "dropped_late": 284
+  },
+  "delivered": 383,
+  "messages": 448
+ },
+ {
+  "session": 23,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2863,
+   "dummy": 3288,
+   "dropped_late": 273
+  },
+  "delivered": 385,
+  "messages": 448
+ },
+ {
+  "session": 23,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3124,
+   "dummy": 9177,
+   "dropped_late": 12
+  },
+  "delivered": 448,
+  "messages": 448
+ },
+ {
+  "session": 24,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3079,
+   "dummy": 9222,
+   "dropped_late": 15
+  },
+  "delivered": 441,
+  "messages": 442
+ },
+ {
+  "session": 24,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2816,
+   "dummy": 3335,
+   "dropped_late": 278
+  },
+  "delivered": 378,
+  "messages": 442
+ },
+ {
+  "session": 24,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2822,
+   "dummy": 3329,
+   "dropped_late": 272
+  },
+  "delivered": 378,
+  "messages": 442
+ },
+ {
+  "session": 25,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2911,
+   "dummy": 3240,
+   "dropped_late": 330
+  },
+  "delivered": 387,
+  "messages": 463
+ },
+ {
+  "session": 25,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2918,
+   "dummy": 3233,
+   "dropped_late": 323
+  },
+  "delivered": 387,
+  "messages": 463
+ },
+ {
+  "session": 25,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3227,
+   "dummy": 9074,
+   "dropped_late": 14
+  },
+  "delivered": 463,
+  "messages": 463
+ },
+ {
+  "session": 26,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2785,
+   "dummy": 3366,
+   "dropped_late": 274
+  },
+  "delivered": 375,
+  "messages": 437
+ },
+ {
+  "session": 26,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2804,
+   "dummy": 3347,
+   "dropped_late": 255
+  },
+  "delivered": 378,
+  "messages": 437
+ },
+ {
+  "session": 26,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3049,
+   "dummy": 9252,
+   "dropped_late": 10
+  },
+  "delivered": 437,
+  "messages": 437
+ },
+ {
+  "session": 27,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2821,
+   "dummy": 3330,
+   "dropped_late": 294
+  },
+  "delivered": 377,
+  "messages": 445
+ },
+ {
+  "session": 27,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2825,
+   "dummy": 3326,
+   "dropped_late": 290
+  },
+  "delivered": 377,
+  "messages": 445
+ },
+ {
+  "session": 27,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3103,
+   "dummy": 9198,
+   "dropped_late": 12
+  },
+  "delivered": 445,
+  "messages": 445
+ },
+ {
+  "session": 28,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3350,
+   "dummy": 8951,
+   "dropped_late": 17
+  },
+  "delivered": 481,
+  "messages": 481
+ },
+ {
+  "session": 28,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 3001,
+   "dummy": 3150,
+   "dropped_late": 366
+  },
+  "delivered": 397,
+  "messages": 481
+ },
+ {
+  "session": 28,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 3009,
+   "dummy": 3142,
+   "dropped_late": 358
+  },
+  "delivered": 397,
+  "messages": 481
+ },
+ {
+  "session": 29,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2871,
+   "dummy": 3280,
+   "dropped_late": 307
+  },
+  "delivered": 383,
+  "messages": 454
+ },
+ {
+  "session": 29,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2870,
+   "dummy": 3281,
+   "dropped_late": 308
+  },
+  "delivered": 383,
+  "messages": 454
+ },
+ {
+  "session": 29,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3167,
+   "dummy": 9134,
+   "dropped_late": 11
+  },
+  "delivered": 454,
+  "messages": 454
+ },
+ {
+  "session": 30,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2865,
+   "dummy": 3286,
+   "dropped_late": 292
+  },
+  "delivered": 383,
+  "messages": 451
+ },
+ {
+  "session": 30,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2868,
+   "dummy": 3283,
+   "dropped_late": 289
+  },
+  "delivered": 383,
+  "messages": 451
+ },
+ {
+  "session": 30,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3145,
+   "dummy": 9156,
+   "dropped_late": 12
+  },
+  "delivered": 450,
+  "messages": 451
+ },
+ {
+  "session": 31,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2787,
+   "dummy": 3364,
+   "dropped_late": 258
+  },
+  "delivered": 375,
+  "messages": 435
+ },
+ {
+  "session": 31,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2790,
+   "dummy": 3361,
+   "dropped_late": 255
+  },
+  "delivered": 375,
+  "messages": 435
+ },
+ {
+  "session": 31,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3035,
+   "dummy": 9266,
+   "dropped_late": 10
+  },
+  "delivered": 435,
+  "messages": 435
+ },
+ {
+  "session": 32,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2882,
+   "dummy": 3269,
+   "dropped_late": 289
+  },
+  "delivered": 386,
+  "messages": 453
+ },
+ {
+  "session": 32,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3160,
+   "dummy": 9141,
+   "dropped_late": 11
+  },
+  "delivered": 453,
+  "messages": 453
+ },
+ {
+  "session": 32,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2879,
+   "dummy": 3272,
+   "dropped_late": 292
+  },
+  "delivered": 386,
+  "messages": 453
+ },
+ {
+  "session": 33,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2666,
+   "dummy": 3485,
+   "dropped_late": 204
+  },
+  "delivered": 362,
+  "messages": 410
+ },
+ {
+  "session": 33,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2662,
+   "dummy": 3489,
+   "dropped_late": 208
+  },
+  "delivered": 362,
+  "messages": 410
+ },
+ {
+  "session": 33,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 2861,
+   "dummy": 9440,
+   "dropped_late": 9
+  },
+  "delivered": 410,
+  "messages": 410
+ },
+ {
+  "session": 34,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3049,
+   "dummy": 9252,
+   "dropped_late": 10
+  },
+  "delivered": 437,
+  "messages": 437
+ },
+ {
+  "session": 34,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 2
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2804,
+   "dummy": 3347,
+   "dropped_late": 255
+  },
+  "delivered": 377,
+  "messages": 437
+ },
+ {
+  "session": 34,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2801,
+   "dummy": 3350,
+   "dropped_late": 258
+  },
+  "delivered": 378,
+  "messages": 437
+ },
+ {
+  "session": 35,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2822,
+   "dummy": 3329,
+   "dropped_late": 272
+  },
+  "delivered": 378,
+  "messages": 442
+ },
+ {
+  "session": 35,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3083,
+   "dummy": 9218,
+   "dropped_late": 11
+  },
+  "delivered": 442,
+  "messages": 442
+ },
+ {
+  "session": 35,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2815,
+   "dummy": 3336,
+   "dropped_late": 279
+  },
+  "delivered": 378,
+  "messages": 442
+ },
+ {
+  "session": 36,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2882,
+   "dummy": 3269,
+   "dropped_late": 289
+  },
+  "delivered": 385,
+  "messages": 453
+ },
+ {
+  "session": 36,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3160,
+   "dummy": 9141,
+   "dropped_late": 11
+  },
+  "delivered": 453,
+  "messages": 453
+ },
+ {
+  "session": 36,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2875,
+   "dummy": 3276,
+   "dropped_late": 296
+  },
+  "delivered": 385,
+  "messages": 453
+ },
+ {
+  "session": 37,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 2
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2966,
+   "dummy": 3185,
+   "dropped_late": 331
+  },
+  "delivered": 395,
+  "messages": 471
+ },
+ {
+  "session": 37,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 3281,
+   "dummy": 9020,
+   "dropped_late": 16
+  },
+  "delivered": 471,
+  "messages": 471
+ },
+ {
+  "session": 37,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {
+   "DEADLINE": 1
+  },
+  "shaper": {
+   "ticks": 6151,
+   "real": 2973,
+   "dummy": 3178,
+   "dropped_late": 324
+  },
+  "delivered": 395,
+  "messages": 471
+ },
+ {
+  "session": 38,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2720,
+   "dummy": 3431,
+   "dropped_late": 206
+  },
+  "delivered": 370,
+  "messages": 418
+ },
+ {
+  "session": 38,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2722,
+   "dummy": 3429,
+   "dropped_late": 204
+  },
+  "delivered": 370,
+  "messages": 418
+ },
+ {
+  "session": 38,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 2920,
+   "dummy": 9381,
+   "dropped_late": 6
+  },
+  "delivered": 418,
+  "messages": 418
+ },
+ {
+  "session": 39,
+  "condition": "shaped_1ms_decoupled",
+  "datagrams": 12301,
+  "bytes": 1205498,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 12301,
+   "real": 2949,
+   "dummy": 9352,
+   "dropped_late": 5
+  },
+  "delivered": 422,
+  "messages": 422
+ },
+ {
+  "session": 39,
+  "condition": "shaped_2ms_decoupled",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2748,
+   "dummy": 3403,
+   "dropped_late": 206
+  },
+  "delivered": 376,
+  "messages": 422
+ },
+ {
+  "session": 39,
+  "condition": "shaped_2ms",
+  "datagrams": 6151,
+  "bytes": 602798,
+  "body_size": 62,
+  "rejects": {},
+  "shaper": {
+   "ticks": 6151,
+   "real": 2747,
+   "dummy": 3404,
+   "dropped_late": 207
+  },
+  "delivered": 374,
+  "messages": 422
+ }
+]

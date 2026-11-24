@@ -1,0 +1,20 @@
+scenario,receiver,attack,duration_s,ramp_pu_per_min,f_min_hz,f_max_hz,max_abs_dev_hz,time_outside_ss_band_s,first_ss_violation_after_attack_start_s,instantaneous_band_violated,max_govs_at_limit,commands_accepted,rounds_with_only_invalid_records,receiver_rejects,analytic_hold_time_to_band_s
+no_attack,secure_failsecure,none,0,0.1,59.97439858237178,60.0,0.025601417628223544,0.0,,False,1,1050,0,{},
+drop_30s,secure_failsecure,drop,30,0.1,59.948416324769966,60.0,0.05158367523003449,0.0,,False,1,975,0,{},200.0
+drop_30s,insecure_accept_all,drop,30,0.1,59.948416324769966,60.0,0.05158367523003449,0.0,,False,1,975,0,{},200.0
+drop_60s,secure_failsecure,drop,60,0.1,59.91782286146114,60.0,0.0821771385388601,0.0,,False,1,900,0,{},200.0
+drop_60s,insecure_accept_all,drop,60,0.1,59.91782286146114,60.0,0.0821771385388601,0.0,,False,1,900,0,{},200.0
+drop_120s,secure_failsecure,drop,120,0.1,59.85659766574047,60.0,0.14340233425952675,0.0,,False,1,750,0,{},200.0
+drop_120s,insecure_accept_all,drop,120,0.1,59.85659766574047,60.0,0.14340233425952675,0.0,,False,1,750,0,{},200.0
+drop_240s,secure_failsecure,drop,240,0.1,59.73399032318979,60.0,0.2660096768102065,74.0,176.5,False,1,450,0,{},200.0
+drop_240s,insecure_accept_all,drop,240,0.1,59.73399032318979,60.0,0.2660096768102065,74.0,176.5,False,1,450,0,{},200.0
+drop_240s_ramp0.05,secure_failsecure,drop,240,0.05,59.867136331387776,60.0,0.13286366861222376,0.0,,False,1,450,0,{},400.0
+drop_240s_ramp0.05,insecure_accept_all,drop,240,0.05,59.867136331387776,60.0,0.13286366861222376,0.0,,False,1,450,0,{},400.0
+drop_240s_ramp0.2,secure_failsecure,drop,240,0.2,59.46679060887951,60.0,0.5332093911204865,194.0,78.5,False,1,450,0,{},100.0
+drop_240s_ramp0.2,insecure_accept_all,drop,240,0.2,59.46679060887951,60.0,0.5332093911204865,194.0,78.5,False,1,450,0,{},100.0
+delay_10s_60s,secure_failsecure,delay,60,0.1,59.91782286146114,60.0,0.0821771385388601,0.0,,False,1,900,125,"{""DEADLINE"": 1050}",
+delay_10s_60s,insecure_accept_all,delay,60,0.1,59.923998767358825,60.0,0.07600123264117542,0.0,,False,1,1025,0,{},
+replay_60s,secure_failsecure,replay,60,0.1,59.91782286146114,60.0,0.0821771385388601,0.0,,False,1,900,150,"{""REPLAY"": 1050}",
+replay_60s,insecure_accept_all,replay,60,0.1,59.898584074244035,60.0,0.10141592575596547,0.0,,False,1,1050,0,{},
+forge_60s,secure_failsecure,forge,60,0.1,59.91782286146114,60.0,0.0821771385388601,0.0,,False,1,900,150,"{""BAD_VERSION"": 150, ""AUTH_FAIL"": 150}",
+forge_60s,insecure_accept_all,forge,60,0.1,59.44858407416285,60.0,0.5514159258371478,60.0,2.5,False,1,1050,0,{},

@@ -1,0 +1,85 @@
+condition,task,model,hyper,val_auc
+shaped_2ms,multiclass,logreg,"{""C"": 0.01}",0.7436997100656807
+shaped_2ms,multiclass,logreg,"{""C"": 0.1}",0.7595567840619997
+shaped_2ms,multiclass,logreg,"{""C"": 1.0}",0.7680046895818157
+shaped_2ms,multiclass,logreg,"{""C"": 10.0}",0.7671181648648545
+shaped_2ms,multiclass,knn,"{""n_neighbors"": 5}",0.682948351321759
+shaped_2ms,multiclass,knn,"{""n_neighbors"": 15}",0.7088533120434107
+shaped_2ms,multiclass,knn,"{""n_neighbors"": 45}",0.7225887265280454
+shaped_2ms,multiclass,random_forest,"{""max_depth"": 4}",0.7748334687304101
+shaped_2ms,multiclass,random_forest,"{""max_depth"": 8}",0.7877259386812749
+shaped_2ms,multiclass,random_forest,"{""max_depth"": null}",0.7727098149513129
+shaped_2ms,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.7741453819959432
+shaped_2ms,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.7615214164437994
+shaped_2ms,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.7565101722202083
+shaped_2ms,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.7528800228276339
+shaped_2ms,binary,logreg,"{""C"": 0.01}",0.8083397683397683
+shaped_2ms,binary,logreg,"{""C"": 0.1}",0.8215907335907335
+shaped_2ms,binary,logreg,"{""C"": 1.0}",0.8338841698841699
+shaped_2ms,binary,logreg,"{""C"": 10.0}",0.8328957528957529
+shaped_2ms,binary,knn,"{""n_neighbors"": 5}",0.7196911196911198
+shaped_2ms,binary,knn,"{""n_neighbors"": 15}",0.7253281853281853
+shaped_2ms,binary,knn,"{""n_neighbors"": 45}",0.7505945945945947
+shaped_2ms,binary,random_forest,"{""max_depth"": 4}",0.7949034749034749
+shaped_2ms,binary,random_forest,"{""max_depth"": 8}",0.8148262548262548
+shaped_2ms,binary,random_forest,"{""max_depth"": null}",0.8014054054054054
+shaped_2ms,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.8099768339768341
+shaped_2ms,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.8004015444015443
+shaped_2ms,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.7938841698841699
+shaped_2ms,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.7757837837837838
+shaped_2ms_decoupled,multiclass,logreg,"{""C"": 0.01}",0.4906407790040217
+shaped_2ms_decoupled,multiclass,logreg,"{""C"": 0.1}",0.48606985788662116
+shaped_2ms_decoupled,multiclass,logreg,"{""C"": 1.0}",0.4825791464704092
+shaped_2ms_decoupled,multiclass,logreg,"{""C"": 10.0}",0.48193172027285813
+shaped_2ms_decoupled,multiclass,knn,"{""n_neighbors"": 5}",0.4847802065436062
+shaped_2ms_decoupled,multiclass,knn,"{""n_neighbors"": 15}",0.49931054095179733
+shaped_2ms_decoupled,multiclass,knn,"{""n_neighbors"": 45}",0.4930237977125278
+shaped_2ms_decoupled,multiclass,random_forest,"{""max_depth"": 4}",0.5293451389585481
+shaped_2ms_decoupled,multiclass,random_forest,"{""max_depth"": 8}",0.506346556975969
+shaped_2ms_decoupled,multiclass,random_forest,"{""max_depth"": null}",0.48859292343267074
+shaped_2ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.4811315891586638
+shaped_2ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.5113921840215306
+shaped_2ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.48631273802336655
+shaped_2ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.4931013436297871
+shaped_2ms_decoupled,binary,logreg,"{""C"": 0.01}",0.5178687258687259
+shaped_2ms_decoupled,binary,logreg,"{""C"": 0.1}",0.5052972972972973
+shaped_2ms_decoupled,binary,logreg,"{""C"": 1.0}",0.5001081081081081
+shaped_2ms_decoupled,binary,logreg,"{""C"": 10.0}",0.4999536679536679
+shaped_2ms_decoupled,binary,knn,"{""n_neighbors"": 5}",0.49292664092664085
+shaped_2ms_decoupled,binary,knn,"{""n_neighbors"": 15}",0.5016988416988417
+shaped_2ms_decoupled,binary,knn,"{""n_neighbors"": 45}",0.5098069498069497
+shaped_2ms_decoupled,binary,random_forest,"{""max_depth"": 4}",0.5505791505791506
+shaped_2ms_decoupled,binary,random_forest,"{""max_depth"": 8}",0.5225945945945946
+shaped_2ms_decoupled,binary,random_forest,"{""max_depth"": null}",0.49320463320463326
+shaped_2ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.5157374517374517
+shaped_2ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.5137297297297297
+shaped_2ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.49918146718146716
+shaped_2ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.5064710424710425
+shaped_1ms_decoupled,multiclass,logreg,"{""C"": 0.01}",0.5151532610065823
+shaped_1ms_decoupled,multiclass,logreg,"{""C"": 0.1}",0.5102741646837576
+shaped_1ms_decoupled,multiclass,logreg,"{""C"": 1.0}",0.5117811231032422
+shaped_1ms_decoupled,multiclass,logreg,"{""C"": 10.0}",0.5118307920479337
+shaped_1ms_decoupled,multiclass,knn,"{""n_neighbors"": 5}",0.5011940816265442
+shaped_1ms_decoupled,multiclass,knn,"{""n_neighbors"": 15}",0.5054172403928098
+shaped_1ms_decoupled,multiclass,knn,"{""n_neighbors"": 45}",0.5310859954237449
+shaped_1ms_decoupled,multiclass,random_forest,"{""max_depth"": 4}",0.5196425828754553
+shaped_1ms_decoupled,multiclass,random_forest,"{""max_depth"": 8}",0.5177842423893575
+shaped_1ms_decoupled,multiclass,random_forest,"{""max_depth"": null}",0.5173066184069931
+shaped_1ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.5413088695384888
+shaped_1ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.5176740961663313
+shaped_1ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.527615554075835
+shaped_1ms_decoupled,multiclass,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.5325652881501851
+shaped_1ms_decoupled,binary,logreg,"{""C"": 0.01}",0.5203706563706564
+shaped_1ms_decoupled,binary,logreg,"{""C"": 0.1}",0.5292046332046332
+shaped_1ms_decoupled,binary,logreg,"{""C"": 1.0}",0.5352586872586873
+shaped_1ms_decoupled,binary,logreg,"{""C"": 10.0}",0.5363088803088804
+shaped_1ms_decoupled,binary,knn,"{""n_neighbors"": 5}",0.5165714285714286
+shaped_1ms_decoupled,binary,knn,"{""n_neighbors"": 15}",0.5205868725868726
+shaped_1ms_decoupled,binary,knn,"{""n_neighbors"": 45}",0.5393822393822394
+shaped_1ms_decoupled,binary,random_forest,"{""max_depth"": 4}",0.5234903474903474
+shaped_1ms_decoupled,binary,random_forest,"{""max_depth"": 8}",0.5147181467181468
+shaped_1ms_decoupled,binary,random_forest,"{""max_depth"": null}",0.514023166023166
+shaped_1ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 15}",0.5044015444015444
+shaped_1ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.05, ""max_leaf_nodes"": 31}",0.48386100386100384
+shaped_1ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 15}",0.5028262548262549
+shaped_1ms_decoupled,binary,hist_gbdt,"{""learning_rate"": 0.1, ""max_leaf_nodes"": 31}",0.5017760617760618

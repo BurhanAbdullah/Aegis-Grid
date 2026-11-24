@@ -1,0 +1,57 @@
+{
+  "seed": 20261123,
+  "git_commit": "65f83bf4bcfd496c0265d1e550f7dfc1177d68a3",
+  "python": "3.13.18",
+  "probe1_xor_transform_partial_recovery": {
+    "setup": "256-byte uniform message, N in {5,10,20,30}, adversary misses exactly one masked fragment but holds K",
+    "trials": 2000,
+    "mean_fraction_of_plaintext_bytes_recovered": 0.8844765625,
+    "min_fraction": 0.75,
+    "max_fraction": 0.96875,
+    "interpretation": "A strict subset of fragments reveals most plaintext bytes; the construction is not an AONT."
+  },
+  "probe1b_missing_only_key_fragment": "masked fragments alone are a one-time-pad encryption of M; no bytes recoverable without K (by construction, not measured)",
+  "probe1c_reordered_fragments_decode_correctly": false,
+  "probe1d_empty_fragments_for_14B_message_N30": 28,
+  "probe2_stochastic_loss_vs_iid": {
+    "0.1": {
+      "stored": 0.1185,
+      "iid_analytic_(1-p)^20": 0.12157665459056935,
+      "z_score_vs_iid_(n=2000)": -0.42103355635873735
+    },
+    "0.2": {
+      "stored": 0.0155,
+      "iid_analytic_(1-p)^20": 0.011529215046068483,
+      "z_score_vs_iid_(n=2000)": 1.6634493303466418
+    },
+    "0.3": {
+      "stored": 0.001,
+      "iid_analytic_(1-p)^20": 0.0007979226629761189,
+      "z_score_vs_iid_(n=2000)": 0.32005568345316254
+    },
+    "0.4": {
+      "stored": 0.0,
+      "iid_analytic_(1-p)^20": 3.6561584400629733e-05,
+      "z_score_vs_iid_(n=2000)": -0.27041790324961507
+    }
+  },
+  "probe2_note": "paper_artifacts/journal_scripts/stochastic_loss.sh draws the channel state independently at every step (state does not depend on the previous state), i.e. i.i.d. Bernoulli loss; stored values are within |z|<2 of (1-p)^20 for all four p values (see z_score).",
+  "probe3_monte_carlo_ci": {
+    "N_values_in_file": [
+      10,
+      20,
+      30
+    ],
+    "rows": 33,
+    "rows_with_negative_lower_ci": 3,
+    "rows_with_zero_width_ci_but_mean_not_0_or_1": 0,
+    "rows_with_mean_0_and_zero_width": 10,
+    "ci_method": "Wald normal approximation 1.96*std/sqrt(n); script uses unseeded random()"
+  },
+  "probe4_latency_csv": {
+    "plotted_static_max_ms": 56.0,
+    "plotted_agent_max_ms": 33.0,
+    "generator_script": "scripts/gen_v3_latency_compare_csv.py writes constant static=48, agent=35 for every load",
+    "generator_for_plotted_csv": "none found in any branch"
+  }
+}

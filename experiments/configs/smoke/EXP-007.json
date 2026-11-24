@@ -1,0 +1,104 @@
+{
+ "exp_id": "EXP-007-smoke",
+ "description": "CAP vs change-detection baselines (Shewhart, per-observable EWMA, CUSUM, static) with a shared bounded adaptation policy; thresholds calibrated on benign data only to a matched false-alarm rate, evaluated on attack families never used for calibration",
+ "epoch_ms": 250,
+ "epochs_per_session": 300,
+ "messages_per_epoch": 8,
+ "deadline_ms": 50.0,
+ "k": 5,
+ "n_normal": 7,
+ "n_protect": 10,
+ "hold_epochs": 8,
+ "base_delay_ms": 1.0,
+ "jitter_mean_ms": 0.5,
+ "benign_ASSUMPTION": {
+  "bernoulli_loss": [
+   0.0,
+   0.01
+  ]
+ },
+ "benign_congestion_ASSUMPTION": {
+  "gilbert_loss": 0.02,
+  "burst": 3,
+  "epochs": 20,
+  "note": "non-malicious episode inside benign test sessions; alarms here are counted as false adaptations"
+ },
+ "calibration": {
+  "sessions": 5,
+  "seed_base": 70000,
+  "target_alarm_epoch_fraction": 0.002
+ },
+ "test": {
+  "sessions_per_family": 3,
+  "seed_base": 80000,
+  "attack_start": [
+   100,
+   200
+  ],
+  "attack_epochs": 100
+ },
+ "attack_families_ASSUMPTION": {
+  "A1_burst_jamming": {
+   "gilbert_loss": 0.1,
+   "burst": 5
+  },
+  "A2_iid_drop": {
+   "bernoulli_loss": 0.08
+  },
+  "A3_delay_injection": {
+   "fraction": 0.3,
+   "delay_ms": [
+    40,
+    80
+   ]
+  },
+  "A4_slow_ramp": {
+   "bernoulli_loss_max": 0.15
+  },
+  "A5_pulsed": {
+   "gilbert_loss": 0.2,
+   "burst": 5,
+   "on": 5,
+   "off": 15
+  },
+  "A6_injection_flood": {
+   "reject_fraction": 0.2
+  }
+ },
+ "detectors": {
+  "CAP": {
+   "alpha": 0.85
+  },
+  "EWMA": {
+   "lambda": 0.2
+  },
+  "CUSUM": {
+   "kappa": 0.5
+  },
+  "Shewhart": {}
+ },
+ "ablations": {
+  "CAP_alpha": [
+   0.0,
+   0.5,
+   0.95
+  ],
+  "CAP_no_hysteresis": {
+   "hold_epochs": 1
+  },
+  "CAP_loss_only": {
+   "observables": [
+    0
+   ]
+  }
+ },
+ "theta_sweep_CAP": [
+  1,
+  5
+ ],
+ "sigma_floor": [
+  0.002,
+  0.005,
+  0.002
+ ]
+}

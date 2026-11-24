@@ -1,0 +1,12 @@
+{
+  "exp_id": "EXP-002",
+  "description": "Per-operation and full-handshake CPU timing of the AGP/1 implementation",
+  "warmup": 50,
+  "n_fast": 5000,
+  "n_slow": 1000,
+  "n_handshake": 300,
+  "aead_payload_bytes": [64, 256, 1024],
+  "suites": [257, 258, 513, 769],
+  "gc_disabled_during_timing": true,
+  "timer": "time.perf_counter_ns"
+}

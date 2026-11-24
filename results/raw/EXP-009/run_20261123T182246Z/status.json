@@ -1,0 +1,5 @@
+{
+  "status": "FAILED",
+  "note": "runner aborted at config 3: group-name check compared x25519 with X25519 case-sensitively (script bug, fixed by case-insensitive comparison); first two configurations completed but raw.json/summary.csv were not written",
+  "finished_utc": "20261123T182344Z"
+}

@@ -1,0 +1,9 @@
+command	exit_status
+python3 main.py	0
+python3 -m tests.verify_v1	1
+python3 -m tests.verify_v2	1
+python3 -m tests.verify_final	1
+python3 verify_model.py	0
+python3 generate_validation.py	1
+python3 -m pytest -q tests	5
+python3 -c import os;from agents.secure_agent import SecureAgent;print(SecureAgent(os.urandom(32)).get_layer_key(1).hex())	1

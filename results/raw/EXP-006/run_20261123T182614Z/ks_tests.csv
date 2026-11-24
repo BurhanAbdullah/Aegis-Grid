@@ -1,0 +1,17 @@
+condition,feature,comparison,ks_stat,p_value
+unshaped,n_pkts,steady vs event,1.0,0.0
+unshaped,iat_mean,steady vs event,1.0,0.0
+unshaped,bytes,steady vs event,1.0,0.0
+unshaped,pooled per-packet IAT,steady vs event windows,0.10124754696438831,1.88133298869103e-172
+padded,n_pkts,steady vs event,1.0,0.0
+padded,iat_mean,steady vs event,1.0,0.0
+padded,bytes,steady vs event,1.0,0.0
+padded,pooled per-packet IAT,steady vs event windows,0.10165717878856118,8.521845982066572e-174
+shaped_2ms,n_pkts,steady vs event,0.010592739648326716,0.9999999999985414
+shaped_2ms,iat_mean,steady vs event,0.06122140291170364,0.16478016436282525
+shaped_2ms,bytes,steady vs event,0.010592739648326716,0.9999999999985414
+shaped_2ms,pooled per-packet IAT,steady vs event windows,0.03472076436752544,5.234914890426756e-43
+shaped_1ms,n_pkts,steady vs event,0.004573170731707266,1.0
+shaped_1ms,iat_mean,steady vs event,0.06113632066553226,0.165900858687649
+shaped_1ms,bytes,steady vs event,0.004573170731707266,1.0
+shaped_1ms,pooled per-packet IAT,steady vs event windows,0.024634793691557452,2.6749346892639457e-43

@@ -1,0 +1,1 @@
+{"status": "COMPLETED", "note": "COMPLETED but SUPERSEDED: server-only TLS authentication with default session tickets and no post-handshake ack, so not matched to AGP/1 (DEC-012). Kept for the record.", "finished_utc": "20261123T182556Z"}

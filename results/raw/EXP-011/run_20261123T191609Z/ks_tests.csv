@@ -1,0 +1,13 @@
+condition,feature,comparison,ks_stat,p_value
+shaped_2ms,n_pkts,steady vs event,0.004477611940298508,1.0
+shaped_2ms,iat_mean,steady vs event,0.07563004648886718,0.04844658142245235
+shaped_2ms,bytes,steady vs event,0.004477611940298508,1.0
+shaped_2ms,pooled per-packet IAT,steady vs event windows,0.04015262555231827,2.4512315101209003e-56
+shaped_2ms_decoupled,n_pkts,steady vs event,0.003278688524590164,1.0
+shaped_2ms_decoupled,iat_mean,steady vs event,0.03831661365304628,0.7166127728185827
+shaped_2ms_decoupled,bytes,steady vs event,0.003278688524590164,1.0
+shaped_2ms_decoupled,pooled per-packet IAT,steady vs event windows,0.012439502789265977,8.580497477204668e-06
+shaped_1ms_decoupled,n_pkts,steady vs event,0.013701981893809667,0.9999999289732298
+shaped_1ms_decoupled,iat_mean,steady vs event,0.06413016882799122,0.13667237013606162
+shaped_1ms_decoupled,bytes,steady vs event,0.013701981893809667,0.9999999289732298
+shaped_1ms_decoupled,pooled per-packet IAT,steady vs event windows,0.0035631102029549666,0.2622441846191107

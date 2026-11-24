@@ -1,0 +1,89 @@
+{
+  "exp_id": "EXP-009",
+  "description": "Matched-setting comparison over real loopback sockets between two processes: AGP/1 vs TLS 1.3 (OpenSSL 3.5 via Python ssl, PQ hybrid / PQ-only / classical groups, ML-DSA-65 or ECDSA P-256 certificates) vs a simplified IEC 62351-6-style HMAC scheme. Handshake wall time, handshake bytes, one-way application latency, bytes per 96-byte message. TLS is run with server-only and with mutual certificate authentication; AGP/1 always authenticates both parties, so mutual TLS is the matched baseline",
+  "handshakes": 300,
+  "messages": 3000,
+  "msg_bytes": 96,
+  "gap_ms": 5.0,
+  "deadline_ms": 100.0,
+  "configs": [
+    {
+      "name": "TLS1.3 X25519MLKEM768 + ML-DSA-65, mutual auth",
+      "mode": "tls",
+      "groups": "X25519MLKEM768",
+      "sig": "mldsa65",
+      "mutual": true
+    },
+    {
+      "name": "TLS1.3 X25519MLKEM768 + ML-DSA-65, server auth only",
+      "mode": "tls",
+      "groups": "X25519MLKEM768",
+      "sig": "mldsa65",
+      "mutual": false
+    },
+    {
+      "name": "TLS1.3 MLKEM768 + ML-DSA-65, mutual auth",
+      "mode": "tls",
+      "groups": "MLKEM768",
+      "sig": "mldsa65",
+      "mutual": true
+    },
+    {
+      "name": "TLS1.3 MLKEM768 + ML-DSA-65, server auth only",
+      "mode": "tls",
+      "groups": "MLKEM768",
+      "sig": "mldsa65",
+      "mutual": false
+    },
+    {
+      "name": "TLS1.3 X25519 + ECDSA-P256 (classical), mutual auth",
+      "mode": "tls",
+      "groups": "X25519",
+      "sig": "p256",
+      "mutual": true
+    },
+    {
+      "name": "TLS1.3 X25519 + ECDSA-P256 (classical), server auth only",
+      "mode": "tls",
+      "groups": "X25519",
+      "sig": "p256",
+      "mutual": false
+    },
+    {
+      "name": "AGP/1 0x0101 ML-KEM-768/ML-DSA-65, single record (k=n=1)",
+      "mode": "agp",
+      "suite": 257,
+      "sig_alg": "ML-DSA-65",
+      "k": 1,
+      "n": 1
+    },
+    {
+      "name": "AGP/1 0x0101 ML-KEM-768/ML-DSA-65, RS(5,7)",
+      "mode": "agp",
+      "suite": 257,
+      "sig_alg": "ML-DSA-65",
+      "k": 5,
+      "n": 7
+    },
+    {
+      "name": "AGP/1 0x0102 X25519+ML-KEM-768/ML-DSA-65, k=n=1",
+      "mode": "agp",
+      "suite": 258,
+      "sig_alg": "ML-DSA-65",
+      "k": 1,
+      "n": 1
+    },
+    {
+      "name": "AGP/1 0x0301 ML-KEM-768/ML-DSA-44, k=n=1",
+      "mode": "agp",
+      "suite": 769,
+      "sig_alg": "ML-DSA-44",
+      "k": 1,
+      "n": 1
+    },
+    {
+      "name": "IEC 62351-6-style HMAC-SHA256 (no confidentiality)",
+      "mode": "hmac"
+    }
+  ]
+}

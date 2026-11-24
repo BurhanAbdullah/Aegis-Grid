@@ -1,0 +1,35 @@
+{
+  "exp_id": "EXP-004",
+  "description": "Plaintext recovered by an adversary holding k-1 fragments (and the decrypted record contents, i.e. after a hypothetical session-key compromise): legacy XOR transform vs package-transform AONT + RS",
+  "seed": 4242,
+  "trials": 2000,
+  "message_bytes": 256,
+  "codes": [
+    [
+      5,
+      5
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      10,
+      13
+    ]
+  ],
+  "legacy_N": [
+    5,
+    10,
+    20,
+    30
+  ]
+}
