@@ -70,6 +70,9 @@ else record "result provenance files" FAIL "missing provenance files"; fi
 if [ -f scripts/check_manuscript_numbers.py ]; then run "manuscript numbers vs results" python3 scripts/check_manuscript_numbers.py
 else record "manuscript numbers vs results" "NOT RUN" "scripts/check_manuscript_numbers.py not present"; fi
 
+# 6b. figures reproduce from the committed runs
+run "figures vs results" python3 scripts/check_figures.py
+
 # 7. smoke runs of experiment runners
 if [ $SMOKE = 1 ]; then
   export AEGIS_RESULTS_DIR="$(mktemp -d)/smoke"

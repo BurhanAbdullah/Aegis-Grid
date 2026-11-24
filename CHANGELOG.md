@@ -28,6 +28,8 @@ remediation: every result is re-measured on a working implementation.
 - Repository cleanup: pinned versions in `requirements.txt` (was `requirements-remediation.txt`),
   pytest configuration in `pyproject.toml`, stray editor and tool state removed,
   `CITATION.cff` and folder READMEs added, `SECURITY.md` rewritten for v6.
+- `scripts/check_figures.py` (run by `verify_all.sh`): every committed figure is regenerated
+  from the committed runs into a temporary directory and compared byte for byte.
 
 ### Withdrawn claims
 - See `docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md` and

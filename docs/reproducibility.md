@@ -10,7 +10,7 @@
 
 ## One command
 ```
-./scripts/verify_all.sh           # environment, compile, tests, mutation smoke, result provenance, manuscript numbers
+./scripts/verify_all.sh           # environment, compile, tests, mutation smoke, result provenance, manuscript numbers, figures
 ./scripts/verify_all.sh --smoke   # additionally runs every experiment runner on a reduced configuration (results go to a temporary directory)
 ```
 Each stage reports PASS / FAIL / SKIPPED / NOT RUN / BLOCKED; embedded-hardware

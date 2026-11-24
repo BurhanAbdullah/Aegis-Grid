@@ -137,3 +137,26 @@ labelled as external); the native-over-UDP and hybrid statements; the key-update
 cost; two verified references (Wang and Lu; Formby et al.); and, at the author's
 choice, a title that names the covered traffic classes. Measurements on embedded
 hardware remain BLOCKED.
+
+## 7. Final independent audit (2026-11-24)
+
+Fresh clone of `main` at `8df0697`:
+
+- `verify_all.sh --smoke` exit 0 (102 tests, four mutation checks, provenance,
+  1172 values re-derived, all smoke runs; embedded hardware BLOCKED). CI on
+  `main` passed.
+- All 34 figure files (PNG, PDF, CSV, draw.io, `FIGURE_SOURCES.csv`) were
+  regenerated from `results/raw` and are byte-identical to the committed files;
+  PDFs differ only in their creation timestamps. This check is now a stage of
+  `verify_all.sh` (`scripts/check_figures.py`); altering one figure CSV makes it fail.
+- The manuscript and response letter rebuilt from the clone's
+  `results/paper_values.json` are identical to the delivered versions.
+- Every number typed by hand in the manuscript and letter (288 occurrences in the manuscript and 52 in the letter,
+  mostly configuration parameters, standard identifiers and definitions) was
+  traced to an experiment configuration, the code, a result key, the earlier
+  manuscript (for quoted earlier claims) or a cited source; none was unsupported.
+- Every path cited in the research-integrity records exists (paths of the
+  earlier layout resolve under `legacy/`, as `BASELINE_AUDIT.md` states).
+- One reference was improved: Gu et al. is cited in its journal version (IEEE
+  Trans. Inf. Theory 68(10), 2022) instead of the arXiv preprint. The eight
+  details flagged for author confirmation remain open.
