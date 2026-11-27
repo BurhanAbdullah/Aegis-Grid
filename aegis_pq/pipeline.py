@@ -84,16 +84,17 @@ class Sender:
 @dataclass
 class Receiver:
     chan: SecureChannel
+    # Preserve the original positional constructor fields for v6.0 callers.
+    pending: dict = field(default_factory=dict)
+    delivered: set = field(default_factory=set)
+    rejects: dict = field(default_factory=dict)
+    pending_bytes: int = 0
     max_pending_messages: int = 1024
     max_pending_bytes: int = 64 * 1024 * 1024
     max_message_bytes: int = 60 * 1024
     max_fragments: int = 255
     max_message_buffer_bytes: int = 1024 * 1024
     max_delivered_ids: int = 65536
-    pending: dict = field(default_factory=dict)
-    delivered: set = field(default_factory=set)
-    rejects: dict = field(default_factory=dict)
-    pending_bytes: int = 0
 
     def __post_init__(self):
         limits = (self.max_pending_messages, self.max_pending_bytes,
