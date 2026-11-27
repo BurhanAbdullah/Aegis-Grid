@@ -96,3 +96,33 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Issue:** the top level mixed v1–v5 code, one-off shell scripts, audit dumps and the v6 implementation; `ARTIFACT_ENTRYPOINT.md` pointed to a non-existent directory (KF-011) and CI masked failures (KF-008).
 - **Decision:** move every legacy file unchanged into `legacy/` with `git mv` (history kept, nothing deleted). The only v6 dependency on legacy code is EXP-004, which now imports `legacy.core.fragmentation`; the frozen EXP-004 run is unaffected because its provenance records the commit that produced it. The broken `security_audit.yml` workflow is moved to `legacy/.github-workflows/`; `ci.yml` runs `verify_all.sh --smoke` in a Python 3.13 / OpenSSL 3.5 container. `setup.py` (legacy, pycryptodome) is replaced by `pyproject.toml` for `aegis_pq` and `baselines`.
 - **Verification:** `verify_all.sh --smoke` after the move (FINAL_VALIDATION_REPORT.md).
+
+
+## DEC-016 — Bounded fail-closed message reassembly (v6.1 candidate)
+- **Date:** 2026-11-27
+- **Issue:** The v6.0 receiver retained pending shards and delivered message IDs without global bounds; expiration depended entirely on explicit per-ID calls.
+- **Decision:** Bound concurrent incomplete messages, aggregate shard bytes, per-message storage, message size, fragment count and delivered-ID history. Reject new work at capacity rather than evicting delivered IDs. Add a periodic-expiry API and lazy expiry on packet receipt.
+- **Wire constraint:** The fragment header encodes n in u8; this implementation therefore caps n at 255 even though the underlying Reed-Solomon helper supports 256.
+- **Message identity:** A sender never wraps its u32 message ID within a session. It must establish a new session after exhausting the ID space.
+- **Consistency:** All fragments of one message share the same authenticated generation timestamp and deadline. Conflicting metadata or conflicting duplicate shards discard the incomplete message.
+- **Verification status:** Code and regression tests added on `release/v6.1.0-rc1-hardening`; candidate CI and full verification remain pending.
+- **Scientific impact:** These limits improve bounded resource behaviour but do not constitute a general DoS-resistance guarantee. Host applications must schedule `Receiver.expire_due()`.
+
+## DEC-017 — AONT theorem claim withdrawn pending a complete reduction
+- **Date:** 2026-11-27
+- **Issue:** The previous proof sketch inferred a random-oracle query bound from a count of unknown output bits without establishing the adversary's view and shard-placement cases.
+- **Decision:** Retain the transform and existing EXP-004 result, but withdraw the general theorem and any zero-leakage/proven-security language until a complete reduction and independent cryptographic review exist.
+- **Evidence retained:** Implementation, unit tests, EXP-003 and EXP-004 remain in the repository. No raw experiment or legacy record is deleted.
+- **Scientific impact:** The layer is described as an implemented package transform empirically evaluated against one specified partial-capture strategy; general security proof remains open.
+
+## DEC-018 — Public repository is not equivalent to open-source licence
+- **Date:** 2026-11-27
+- **Issue:** Repository metadata describes the project as open-source, while `LICENSE` restricts use to academic contexts and prohibits redistribution.
+- **Decision:** Do not silently replace the licence. Clarify the README and block a final public release until the author selects a licence compatible with intended reuse and journal policy.
+
+
+## DEC-019 — Reject future-dated record generation timestamps
+- **Date:** 2026-11-27
+- **Issue:** The v6.0 receiver checked only the upper deadline bound. A valid authenticated sender could provide a future generation time and thereby extend the acceptance window.
+- **Decision:** Reject a record when `t_gen > now + ε_clk`, in addition to the existing expiry check `now > t_gen + D + ε_clk`.
+- **Verification status:** Regression test added on the v6.1 candidate; CI pending.

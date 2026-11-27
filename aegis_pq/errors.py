@@ -1,8 +1,7 @@
 """Typed rejection reasons.
 
-Every failure path in the protocol raises ``Reject`` with one of these codes.
-Callers treat any ``Reject`` as M̂ = ⊥.  The exception never carries plaintext,
-key material, or partially decrypted data.
+Every protocol failure raises Reject with a stable reason code. Rejections do
+not carry plaintext, key material or partially decrypted data.
 """
 import enum
 
@@ -27,6 +26,7 @@ class Reason(enum.Enum):
     SESSION_EXPIRED = "session_expired"
     INCOMPLETE = "insufficient_fragments"
     INTEGRITY = "reconstruction_integrity_failure"
+    RESOURCE_LIMIT = "resource_limit_exceeded"
     STATE = "protocol_state_violation"
 
 

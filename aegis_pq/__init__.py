@@ -11,9 +11,9 @@ channel     record layer: AES-256-GCM, nonces, sequence numbers, replay window,
             deadlines, key update (rekey) and session expiry
 aont        package-transform all-or-nothing transform (M3)
 erasure     systematic Reed-Solomon (k-of-n) erasure code over GF(2^8) (M3)
-pipeline    message -> AONT -> erasure code -> fixed-size encrypted packets (M3)
+pipeline    bounded message reassembly, AONT -> erasure code -> AEAD packets (M3)
 
 All cryptographic primitives come from the `cryptography` package (statically linked
 OpenSSL 4.0 in the pinned build). Nothing here implements ML-KEM, ML-DSA, AES or SHA-2 from scratch.
 """
-__version__ = "6.0.0-dev"
+__version__ = "6.1.0rc1"

@@ -1,8 +1,11 @@
-# Final Validation Report (Milestone 9)
+# Final Validation Report (Milestone 9 — v6.0 baseline)
 
 Date: 2026-11-23 (UTC). Branch `research-integrity-remediation`, release tag
-`v6.0-revision`. This report states what was verified, how, and what remains
-open. It does not claim more than the listed evidence supports.
+`v6.0-revision`. This report applies only to the frozen v6.0 baseline. It does
+**not** validate the v6.1.0-rc1 hardening candidate or its new code/tests.
+Candidate verification is tracked separately in
+`docs/release/V6.1.0_RC1_READINESS.md`. This report states what was verified,
+how, and what remains open. It does not claim more than the listed evidence supports.
 
 ## 1. One-command verification
 

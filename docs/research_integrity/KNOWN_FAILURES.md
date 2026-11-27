@@ -29,3 +29,20 @@ with the fixing commit and the test that guards them.
 | KF-022 | M7 | EXP-011 first run crashed in the bandwidth step (no unshaped condition in EXP-010) | run_20261123T191609Z | FIXED (d74c690), rerun COMPLETED, identical AUCs |
 | KF-023 | M7 | Mutual-TLS byte comparison unmatched: OpenSSL auto-chains the CA certificate | DEC-013 | FIXED by EXP-013 (leaf-only measurement) |
 | KF-024 | post-merge | Attacker feature count stated as 36 in the manuscript, methodology, limitations and register; the runner computes 33 | `features()` in exp006_traffic_attacker.py; effect_sizes.csv | FIXED (count read from results: `006_n_features`) |
+
+
+## v6.1.0 candidate findings (2026-11-27)
+
+| ID | Finding | Candidate action | Status |
+|---|---|---|---|
+| KF-025 | Receiver pending reassembly had no message-count or aggregate-byte cap | Added configurable per-session caps and explicit RESOURCE_LIMIT rejection | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-026 | Incomplete messages were only removed by an application-supplied per-ID expire call | Added `expire_due()` and lazy expiry on receive; host application must still schedule periodic expiry | FIX IMPLEMENTED; INTEGRATION REQUIREMENT REMAINS |
+| KF-027 | Fragments of one message could carry inconsistent generation times/deadlines | Sender now stamps one common generation time; receiver rejects inconsistent authenticated metadata | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-028 | Conflicting content under a repeated fragment index was silently ignored | Receiver discards the pending message and records INTEGRITY | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-029 | Delivered-ID history was unbounded; evicting it would weaken exactly-once semantics | Bounded history; fail closed at capacity | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-030 | Message ID counter wrapped modulo 2^32 | Sender refuses further messages after exhausting IDs in a session | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-031 | Wire fragment count is u8 but Reed-Solomon accepts n=256 | Candidate constrains the wire protocol to n<=255 | FIX IMPLEMENTED; CI NOT YET VERIFIED |
+| KF-032 | AONT proof sketch did not establish the stated bound for every shard placement/view | Replaced the general theorem claim with an explicit open-proof status | DOCUMENTATION CORRECTED; FORMAL PROOF OPEN |
+| KF-033 | README/repository metadata described project as open-source despite restrictive academic-only licence | README now distinguishes public availability from OSI open-source licensing | AUTHOR LICENCE DECISION REQUIRED |
+
+| KF-034 | 2026-11-27 | Authenticated generation timestamps in the future could extend the receiver's deadline window | v6.1 record-layer check and `test_future_generation_time_is_rejected` | FIX IMPLEMENTED; CI NOT YET VERIFIED |

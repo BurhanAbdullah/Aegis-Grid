@@ -178,7 +178,10 @@ class SecureChannel:
         if INNER.size + plen > len(body) or rtype not in (TYPE_DATA, TYPE_DUMMY):
             raise Reject(Reason.MALFORMED, "inner length/type")
         t_gen, dl = t_gen_us / 1000.0, dl_us / 1000.0
-        if self.clock.now_ms() > t_gen + dl + self.cfg.clock_skew_ms:
+        now_ms = self.clock.now_ms()
+        if t_gen > now_ms + self.cfg.clock_skew_ms:
+            raise Reject(Reason.DEADLINE, "generation timestamp is in the future")
+        if now_ms > t_gen + dl + self.cfg.clock_skew_ms:
             raise Reject(Reason.DEADLINE)
         payload = body[INNER.size:INNER.size + plen]
         if rtype == TYPE_DUMMY:

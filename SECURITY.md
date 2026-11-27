@@ -11,6 +11,7 @@ or certified, and it must not be deployed on a real control network.
 | Version | Status |
 |---|---|
 | 6.0 (`main`, tag `v6.0-revision`) | Maintained for the revised manuscript |
+| 6.1.0-rc1 (`release/v6.1.0-rc1-hardening`) | Candidate only; new resource-bound reassembly tests require CI before verification; not approved for deployment |
 | v1–v5 (`legacy/`, earlier tags) | Archived, not maintained; their security claims were audited and in part withdrawn (see below) |
 
 ## What the code relies on

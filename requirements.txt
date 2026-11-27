@@ -6,6 +6,8 @@ scipy==1.18.1
 scikit-learn==1.9.1
 pandas==3.0.5
 matplotlib==3.11.2
+# PDF rendering is used only to inspect generated figure reproducibility.
+pypdfium2==5.15.2
 andes==2.0.0
 pytest==9.1.1
 python-docx==1.2.0

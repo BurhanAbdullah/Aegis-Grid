@@ -94,6 +94,6 @@ def test_inconsistent_fragment_metadata_rejected(pki, clock):
     from aegis_pq.pipeline import FRAG
     import struct
     f0 = frags[0]
-    forged = FRAG.pack(mid, 1, 3, 6, struct.unpack_from(">I", f0, 7)[0]) + frags[1][FRAG.size:]
+    forged = FRAG.pack(mid, 1, 4, 7, struct.unpack_from(">I", f0, 7)[0]) + frags[1][FRAG.size:]
     r.receive(s.chan.seal(f0, 50)); r.receive(s.chan.seal(forged, 50))
     assert r.rejects[Reason.INTEGRITY] == 1

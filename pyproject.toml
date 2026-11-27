@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aegis-grid"
-version = "6.0.0"
+version = "6.1.0rc1"
 description = "Time-bounded, fail-secure post-quantum communication for smart grid control messages (research artefact)"
 readme = "README.md"
 requires-python = ">=3.13"

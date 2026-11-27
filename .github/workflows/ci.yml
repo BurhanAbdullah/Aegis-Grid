@@ -2,9 +2,13 @@ name: verify
 
 on:
   push:
-    branches: ["main", "research-integrity-remediation"]
+    branches: ["main", "research-integrity-remediation", "release/v6.1.0-rc1-hardening"]
   pull_request:
     branches: ["main"]
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

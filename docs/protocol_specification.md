@@ -1,20 +1,22 @@
-# AGP/1 — Aegis-Grid Protocol Specification (implementation `aegis_pq`, v6.0)
+# AGP/1 — Aegis-Grid Protocol Specification (implementation `aegis_pq`, v6.1 candidate)
 
-Status: **IMPLEMENTED, UNIT- AND SECURITY-TESTED** (`tests/security/test_protocol.py`),
-**BENCHMARKED** on x86-64 (EXP-002). Not independently reviewed; not formally verified.
+Status: **IMPLEMENTED AND TESTED** in the recorded v6.0 baseline. The v6.1
+candidate adds bounded message reassembly and new adversarial regression tests;
+these changes require a fresh CI run before they are marked verified.
+Not independently reviewed; not formally verified.
 
 ## 1. Layering
 
 ```
-application control message M (bytes, ≤ 64 KiB)
- └─ L2  all-or-nothing transform (package transform)        aegis_pq/aont.py      (Milestone 3)
+application control message M (bytes, ≤ 60 KiB default sender/receiver limit)
+ └─ L2  package transform (general security proof open)         aegis_pq/aont.py      (Milestone 3)
      └─ erasure code, k-of-n (systematic Reed–Solomon)       aegis_pq/erasure.py   (Milestone 3)
          └─ L3  one fragment per fixed-size AGP/1 record     aegis_pq/channel.py
-             └─ L4  fixed-rate emission with dummy records   aegis_pq/shaper.py    (Milestone 4)
+             └─ L4  fixed-rate emission with dummy records   aegis_pq/shaping.py    (Milestone 4)
                  └─ UDP
 L1  session keys for all records come from the AGP/1 handshake  aegis_pq/handshake.py
 L5  deadline field in every record, checked on receipt
-L6  detector / parameter policy                               aegis_pq/detector.py  (Milestone 5)
+L6  detector / parameter policy                               aegis_pq/detectors.py  (Milestone 5)
 L7  fallback controller at the plant interface                experiments (Milestone 6)
 ```
 
@@ -99,12 +101,45 @@ Replay protection: per-epoch sliding window, W = 1024 (default), updated only
 after successful authentication. Late records consume their sequence number,
 so a delayed record cannot be replayed later.
 
-Deadline: accept iff `now ≤ t_gen + deadline + ε_clk`. `ε_clk` defaults to 1 ms
-(ASSUMPTION about PTP-grade synchronisation).
+Deadline: accept iff `t_gen ≤ now + ε_clk` and
+`now ≤ t_gen + deadline + ε_clk`. Future-dated generation times beyond the
+clock-skew allowance are rejected. `ε_clk` defaults to 1 ms (ASSUMPTION about
+PTP-grade synchronisation).
 
 Session expiry: default 1 h or 2³² records; afterwards both directions refuse.
 
-## 6. Failure handling
+## 6. Message reassembly and resource limits (v6.1 candidate)
+
+The wire fragment header is `msg_id:u32 | index:u8 | k:u8 | n:u8 | ylen:u32`.
+Because `n` is encoded in one byte, the wire protocol supports at most 255
+fragments (indices 0 through 254 for n=255), even though the Reed-Solomon
+implementation can construct a 256-row matrix. A sender must not wrap a
+32-bit message ID within a session; it must establish a new session instead.
+
+The default sender and receiver message limit is 60 KiB. Receiver defaults are
+1,024 concurrent incomplete messages, 64 MiB aggregate buffered shard bytes,
+1 MiB maximum shard storage per message, 255 fragments and 65,536 delivered
+message IDs. The aggregate byte counter covers shard payload bytes, not Python
+object overhead. These are conservative research defaults, not deployment
+capacity recommendations. The application must establish a new session before
+the delivered-ID history limit is reached; the receiver rejects new message
+completion rather than evicting IDs.
+When delivered-history capacity is reached, the receiver fails closed rather
+than evicting IDs and weakening the exactly-once guarantee within the session.
+A resource-limit rejection is not a successful delivery.
+
+Every fragment belonging to one message must carry identical authenticated
+generation time and deadline values. The sender stamps all fragments from one
+message with one generation time. Conflicting metadata or conflicting content
+for a repeated shard index discards the incomplete message.
+
+Incomplete messages expire at `t_gen + deadline + clock_skew`. The caller must
+invoke `Receiver.expire_due()` from a periodic timer, including during periods
+when no records arrive. `receive()` also performs lazy expiry before processing
+each record. The receiver's in-memory limits are defaults for this research
+implementation, not universal deployment sizing recommendations.
+
+## 7. Failure handling
 
 Every failure raises `Reject(reason)`; the caller maps it to M̂ = ⊥ and the
 plant interface keeps the fallback action (L7). Reasons:
@@ -112,11 +147,11 @@ plant interface keeps the fallback action (L7). Reasons:
 certificate_expired, wrong_peer_identity, bad_signature, invalid_key_material,
 bad_finished_mac, aead_authentication_failed, replay, sequence_outside_window,
 wrong_session, epoch_not_acceptable, deadline_exceeded, session_expired,
-insufficient_fragments, reconstruction_integrity_failure, protocol_state_violation`.
+insufficient_fragments, reconstruction_integrity_failure, protocol_state_violation, resource_limit_exceeded`.
 A failed handshake object is unusable (state `failed`); no keys are produced.
 Rejections never contain plaintext (test `test_reject_carries_no_plaintext`).
 
-## 7. Security properties and their basis
+## 8. Security properties and their basis
 
 | Property | Basis | Class |
 |---|---|---|
@@ -128,4 +163,6 @@ Rejections never contain plaintext (test `test_reject_carries_no_plaintext`).
 
 Known limitations: no revocation; no formal (e.g. Tamarin/ProVerif) model; Python
 cannot guarantee key zeroisation; the handshake is not DoS-hardened (no cookie);
-the responder signs before authenticating the initiator.
+the responder signs before authenticating the initiator. The package-transform
+AONT is empirically evaluated for a specific partial-capture strategy, but its
+general security proof is open; see `docs/fragmentation_aont.md`.

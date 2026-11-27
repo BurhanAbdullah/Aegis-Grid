@@ -1,8 +1,10 @@
-# Aegis-Grid v6
+# Aegis-Grid v6.1.0-rc1 (candidate)
 
 Research artefact for the manuscript *A Time-Bounded and Fail-Secure Post-Quantum
 Communication Architecture for Supervisory and Wide-Area Smart Grid Control:
-Design, Implementation and Measured Trade-offs* (revised version, tag `v6.0-revision`).
+Design, Implementation and Measured Trade-offs*. The prior v6.0 research
+baseline is preserved. The branch `release/v6.1.0-rc1-hardening` contains
+corrective work under review and is not a final release.
 
 Aegis-Grid is a layered communication architecture for control messages in smart
 grids. A message is useful only if it is authentic, fresh and delivered within the
@@ -17,14 +19,16 @@ those results into the figures and numbers of the manuscript.
 |---|---|---|
 | L1 | AGP/1 handshake: ML-KEM (FIPS 203) + ML-DSA (FIPS 204), optional X25519 hybrid, X.509 with a pinned CA | `aegis_pq/handshake.py`, `pki.py`, `suites.py` |
 | L1/L5 | AES-256-GCM records with a sliding replay window and an authenticated deadline | `aegis_pq/channel.py`, `clock.py` |
-| L2 | Package-transform all-or-nothing transform with Reed–Solomon k-of-n coding | `aegis_pq/aont.py`, `erasure.py`, `pipeline.py` |
+| L2 | Package transform with Reed–Solomon k-of-n coding; general AONT security proof remains open | `aegis_pq/aont.py`, `erasure.py`, `pipeline.py` |
 | L3/L4 | Constant-rate shaper (fixed-size records, interval Δ, encrypted dummies, late drop) | `aegis_pq/shaping.py` |
 | L6 | Cumulative attack pressure (CAP, an EWMA-type statistic) and CUSUM/EWMA/Shewhart baselines | `aegis_pq/detectors.py` |
 | L7 | Receiver fail-secure fallback evaluated on the IEEE 14-bus system (ANDES) | `experiments/runners/exp008_cyberphysical_agc.py` |
 | Baselines | TLS 1.3 (classical, ML-KEM, hybrid; server-only and mutual authentication), IEC 62351-6-style HMAC | `baselines/` |
 
-Post-quantum primitives come from `cryptography` 50.0.1; nothing is implemented
-from scratch and no external benchmark values are used. The evidence class of
+Post-quantum primitives come from `cryptography` 50.0.1; no cryptographic
+primitive is implemented from scratch. Implementation timings are measured on
+the stated x86-64 VM; any Cortex-M4 estimate derived from published pqm4 cycle
+counts is separately labelled as an external analytical estimate. The evidence class of
 every claim (hardware measurement, simulation result, analytically derived,
 assumption) is listed in
 [`docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md`](docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md).
@@ -100,6 +104,20 @@ indistinguishability. See [`docs/limitations.md`](docs/limitations.md).
 Citation metadata is in [`CITATION.cff`](CITATION.cff). Security reporting is
 described in [`SECURITY.md`](SECURITY.md) and changes in [`CHANGELOG.md`](CHANGELOG.md).
 
-## Licence
+## Licence and reuse
 
-See [`LICENSE`](LICENSE).
+This is a public research repository, but the current `LICENSE` says
+"academic use only" and prohibits redistribution. It is **not** an OSI-approved
+open-source licence. Reuse, redistribution and journal data-availability
+permissions must be resolved by the author before a public release. No licence
+change is made by this remediation branch.
+
+## v6.1.0 release candidate
+
+The hardening candidate adds bounded message reassembly, automatic expiry
+support, consistent per-message generation/deadline metadata, explicit resource
+rejection and regression tests. The caller must schedule
+`Receiver.expire_due()` periodically; lazy expiry on packet receipt alone is
+not a substitute for a timer. See
+[`docs/release/V6.1.0_RC1_READINESS.md`](docs/release/V6.1.0_RC1_READINESS.md)
+and [`docs/security_review_register.md`](docs/security_review_register.md).
