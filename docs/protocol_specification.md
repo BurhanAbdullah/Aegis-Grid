@@ -116,7 +116,10 @@ implementation can construct a 256-row matrix. A sender must not wrap a
 
 The default sender and receiver message limit is 60 KiB. The receiver also
 bounds concurrent incomplete messages, aggregate buffered shard bytes,
-per-message shard storage, fragment count and delivered-message history.
+per-message shard storage, fragment count and delivered-message history
+(default 65,536 delivered IDs). The application must establish a new session
+before this history limit is reached; the receiver rejects new message
+completion rather than evicting IDs.
 When delivered-history capacity is reached, the receiver fails closed rather
 than evicting IDs and weakening the exactly-once guarantee within the session.
 A resource-limit rejection is not a successful delivery.
