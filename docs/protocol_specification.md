@@ -101,8 +101,10 @@ Replay protection: per-epoch sliding window, W = 1024 (default), updated only
 after successful authentication. Late records consume their sequence number,
 so a delayed record cannot be replayed later.
 
-Deadline: accept iff `now ≤ t_gen + deadline + ε_clk`. `ε_clk` defaults to 1 ms
-(ASSUMPTION about PTP-grade synchronisation).
+Deadline: accept iff `t_gen ≤ now + ε_clk` and
+`now ≤ t_gen + deadline + ε_clk`. Future-dated generation times beyond the
+clock-skew allowance are rejected. `ε_clk` defaults to 1 ms (ASSUMPTION about
+PTP-grade synchronisation).
 
 Session expiry: default 1 h or 2³² records; afterwards both directions refuse.
 
