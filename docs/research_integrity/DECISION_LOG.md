@@ -119,3 +119,10 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Date:** 2026-11-27
 - **Issue:** Repository metadata describes the project as open-source, while `LICENSE` restricts use to academic contexts and prohibits redistribution.
 - **Decision:** Do not silently replace the licence. Clarify the README and block a final public release until the author selects a licence compatible with intended reuse and journal policy.
+
+ 
+## DEC-019 — Reject future-dated record generation timestamps
+- **Date:** 2026-11-27
+- **Issue:** The v6.0 receiver checked only the upper deadline bound. A valid authenticated sender could provide a future generation time and thereby extend the acceptance window.
+- **Decision:** Reject a record when `t_gen > now + ε_clk`, in addition to the existing expiry check `now > t_gen + D + ε_clk`.
+- **Verification status:** Regression test added on the v6.1 candidate; CI pending.
