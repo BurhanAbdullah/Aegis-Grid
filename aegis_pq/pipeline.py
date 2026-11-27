@@ -71,8 +71,9 @@ class Sender:
             raise ValueError("deadline_ms must fit the authenticated u32 microsecond field")
         mid, frags = self.fragment(message)
         generated = self.chan.clock.now_ms() if t_gen_ms is None else float(t_gen_ms)
-        if not math.isfinite(generated):
-            raise ValueError("t_gen_ms must be finite")
+        if (not math.isfinite(generated) or generated < 0
+                or generated * 1000 > 0xFFFFFFFFFFFFFFFF):
+            raise ValueError("t_gen_ms must fit the authenticated u64 microsecond field")
         return mid, [self.chan.seal(f, deadline_ms, TYPE_DATA, generated) for f in frags]
 
     def seal_dummy(self, deadline_ms: float = 1e3):
