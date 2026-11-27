@@ -19,9 +19,9 @@ def endpoints(pki, clock, k=2, n=3, **receiver_limits):
 
 
 def test_seal_message_uses_one_generation_time(pki, clock):
-    sender, _ = endpoints(pki, clock)
+    sender, receiver = endpoints(pki, clock)
     _, records = sender.seal_message(b"setpoint", 100)
-    opened = [sender.chan.open(record) for record in records]
+    opened = [receiver.chan.open(record) for record in records]
     assert len({(item[2], item[3]) for item in opened}) == 1
 
 
