@@ -1,4 +1,4 @@
-# Aegis-Grid v6
+# Aegis-Grid v6.1.0-rc1 (candidate)
 
 Research artefact for the manuscript *A Time-Bounded and Fail-Secure Post-Quantum
 Communication Architecture for Supervisory and Wide-Area Smart Grid Control:
