@@ -25,8 +25,10 @@ those results into the figures and numbers of the manuscript.
 | L7 | Receiver fail-secure fallback evaluated on the IEEE 14-bus system (ANDES) | `experiments/runners/exp008_cyberphysical_agc.py` |
 | Baselines | TLS 1.3 (classical, ML-KEM, hybrid; server-only and mutual authentication), IEC 62351-6-style HMAC | `baselines/` |
 
-Post-quantum primitives come from `cryptography` 50.0.1; nothing is implemented
-from scratch and no external benchmark values are used. The evidence class of
+Post-quantum primitives come from `cryptography` 50.0.1; no cryptographic
+primitive is implemented from scratch. Implementation timings are measured on
+the stated x86-64 VM; any Cortex-M4 estimate derived from published pqm4 cycle
+counts is separately labelled as an external analytical estimate. The evidence class of
 every claim (hardware measurement, simulation result, analytically derived,
 assumption) is listed in
 [`docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md`](docs/research_integrity/CLAIM_IMPLEMENTATION_EVIDENCE_MATRIX.md).
