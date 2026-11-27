@@ -116,11 +116,13 @@ fragments (indices 0 through 254 for n=255), even though the Reed-Solomon
 implementation can construct a 256-row matrix. A sender must not wrap a
 32-bit message ID within a session; it must establish a new session instead.
 
-The default sender and receiver message limit is 60 KiB. The receiver also
-bounds concurrent incomplete messages, aggregate buffered shard bytes,
-per-message shard storage, fragment count and delivered-message history
-(default 65,536 delivered IDs). The application must establish a new session
-before this history limit is reached; the receiver rejects new message
+The default sender and receiver message limit is 60 KiB. Receiver defaults are
+1,024 concurrent incomplete messages, 64 MiB aggregate buffered shard bytes,
+1 MiB maximum shard storage per message, 255 fragments and 65,536 delivered
+message IDs. The aggregate byte counter covers shard payload bytes, not Python
+object overhead. These are conservative research defaults, not deployment
+capacity recommendations. The application must establish a new session before
+the delivered-ID history limit is reached; the receiver rejects new message
 completion rather than evicting IDs.
 When delivered-history capacity is reached, the receiver fails closed rather
 than evicting IDs and weakening the exactly-once guarantee within the session.
