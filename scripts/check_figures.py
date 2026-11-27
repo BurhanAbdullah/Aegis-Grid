@@ -26,5 +26,12 @@ with tempfile.TemporaryDirectory() as out:
     bad += [p for p in sorted(set(committed) & set(generated))
             if content(os.path.join(FIG, p)) != content(os.path.join(out, p))]
 if bad:
-    print("MISMATCH:", bad[:20]); sys.exit(1)
+    print(f"MISMATCH: {len(bad)} figure files")
+    for path in bad:
+        committed_path = os.path.join(FIG, path)
+        generated_path = os.path.join(out, path)
+        committed_size = os.path.getsize(committed_path) if os.path.isfile(committed_path) else None
+        generated_size = os.path.getsize(generated_path) if os.path.isfile(generated_path) else None
+        print(f"  {path}: committed_bytes={committed_size}; generated_bytes={generated_size}")
+    sys.exit(1)
 print(f"{len(committed)} figure files reproduced from the committed runs")
