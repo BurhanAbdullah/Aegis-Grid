@@ -20,7 +20,7 @@ def body_size_for(max_msg_len: int, k: int) -> int:
     if not isinstance(max_msg_len, int) or max_msg_len < 0:
         raise ValueError("max_msg_len must be a non-negative integer")
     if not isinstance(k, int) or not 1 <= k <= MAX_WIRE_FRAGMENTS:
-        raise ValueError("k must be in [1, 256]")
+        raise ValueError("k must be in [1, 255]")
     y = max_msg_len + aont.OVERHEAD
     shard = -(-y // k)
     if FRAG.size + shard > 0xFFFF:
@@ -42,7 +42,7 @@ class Sender:
 
     def __post_init__(self):
         if not (1 <= self.k <= self.n <= MAX_WIRE_FRAGMENTS):
-            raise ValueError("require 1 <= k <= n <= 256")
+            raise ValueError("require 1 <= k <= n <= 255")
         if self.max_message_bytes < 0:
             raise ValueError("max_message_bytes must be non-negative")
         if not 0 <= self.next_id <= 0xFFFFFFFF:
@@ -66,8 +66,9 @@ class Sender:
 
     def seal_message(self, message: bytes, deadline_ms: float, t_gen_ms: float = None):
         """Seal all fragments with one authenticated generation time and deadline."""
-        if not math.isfinite(float(deadline_ms)) or float(deadline_ms) < 0:
-            raise ValueError("deadline_ms must be finite and non-negative")
+        if (not math.isfinite(float(deadline_ms)) or float(deadline_ms) < 0
+                or float(deadline_ms) * 1000 > 0xFFFFFFFF):
+            raise ValueError("deadline_ms must fit the authenticated u32 microsecond field")
         mid, frags = self.fragment(message)
         generated = self.chan.clock.now_ms() if t_gen_ms is None else float(t_gen_ms)
         if not math.isfinite(generated):
@@ -85,8 +86,8 @@ class Receiver:
     chan: SecureChannel
     max_pending_messages: int = 1024
     max_pending_bytes: int = 64 * 1024 * 1024
-    max_message_bytes: int = 64 * 1024
-    max_fragments: int = 256
+    max_message_bytes: int = 60 * 1024
+    max_fragments: int = 255
     max_message_buffer_bytes: int = 1024 * 1024
     max_delivered_ids: int = 65536
     pending: dict = field(default_factory=dict)
