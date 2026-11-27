@@ -154,3 +154,22 @@ def test_future_generation_time_is_rejected(pki, clock):
     assert receiver.receive(record) is None
     assert receiver.rejects[Reason.DEADLINE] == 1
     assert mid not in receiver.pending
+
+
+def test_receiver_preserves_v60_positional_constructor(pki, clock):
+    ca, creds = pki
+    ik, rk = run_handshake(
+        Initiator("cc-01", "rtu-07", creds["cc-01"], ca.cert, clock),
+        Responder("rtu-07", creds["rtu-07"], ca.cert, clock),
+    )
+    pending, delivered, rejects = {}, set(), {}
+    receiver = Receiver(SecureChannel(rk, clock), pending, delivered, rejects)
+    assert receiver.pending is pending
+    assert receiver.delivered is delivered
+    assert receiver.rejects is rejects
+
+
+def test_generation_timestamp_must_fit_wire_field(pki, clock):
+    sender, _ = endpoints(pki, clock, k=1, n=1)
+    with pytest.raises(ValueError):
+        sender.seal_message(b"bad timestamp", 100, -1)
