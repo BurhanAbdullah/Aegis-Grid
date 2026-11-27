@@ -144,3 +144,13 @@ def test_deadline_must_fit_wire_microsecond_field(pki, clock):
     sender, _ = endpoints(pki, clock, k=1, n=1)
     with pytest.raises(ValueError):
         sender.seal_message(b"deadline", 5000)
+
+
+def test_future_generation_time_is_rejected(pki, clock):
+    sender, receiver = endpoints(pki, clock, k=1, n=1)
+    mid, fragments = sender.fragment(b"future")
+    future = clock.now_ms() + 100
+    record = sender.chan.seal(fragments[0], 1000, TYPE_DATA, future)
+    assert receiver.receive(record) is None
+    assert receiver.rejects[Reason.DEADLINE] == 1
+    assert mid not in receiver.pending
