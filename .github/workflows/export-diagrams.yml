@@ -1,0 +1,28 @@
+name: export-diagrams
+on:
+  push:
+    branches: ["release/v6.1.0-rc1-hardening"]
+permissions:
+  contents: read
+  actions: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    container: python:3.13-trixie
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Regenerate diagram assets
+        run: |
+          mkdir -p /tmp/aegis-diagrams
+          FIGURES_OUT=/tmp/aegis-diagrams python scripts/make_diagrams.py
+      - name: Upload regenerated diagram assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: aegis-grid-diagram-exports
+          path: /tmp/aegis-diagrams/
+          if-no-files-found: error
+          retention-days: 1
