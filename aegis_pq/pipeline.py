@@ -3,6 +3,7 @@
 The receiver is deliberately fail-closed under resource pressure. All limits are
 per receiver/session and must be selected for the deployment workload.
 """
+import math
 import struct
 from dataclasses import dataclass, field
 
@@ -61,8 +62,12 @@ class Sender:
 
     def seal_message(self, message: bytes, deadline_ms: float, t_gen_ms: float = None):
         """Seal all fragments with one authenticated generation time and deadline."""
+        if not math.isfinite(float(deadline_ms)) or float(deadline_ms) < 0:
+            raise ValueError("deadline_ms must be finite and non-negative")
         mid, frags = self.fragment(message)
         generated = self.chan.clock.now_ms() if t_gen_ms is None else float(t_gen_ms)
+        if not math.isfinite(generated):
+            raise ValueError("t_gen_ms must be finite")
         return mid, [self.chan.seal(f, deadline_ms, TYPE_DATA, generated) for f in frags]
 
     def seal_dummy(self, deadline_ms: float = 1e3):
@@ -202,6 +207,10 @@ class Receiver:
             self._count(Reason.MALFORMED)
             return None
 
+        if len(self.delivered) >= self.max_delivered_ids:
+            self._drop_pending(mid)
+            self._count(Reason.RESOURCE_LIMIT)
+            return None
         self._drop_pending(mid)
         self.delivered.add(mid)
         return mid, message
