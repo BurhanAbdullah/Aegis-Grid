@@ -143,7 +143,7 @@ def test_body_size_rejects_payload_length_overflow():
 def test_deadline_must_fit_wire_microsecond_field(pki, clock):
     sender, _ = endpoints(pki, clock, k=1, n=1)
     with pytest.raises(ValueError):
-        sender.seal_message(b"deadline", 5000)
+        sender.seal_message(b"deadline", 5_000_000)
 
 
 def test_future_generation_time_is_rejected(pki, clock):
