@@ -38,6 +38,28 @@ remediation: every result is re-measured on a working implementation.
 
 ---
 
+## [6.1.0-rc1] - 2026-11-27 (candidate branch; not tagged)
+
+### Added
+- Bounded receiver reassembly: pending-message, aggregate-byte, per-message,
+  fragment-count and delivered-ID limits.
+- Periodic expiry API (`Receiver.expire_due()`) and lazy expiry during receive.
+- Consistent authenticated generation timestamp/deadline across all fragments.
+- Explicit resource-limit rejection and regression tests for resource exhaustion,
+  message-ID wrap, duplicate shard conflicts and wire-field limits.
+- Release readiness gates and a security review register.
+
+### Changed
+- AONT documentation withdraws the general theorem claim pending a complete
+  reduction and independent review.
+- Wire fragment count is limited to 255 because the AGP/1 header encodes n in u8.
+- README clarifies that public repository visibility is not an OSI open-source
+  licence; the existing academic-only restriction is unchanged.
+
+### Verification
+- Candidate tests and CI are pending. This entry does not imply a verified
+  release. See `docs/release/V6.1.0_RC1_READINESS.md`.
+
 ## [2026.1] - 2026-01-24
 
 First public archival release. Captures the complete v1-v5 research sequence,
