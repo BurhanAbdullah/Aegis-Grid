@@ -15,7 +15,7 @@ run() {   # run <name> <command...>
   local n="$1"; shift
   local log; log=$(mktemp)
   if "$@" >"$log" 2>&1; then record "$n" PASS "$(tail -1 "$log" | cut -c1-90)"
-  else record "$n" FAIL "$(tail -3 "$log" | tr '\n' ' ' | cut -c1-160)"; fi
+  else record "$n" FAIL "$(tail -3 "$log" | tr '\n' ' ' | cut -c1-4000)"; fi
   rm -f "$log"
 }
 
