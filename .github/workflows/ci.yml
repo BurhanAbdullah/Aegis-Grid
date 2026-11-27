@@ -2,7 +2,7 @@ name: verify
 
 on:
   push:
-    branches: ["main", "research-integrity-remediation"]
+    branches: ["main", "research-integrity-remediation", "release/v6.1.0-rc1-hardening"]
   pull_request:
     branches: ["main"]
 
