@@ -4,7 +4,7 @@ import pytest
 from aegis_pq.channel import SecureChannel, TYPE_DATA
 from aegis_pq.errors import Reason, Reject
 from aegis_pq.handshake import Initiator, Responder, run_handshake
-from aegis_pq.pipeline import FRAG, Receiver, Sender
+from aegis_pq.pipeline import FRAG, Receiver, Sender, body_size_for
 
 
 def endpoints(pki, clock, k=2, n=3, **receiver_limits):
@@ -126,3 +126,21 @@ def test_receiver_rejects_excessive_per_message_shard_storage(pki, clock):
     assert receiver.receive(records[0]) is None
     assert receiver.pending == {}
     assert receiver.rejects[Reason.RESOURCE_LIMIT] == 1
+
+
+def test_wire_fragment_count_cannot_exceed_u8(pki, clock):
+    with pytest.raises(ValueError):
+        endpoints(pki, clock, k=1, n=256)
+    with pytest.raises(ValueError):
+        body_size_for(100, 256)
+
+
+def test_body_size_rejects_payload_length_overflow():
+    with pytest.raises(ValueError):
+        body_size_for(64 * 1024, 1)
+
+
+def test_deadline_must_fit_wire_microsecond_field(pki, clock):
+    sender, _ = endpoints(pki, clock, k=1, n=1)
+    with pytest.raises(ValueError):
+        sender.seal_message(b"deadline", 5000)
