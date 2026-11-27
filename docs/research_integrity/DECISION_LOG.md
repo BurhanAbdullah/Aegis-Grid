@@ -107,7 +107,7 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Consistency:** All fragments of one message share the same authenticated generation timestamp and deadline. Conflicting metadata or conflicting duplicate shards discard the incomplete message.
 - **Verification status:** Code and regression tests added on `release/v6.1.0-rc1-hardening`; candidate CI and full verification remain pending.
 - **Scientific impact:** These limits improve bounded resource behaviour but do not constitute a general DoS-resistance guarantee. Host applications must schedule `Receiver.expire_due()`.
- 
+
 ## DEC-017 — AONT theorem claim withdrawn pending a complete reduction
 - **Date:** 2026-11-27
 - **Issue:** The previous proof sketch inferred a random-oracle query bound from a count of unknown output bits without establishing the adversary's view and shard-placement cases.
@@ -120,7 +120,7 @@ Entries are append-only; superseded decisions are marked, not deleted.
 - **Issue:** Repository metadata describes the project as open-source, while `LICENSE` restricts use to academic contexts and prohibits redistribution.
 - **Decision:** Do not silently replace the licence. Clarify the README and block a final public release until the author selects a licence compatible with intended reuse and journal policy.
 
- 
+
 ## DEC-019 — Reject future-dated record generation timestamps
 - **Date:** 2026-11-27
 - **Issue:** The v6.0 receiver checked only the upper deadline bound. A valid authenticated sender could provide a future generation time and thereby extend the acceptance window.
