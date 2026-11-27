@@ -12,7 +12,7 @@ from .channel import SecureChannel, TYPE_DATA, TYPE_DUMMY, INNER, HDR, TAG_LEN
 from .errors import Reject, Reason
 
 FRAG = struct.Struct(">IBBBI")  # msg_id u32 | index u8 | k u8 | n u8 | AONT length u32
-MAX_WIRE_FRAGMENTS = 256
+MAX_WIRE_FRAGMENTS = 255
 
 
 def body_size_for(max_msg_len: int, k: int) -> int:
@@ -23,6 +23,8 @@ def body_size_for(max_msg_len: int, k: int) -> int:
         raise ValueError("k must be in [1, 256]")
     y = max_msg_len + aont.OVERHEAD
     shard = -(-y // k)
+    if FRAG.size + shard > 0xFFFF:
+        raise ValueError("one fragment exceeds the AGP/1 u16 payload-length field")
     return INNER.size + FRAG.size + shard
 
 
@@ -36,7 +38,7 @@ class Sender:
     k: int
     n: int
     next_id: int = 0
-    max_message_bytes: int = 64 * 1024
+    max_message_bytes: int = 60 * 1024
 
     def __post_init__(self):
         if not (1 <= self.k <= self.n <= MAX_WIRE_FRAGMENTS):
@@ -56,6 +58,8 @@ class Sender:
             raise Reject(Reason.RESOURCE_LIMIT, "message ID space exhausted; establish a new session")
         y = aont.transform(message)
         shards = erasure.encode(y, self.k, self.n)
+        if any(FRAG.size + len(shard) > 0xFFFF for shard in shards):
+            raise Reject(Reason.RESOURCE_LIMIT, "fragment exceeds AGP/1 u16 payload-length field")
         mid = self.next_id
         self.next_id += 1
         return mid, [FRAG.pack(mid, i, self.k, self.n, len(y)) + s for i, s in enumerate(shards)]
@@ -97,7 +101,7 @@ class Receiver:
         if any(not isinstance(v, int) or v <= 0 for v in limits):
             raise ValueError("receiver resource limits must be positive integers")
         if self.max_fragments > MAX_WIRE_FRAGMENTS:
-            raise ValueError("max_fragments cannot exceed 256")
+            raise ValueError("max_fragments cannot exceed 255 (wire field is u8)")
 
     def _count(self, reason):
         self.rejects[reason] = self.rejects.get(reason, 0) + 1
@@ -146,6 +150,9 @@ class Receiver:
             self._count(Reason.RESOURCE_LIMIT)
             return None
         expected_shard_size = max(1, -(-ylen // k))
+        if FRAG.size + expected_shard_size > 0xFFFF:
+            self._count(Reason.RESOURCE_LIMIT)
+            return None
         if len(shard) != expected_shard_size:
             self._count(Reason.MALFORMED)
             return None
