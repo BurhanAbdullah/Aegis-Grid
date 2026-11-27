@@ -18,7 +18,7 @@ DERIVED, SIMULATION RESULT, HARDWARE MEASUREMENT).
 | Trusted | Endpoint code, endpoint long-term ML-DSA signing keys, the grid certificate authority (CA) key, endpoint clocks within the stated skew. |
 | Untrusted | Everything on the network path, including routers and any on-path middlebox. |
 | Key management | A grid CA (ML-DSA-65) issues X.509 certificates binding an endpoint identity to its ML-DSA public key. CA certificate is pinned at each endpoint. Revocation is **not implemented** (ASSUMPTION: short-lived certificates). |
-| Time synchronisation | Endpoints share a clock with bounded skew `ε_clk` (ASSUMPTION; in deployment provided by IEEE 1588 PTP or GNSS). Deadline checks use `t_gen + D + ε_clk`. Clock attacks are out of scope (§3). |
+| Time synchronisation | Endpoints share a clock with bounded skew `ε_clk` (ASSUMPTION; in deployment provided by IEEE 1588 PTP or GNSS). Deadline checks reject generation times beyond `now + ε_clk` and expired messages beyond `t_gen + D + ε_clk`. Clock attacks are out of scope (§3). |
 | Failure conditions | Packet loss, delay beyond deadline, corruption, replay, authentication failure, session expiry, handshake failure. Each maps to message rejection (⊥) and, at the plant, to the fallback controller. |
 
 ## 2. Adversary capabilities
@@ -73,7 +73,7 @@ separately and claims support only where measured.
 | Confidentiality and integrity of control messages against a recording, quantum-capable adversary | ML-KEM key establishment + AES-256-GCM | ASSUMPTION (primitive security) + tests of correct composition |
 | Mutual authentication | ML-DSA-65 signatures over the handshake transcript; X.509 certificates from a pinned CA | Tests (M2) |
 | Replay / reordering / freshness | Per-epoch sequence numbers, sliding replay window, authenticated deadline field | Tests (M2) |
-| Partial-capture resilience | All-or-nothing transform (M3) | ANALYTICALLY DERIVED bound (computational, random-oracle model) |
+| Partial-capture resilience | Package-transform + RS(k,n) (M3) | SIMULATION RESULT for one specified capture strategy (EXP-004); general security proof OPEN |
 | Traffic-analysis resistance | Fixed-size packets, fixed-rate emission, encrypted dummy packets | SIMULATION/EMULATION RESULT on loopback (M4); no indistinguishability claim |
 | Fail-secure behaviour | Rejected/late messages never actuate; fallback controller | SIMULATION RESULT on a named power-system model (M6) |
 
