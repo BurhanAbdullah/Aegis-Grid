@@ -56,7 +56,7 @@ are committed on `research-integrity-remediation`).
 - **Seed:** 4242.
 - **Result path:** `results/raw/EXP-004/run_20261123T170052Z/`.
 - **Outcome:** XOR 0.750 (N=5), 0.889, 0.947, 0.966 (N=30). AONT+RS mean 0.0039–0.0040, max 0.027.
-- **Interpretation:** Confirms the construction change (DEC-008). This is an empirical check of one attack strategy, not a proof; the bound is in docs/fragmentation_aont.md. Label: SIMULATION RESULT.
+- **Interpretation:** Supports only the measured construction change for this specified attack strategy (DEC-008). This is not a proof. The earlier general bound has been withdrawn pending a complete reduction (DEC-017); see docs/fragmentation_aont.md. Label: SIMULATION RESULT.
 - **Manuscript relevance:** R2 (AONT security), claim C5.
 
 ## EXP-005 — UDP-loopback traffic traces under four protection conditions
