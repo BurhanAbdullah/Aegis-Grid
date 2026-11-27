@@ -76,7 +76,7 @@ consistent section numbers — itself a defect).
 ## A3. Update after Milestone 3
 | Claim | New status | Evidence |
 |---|---|---|
-| C5 (AONT, no information from partial sets) | REPLACED — package-transform AONT, computational bound, scoped to key-compromise; ANALYTICALLY DERIVED + SIMULATION RESULT | aegis_pq/aont.py, docs/fragmentation_aont.md, EXP-004 |
+| C5 (AONT, no information from partial sets) | REPLACED — package-transform implementation; EXP-004 tests one partial-capture strategy; GENERAL SECURITY PROOF OPEN | aegis_pq/aont.py, docs/fragmentation_aont.md, EXP-004 |
 | C11 (Markov burst-loss results) | IMPLEMENTED (Gilbert–Elliott); manuscript conclusion contradicted (burst less harmful for k=n) | aegis_pq/netmodel.py, EXP-003 |
 | C12 (MC with 95 % CI) | IMPLEMENTED — seeded, Wilson CI, validated against real pipeline | EXP-003 abstraction_check.json |
 | Reconstruction / DoS (R2) | k-of-n Reed–Solomon added (scope addition, DEC-008) | aegis_pq/erasure.py, EXP-003 |
@@ -89,7 +89,7 @@ consistent section numbers — itself a defect).
 | C2 "simulations and emulations" | REMOVED — results labelled hardware measurement / simulation / analytical / assumption | manuscript §V-A |
 | C3 latency 35 ms vs 48 ms | REMOVED — replaced by measured per-class latency | EXP-005 latency_delivery.csv |
 | C4 GOOSE motivation vs 50 ms evaluation | SCOPED — Table 1 traffic classes; no protection-class suitability claim | manuscript §III-C |
-| C5 AONT | REPLACED (see M3 table) | EXP-004, docs/fragmentation_aont.md |
+| C5 AONT | GENERAL SECURITY THEOREM WITHDRAWN pending a complete reduction; implementation and one attack experiment retained | EXP-004, docs/fragmentation_aont.md |
 | C6 Gu et al. citation | FIXED | manuscript references |
 | C7 KS ⇒ indistinguishable | WITHDRAWN — multivariate attacker AUC 0.77–0.83 under shaping | EXP-006 (follow-up EXP-010/011) |
 | C8 CAP θ*=0.45, FAR≈0 | WITHDRAWN — CAP = EWMA/(1−α); calibrated θ = 3.84; 1.75 false adaptations/1000 benign epochs; not better than CUSUM/EWMA | EXP-007, Proposition 2 (DEC-010, author decision: reframed as EWMA-based policy) |
@@ -103,3 +103,17 @@ consistent section numbers — itself a defect).
 | C17 Frontiers [31] exponential decay | REMOVED; [31] cited only for HIL co-simulation | manuscript §II-E |
 | C18 Table 3 parameters | REPLACED by config files | experiments/configs |
 | C19, C20 numbering, duplicates | FIXED | manuscript build script (numbers by first citation; duplicates merged) |
+
+
+## A4. v6.1.0-rc1 hardening status (2026-11-27)
+
+| Area | Candidate change | Evidence status |
+|---|---|---|
+| Receiver resource bounds | Pending message, shard bytes, per-message buffer and delivered-ID caps | IMPLEMENTED; new tests added; CI PENDING |
+| Message metadata | Common generation time/deadline and conflict rejection | IMPLEMENTED; new tests added; CI PENDING |
+| Expiry | `expire_due()` API and lazy cleanup during receive | IMPLEMENTED; periodic host timer remains an integration requirement |
+| Wire format | Enforce n<=255 and u16 fragment payload size | IMPLEMENTED; new boundary tests added; CI PENDING |
+| Message identity | Prevent u32 ID wrap; fail closed at delivered-history capacity | IMPLEMENTED; new tests added; CI PENDING |
+| Deadline freshness | Reject authenticated generation times beyond future clock skew | IMPLEMENTED; new test added; CI PENDING |
+| AONT theorem | General bound withdrawn pending a complete reduction | OPEN; no theorem claim permitted |
+| Release status | v6.1.0-rc1 branch and PR #10 | CANDIDATE ONLY; not tagged or merged |
