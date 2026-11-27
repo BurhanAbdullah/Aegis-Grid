@@ -1,7 +1,9 @@
-# Aegis-Grid v6 architecture (as implemented)
+# Aegis-Grid v6 architecture (implemented baseline and v6.1 candidate)
 
-Every component below exists in `aegis_pq/` and is covered by tests. Components
-from the original manuscript that are not implemented are listed at the end.
+The architecture below describes the v6 implementation. The v6.1 reassembly
+hardening is a candidate and remains unverified until its CI gate passes.
+Components from the original manuscript that are not implemented are listed
+at the end.
 
 ```
  sender (control centre / gateway)                                receiver (RTU / plant / relay gateway)
@@ -21,7 +23,7 @@ from the original manuscript that are not implemented are listed at the end.
 | Layer | Function | Module | Evidence |
 |---|---|---|---|
 | L1 | Authenticated PQ key establishment; AEAD record layer | `handshake.py`, `channel.py`, `pki.py`, `suites.py` | tests/security (46), EXP-002, EXP-009 |
-| L2 | Package-transform AONT + RS(k,n) | `aont.py`, `erasure.py`, `pipeline.py` | tests/unit, EXP-003, EXP-004 |
+| L2 | Package transform (general proof open) + RS(k,n) | `aont.py`, `erasure.py`, `pipeline.py` | transform tests, EXP-003, one EXP-004 attack strategy |
 | L3–L4 | Fixed-size records, constant-rate emission, dummies, EDF, late-drop | `shaping.py` | tests/unit/test_shaping.py, EXP-005/006 |
 | L5 | Authenticated deadline; replay window; session lifetime | `channel.py` | tests/security |
 | L6 | CAP (EWMA-type statistic) + hysteretic two-level policy | `detectors.py` | tests/unit/test_detectors.py, EXP-007 |
@@ -31,7 +33,7 @@ from the original manuscript that are not implemented are listed at the end.
 | Original | Now | Reason |
 |---|---|---|
 | "PQ encryption" modelled by AES-GCM proxy + Cortex-M literature values | Implemented ML-KEM/ML-DSA handshake; costs measured on x86-64 VM only | R2, DEC-005/007 |
-| XOR "AONT", all N fragments required | Package-transform AONT (computational) + RS(k,n); k=n reproduces the original | R2, DEC-008 |
+| XOR "AONT", all N fragments required | Package-transform implementation + RS(k,n); general AONT theorem withdrawn pending a complete reduction | R2, DEC-008, DEC-017 |
 | Size perturbation + time-keyed permutation (Eq. 7–9) | Fixed size, fixed rate, encrypted dummies; no permutation (not needed under per-record AEAD) | simplicity; measured in EXP-006 |
 | CAP adjusts N, ρ, λ (reducing N weakens L2) | CAP is shown equal to an EWMA chart; policy only raises n, never lowers k | R2, EXP-007 |
 | U_safe abstract | Hold-last-validated set-point on an AGC loop of the IEEE 14-bus case | R2, EXP-008 |
