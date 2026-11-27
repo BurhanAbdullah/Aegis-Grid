@@ -44,3 +44,5 @@ with the fixing commit and the test that guards them.
 | KF-031 | Wire fragment count is u8 but Reed-Solomon accepts n=256 | Candidate constrains the wire protocol to n<=255 | FIX IMPLEMENTED; CI NOT YET VERIFIED |
 | KF-032 | AONT proof sketch did not establish the stated bound for every shard placement/view | Replaced the general theorem claim with an explicit open-proof status | DOCUMENTATION CORRECTED; FORMAL PROOF OPEN |
 | KF-033 | README/repository metadata described project as open-source despite restrictive academic-only licence | README now distinguishes public availability from OSI open-source licensing | AUTHOR LICENCE DECISION REQUIRED |
+
+| KF-034 | 2026-11-27 | Authenticated generation timestamps in the future could extend the receiver's deadline window | v6.1 record-layer check and `test_future_generation_time_is_rejected` | FIX IMPLEMENTED; CI NOT YET VERIFIED |
