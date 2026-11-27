@@ -3,14 +3,14 @@ message: >-
   If you use this software, please cite it as below. The accompanying
   manuscript is under review; cite the software until it is published.
 title: >-
-  Aegis-Grid v6: research artefact for a time-bounded, fail-secure
+  Aegis-Grid v6.1.0-rc1: research artefact for a time-bounded, fail-secure
   post-quantum communication architecture for supervisory and wide-area
   smart grid control
 type: software
 authors:
   - family-names: Abdullah
     given-names: Burhan U Din
-version: 6.0.0
+version: 6.1.0-rc1
 repository-code: "https://github.com/BurhanAbdullah/Aegis-Grid"
 keywords:
   - smart grid
